@@ -1,5 +1,4 @@
 import { Field, Form, createForm, zodForm } from "@modular-forms/solid";
-import { Component } from "solid-js";
 import { z } from "zod";
 
 import { useHost } from "../../../state/host";
@@ -7,6 +6,7 @@ import { Host } from "../../../state/host/types";
 import Button from "../../core/button";
 import Heading from "../../core/heading";
 import Input from "../../core/input";
+import { HostFormComponent } from "./types";
 
 const schema = z.object({
   hostname: z.string().min(1),
@@ -14,7 +14,7 @@ const schema = z.object({
   tcpPort: z.coerce.number().int().gte(1000).lte(99999),
 });
 
-const HostForm: Component = () => {
+const HostForm: HostFormComponent = () => {
   const { setHost } = useHost();
   const hostForm = createForm<Host>({ validate: zodForm(schema) });
 
