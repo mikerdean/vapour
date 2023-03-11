@@ -28,6 +28,7 @@
   "devDependencies": {
     "@solidjs/testing-library": "0.6.1",
     "@testing-library/jest-dom": "5.16.5",
+    "@testing-library/user-event": "14.4.3",
     "@types/luxon": "3.2.0",
     "@typescript-eslint/eslint-plugin": "5.54.1",
     "@typescript-eslint/parser": "5.54.1",
