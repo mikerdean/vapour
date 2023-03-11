@@ -7,7 +7,7 @@ import Host from "./components/root/host";
 const App: Component = () => {
   return (
     <Host>
-      <p>Has host</p>
+      <p>host found</p>
     </Host>
   );
 };

@@ -1,16 +1,18 @@
 import { ParentComponent, Show } from "solid-js";
 
+import { useHost } from "../../../state/host";
 import FullscreenMessage from "../../core/fullscreenMessage";
+import HostForm from "../hostForm";
 
 const Host: ParentComponent = (props) => {
-  const host = null;
+  const { host } = useHost();
 
   return (
     <Show
-      when={host}
+      when={host()}
       fallback={
         <FullscreenMessage>
-          <p>Add a connection</p>
+          <HostForm />
         </FullscreenMessage>
       }
     >
