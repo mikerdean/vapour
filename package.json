@@ -16,10 +16,9 @@
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "6.3.0",
-    "@fortawesome/free-solid-svg-icons": "6.3.0",
     "@fortawesome/free-regular-svg-icons": "6.3.0",
+    "@fortawesome/free-solid-svg-icons": "6.3.0",
     "@modular-forms/solid": "0.10.0",
-    "i18next": "22.4.11",
     "luxon": "3.3.0",
     "nanoid": "4.0.1",
     "solid-js": "1.6.13",
