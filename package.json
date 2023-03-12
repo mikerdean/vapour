@@ -25,6 +25,7 @@
     "zod": "3.21.4"
   },
   "devDependencies": {
+    "@fortawesome/fontawesome-common-types": "6.3.0",
     "@solidjs/testing-library": "0.6.1",
     "@testing-library/jest-dom": "5.16.5",
     "@testing-library/user-event": "14.4.3",

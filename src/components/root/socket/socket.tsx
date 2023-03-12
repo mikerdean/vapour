@@ -2,7 +2,7 @@ import { Match, Switch, onMount } from "solid-js";
 
 import { useSocket } from "../../../state/socket";
 import { ConnectionState } from "../../../state/socket/types";
-import FullscreenMessage from "../../core/fullscreenMessage";
+import { LoadingFullscreen } from "../../core/loading";
 import SocketError from "../socketError";
 import { SocketComponent } from "./types";
 
@@ -19,9 +19,7 @@ const Socket: SocketComponent = (props) => {
         {props.children}
       </Match>
       <Match when={connectionState() === ConnectionState.Connecting}>
-        <FullscreenMessage>
-          <span>Connecting...</span>
-        </FullscreenMessage>
+        <LoadingFullscreen textVisible={true} text="Connecting..." />
       </Match>
     </Switch>
   );
