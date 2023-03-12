@@ -19,6 +19,7 @@
     "@fortawesome/free-regular-svg-icons": "6.3.0",
     "@fortawesome/free-solid-svg-icons": "6.3.0",
     "@modular-forms/solid": "0.10.0",
+    "@solidjs/router": "0.8.0",
     "luxon": "3.3.0",
     "nanoid": "4.0.1",
     "solid-js": "1.6.13",
