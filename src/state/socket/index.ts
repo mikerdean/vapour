@@ -1,9 +1,10 @@
-import { createRoot, createSignal } from "solid-js";
+import { nanoid } from "nanoid";
+import { createRoot, createSignal, untrack } from "solid-js";
 
 import { useHost } from "../host";
-import { getFromQueue } from "./queue";
-import { isKodiResponse } from "./typeguards";
-import { ConnectionState } from "./types";
+import { addToQueue, getFromQueue, removeFromQueue } from "./queue";
+import { isKodiError, isKodiResponse } from "./typeguards";
+import { ConnectionState, KodiRequest } from "./types";
 
 export const createSocket = () => {
   const [socket, setSocket] = createSignal<WebSocket | undefined>();
@@ -58,7 +59,58 @@ export const createSocket = () => {
     connect();
   };
 
-  return { connectionState, connect, reconnect };
+  const send = async <TRequest, TResponse>(command: {
+    method: string;
+    params: TRequest;
+    timeout: number;
+  }): Promise<TResponse> =>
+    new Promise((resolve, reject) => {
+      const currentSocket = untrack(socket);
+      if (!currentSocket) {
+        return reject(Error("Socket not currently connected. Command failed."));
+      }
+
+      const { method, params, timeout } = command;
+      const id = nanoid();
+      const request: KodiRequest<TRequest> = {
+        id,
+        jsonrpc: "2.0",
+        method,
+        params,
+      };
+
+      const timer = setTimeout(() => {
+        removeFromQueue(id);
+        return reject(
+          Error(`Message ${id} exceeded the timeout value (${timeout})`)
+        );
+      }, timeout);
+
+      addToQueue(id, (message) => {
+        clearTimeout(timer);
+        if (isKodiResponse<TResponse>(message)) {
+          return resolve(message.result);
+        }
+
+        if (isKodiError(message)) {
+          return reject(
+            Error(
+              `Message {${id} response returned an error from JSONRPC: ${message.error.message}`
+            )
+          );
+        }
+
+        return reject(Error(`Message ${id} response was not processed`));
+      });
+
+      try {
+        currentSocket.send(JSON.stringify(request));
+      } catch (err) {
+        return reject(err);
+      }
+    });
+
+  return { connectionState, connect, reconnect, send };
 };
 
 const socketRoot = createRoot(createSocket);
