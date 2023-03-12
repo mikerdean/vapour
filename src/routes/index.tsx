@@ -1,7 +1,7 @@
 import { RouteDefinition } from "@solidjs/router";
 
 import Layout from "../components/layout";
-import Home from "../components/views/home";
+import Remote from "../components/views/remote";
 
 const routes: RouteDefinition[] = [
   {
@@ -9,7 +9,7 @@ const routes: RouteDefinition[] = [
     path: "/",
     children: [
       {
-        component: Home,
+        component: Remote,
         path: "/",
       },
     ],

@@ -1,6 +1,7 @@
+import { faCirclePlay } from "@fortawesome/free-regular-svg-icons";
 import {
+  faCog,
   faFilm,
-  faHome,
   faMusic,
   faTv,
 } from "@fortawesome/free-solid-svg-icons";
@@ -12,10 +13,11 @@ const Footer: FooterComponent = () => {
   return (
     <>
       <footer class="fixed bottom-0 bg-fuchsia-500 text-slate-100 w-full flex justify-center z-10">
-        <FooterLink label="Home" icon={faHome} path="/" />
         <FooterLink label="Movies" icon={faFilm} path="/movies" />
         <FooterLink label="TV" icon={faTv} path="/tv" />
+        <FooterLink label="Remote" icon={faCirclePlay} path="/" />
         <FooterLink label="Music" icon={faMusic} path="/music" />
+        <FooterLink label="Settings" icon={faCog} path="/settings" />
       </footer>
       <div class="h-16" />
     </>
