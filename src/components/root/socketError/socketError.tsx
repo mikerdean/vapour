@@ -1,11 +1,10 @@
-import { Show } from "solid-js";
-
 import { useHost } from "../../../state/host";
 import { useSocket } from "../../../state/socket";
 import Button from "../../core/button";
 import FullscreenMessage from "../../core/fullscreenMessage";
 import Heading from "../../core/heading";
 import OrderedList from "../../core/orderedList";
+import HostSummary from "../hostSummary";
 import { SocketErrorComponent } from "./types";
 
 const SocketError: SocketErrorComponent = () => {
@@ -31,16 +30,12 @@ const SocketError: SocketErrorComponent = () => {
       <div class="my-5">
         <Button onClick={reconnect}>Retry connection</Button>
       </div>
-      <Show when={host()}>
-        <hr class="mb-2" />
-        <p>We tried to connect you to:</p>
-        <p>[host here]</p>
-        <div class="my-5">
-          <Button onClick={() => setHost(undefined)}>
-            Try a different host
-          </Button>
-        </div>
-      </Show>
+      <hr class="mb-5" />
+      <p class="mb-2">We tried to connect you to:</p>
+      <HostSummary host={host()} />
+      <div class="my-5">
+        <Button onClick={() => setHost(undefined)}>Try a different host</Button>
+      </div>
     </FullscreenMessage>
   );
 };
