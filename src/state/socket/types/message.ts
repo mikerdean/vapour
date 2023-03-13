@@ -1,9 +1,3 @@
-export enum ConnectionState {
-  NotConnected,
-  Connecting,
-  Connected,
-}
-
 export type KodiMessageBase = {
   jsonrpc: "2.0";
 };
