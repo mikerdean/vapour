@@ -8,6 +8,7 @@ const FooterLink: FooterLinkComponent = (props) => {
     <NavLink
       activeClass="text-slate-800"
       class="text-center px-4 py-2"
+      end={true}
       href={props.path}
     >
       <FontAwesomeIcon icon={props.icon} size="lg" />
