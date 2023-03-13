@@ -1,4 +1,4 @@
-import { createRoot, createSignal, untrack } from "solid-js";
+import { createRoot, createSignal } from "solid-js";
 
 import { useHost } from "../host";
 import { addToQueue, getFromQueue, removeFromQueue } from "./queue";
@@ -8,7 +8,7 @@ import { ConnectionState, KodiRequest } from "./types";
 const defaultTimeout = 5000;
 
 export const createSocket = () => {
-  const [socket, setSocket] = createSignal<WebSocket | undefined>();
+  let socket: WebSocket | undefined;
 
   const [connectionState, setConnectionState] = createSignal<ConnectionState>(
     ConnectionState.Connecting
@@ -16,21 +16,18 @@ export const createSocket = () => {
 
   const connect = (): void => {
     const { websocketUrl } = useHost();
-
-    const currentSocket = socket();
     const url = websocketUrl();
-
-    if (currentSocket || !url) {
+    if (socket || !url) {
       return;
     }
 
-    const newSocket = new WebSocket(url);
+    socket = new WebSocket(url);
 
-    newSocket.onopen = () => {
+    socket.onopen = () => {
       setConnectionState(ConnectionState.Connected);
     };
 
-    newSocket.onmessage = (ev: MessageEvent<string>) => {
+    socket.onmessage = (ev: MessageEvent<string>) => {
       try {
         const message = JSON.parse(ev.data);
         if (isKodiResponse(message)) {
@@ -44,19 +41,17 @@ export const createSocket = () => {
       }
     };
 
-    newSocket.onclose = () => {
+    socket.onclose = () => {
       setTimeout(() => {
         setConnectionState(ConnectionState.NotConnected);
-        setSocket(undefined);
+        socket = undefined;
       }, 250);
     };
-
-    setSocket(newSocket);
   };
 
   const reconnect = (): void => {
-    setSocket(undefined);
     setConnectionState(ConnectionState.Connecting);
+    socket = undefined;
     connect();
   };
 
@@ -64,8 +59,7 @@ export const createSocket = () => {
     request: KodiRequest<TRequest>
   ): Promise<TResponse> =>
     new Promise((resolve, reject) => {
-      const currentSocket = untrack(socket);
-      if (!currentSocket) {
+      if (!socket) {
         return reject(Error("Socket not currently connected. Command failed."));
       }
 
@@ -96,16 +90,15 @@ export const createSocket = () => {
       });
 
       try {
-        currentSocket.send(JSON.stringify(request));
+        socket.send(JSON.stringify(request));
       } catch (err) {
         return reject(err);
       }
     });
 
   const disconnect = () => {
-    const currentSocket = socket();
-    if (currentSocket) {
-      currentSocket.close(1001);
+    if (socket) {
+      socket.close(1001);
     }
   };
 
