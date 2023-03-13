@@ -1,10 +1,11 @@
-import { nanoid } from "nanoid";
 import { createRoot, createSignal, untrack } from "solid-js";
 
 import { useHost } from "../host";
 import { addToQueue, getFromQueue, removeFromQueue } from "./queue";
 import { isKodiError, isKodiResponse } from "./typeguards";
 import { ConnectionState, KodiRequest } from "./types";
+
+const defaultTimeout = 5000;
 
 export const createSocket = () => {
   const [socket, setSocket] = createSignal<WebSocket | undefined>();
@@ -59,32 +60,23 @@ export const createSocket = () => {
     connect();
   };
 
-  const send = async <TRequest, TResponse>(command: {
-    method: string;
-    params: TRequest;
-    timeout: number;
-  }): Promise<TResponse> =>
+  const send = async <TRequest, TResponse>(
+    request: KodiRequest<TRequest>
+  ): Promise<TResponse> =>
     new Promise((resolve, reject) => {
       const currentSocket = untrack(socket);
       if (!currentSocket) {
         return reject(Error("Socket not currently connected. Command failed."));
       }
 
-      const { method, params, timeout } = command;
-      const id = nanoid();
-      const request: KodiRequest<TRequest> = {
-        id,
-        jsonrpc: "2.0",
-        method,
-        params,
-      };
+      const { id } = request;
 
       const timer = setTimeout(() => {
         removeFromQueue(id);
         return reject(
-          Error(`Message ${id} exceeded the timeout value (${timeout})`)
+          Error(`Message ${id} exceeded the timeout value (${defaultTimeout})`)
         );
-      }, timeout);
+      }, defaultTimeout);
 
       addToQueue(id, (message) => {
         clearTimeout(timer);
@@ -110,7 +102,14 @@ export const createSocket = () => {
       }
     });
 
-  return { connectionState, connect, reconnect, send };
+  const disconnect = () => {
+    const currentSocket = socket();
+    if (currentSocket) {
+      currentSocket.close(1001);
+    }
+  };
+
+  return { connectionState, connect, disconnect, reconnect, send };
 };
 
 const socketRoot = createRoot(createSocket);

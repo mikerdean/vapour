@@ -1,4 +1,4 @@
-import { Match, Switch, onMount } from "solid-js";
+import { Match, Switch, onCleanup, onMount } from "solid-js";
 
 import { useSocket } from "../../../state/socket";
 import { ConnectionState } from "../../../state/socket/types";
@@ -7,10 +7,14 @@ import SocketError from "../socketError";
 import { SocketComponent } from "./types";
 
 const Socket: SocketComponent = (props) => {
-  const { connect, connectionState } = useSocket();
+  const { connect, connectionState, disconnect } = useSocket();
 
   onMount(() => {
     connect();
+  });
+
+  onCleanup(() => {
+    disconnect();
   });
 
   return (
