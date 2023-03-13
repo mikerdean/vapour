@@ -3,12 +3,30 @@ import {
   faEllipsisVertical,
   faSearch,
 } from "@fortawesome/free-solid-svg-icons";
+import { Show, createMemo } from "solid-js";
 
+import { useSocket } from "../../../state/socket";
+import { getCurrentProfile, getProfiles } from "../../../state/socket/commands";
 import FontAwesomeIcon from "../../images/fontAwesomeIcon";
 import KodiLogo from "../../images/kodiLogo";
 import { HeaderComponent } from "./types";
 
 const Header: HeaderComponent = () => {
+  const { send } = useSocket();
+  const [currentProfileData] = send(getCurrentProfile);
+  const [profilesData] = send(getProfiles);
+
+  const allowProfileChange = createMemo<boolean>(() => {
+    const currentProfile = currentProfileData();
+    const profiles = profilesData();
+
+    return (
+      currentProfile !== undefined &&
+      profiles !== undefined &&
+      profiles.limits.total > 1
+    );
+  });
+
   return (
     <header class="sticky top-0 w-full bg-fuchsia-500 text-slate-100 z-10">
       <div class="flex py-2 px-3 items-center">
@@ -21,10 +39,14 @@ const Header: HeaderComponent = () => {
             <FontAwesomeIcon icon={faSearch} />
             <span class="sr-only">Search</span>
           </button>
-          <button class="mr-6" title="Change profile">
-            <FontAwesomeIcon icon={faCircleUser} />
-            <span class="sr-only">Change profile</span>
-          </button>
+          <Show when={allowProfileChange()}>
+            {() => (
+              <button class="mr-6" title="Change profile">
+                <FontAwesomeIcon icon={faCircleUser} />
+                <span class="sr-only">Change profile</span>
+              </button>
+            )}
+          </Show>
           <button title="Edit settings">
             <FontAwesomeIcon icon={faEllipsisVertical} />
             <span class="sr-only">Edit settings</span>
