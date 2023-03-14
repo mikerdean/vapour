@@ -5,14 +5,17 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { Show, createMemo } from "solid-js";
 
-import { useCurrentProfile, useProfiles } from "../../../state/socket/commands";
+import {
+  useGetCurrentProfileQuery,
+  useGetProfilesQuery,
+} from "../../../state/socket/commands";
 import FontAwesomeIcon from "../../images/fontAwesomeIcon";
 import KodiLogo from "../../images/kodiLogo";
 import { HeaderComponent } from "./types";
 
 const Header: HeaderComponent = () => {
-  const [currentProfileData] = useCurrentProfile();
-  const [profilesData] = useProfiles();
+  const [currentProfileData] = useGetCurrentProfileQuery();
+  const [profilesData] = useGetProfilesQuery();
 
   const allowProfileChange = createMemo<boolean>(() => {
     const currentProfile = currentProfileData();
