@@ -12,6 +12,9 @@
     "prettier"
   ],
   "ignorePatterns": ["dist/*"],
+  "linterOptions": {
+    "reportUnusedDisableDirectives": true
+  },
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
     "ecmaFeatures": {
