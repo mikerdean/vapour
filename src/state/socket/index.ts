@@ -1,15 +1,9 @@
-import {
-  Accessor,
-  ResourceReturn,
-  createResource,
-  createRoot,
-  createSignal,
-} from "solid-js";
+import { createRoot, createSignal } from "solid-js";
 
 import { useHost } from "../host";
 import { addToQueue, getFromQueue, removeFromQueue } from "./queue";
 import { isKodiError, isKodiResponse } from "./typeguards";
-import { ConnectionState, KodiCommand, KodiRequest } from "./types";
+import { ConnectionState, KodiRequest } from "./types";
 
 const defaultTimeout = 5000;
 
@@ -61,7 +55,7 @@ export const createSocket = () => {
     connect();
   };
 
-  const sendMessage = async <TRequest, TResponse>(
+  const send = async <TRequest, TResponse>(
     request: KodiRequest<TRequest>
   ): Promise<TResponse> =>
     new Promise((resolve, reject) => {
@@ -106,31 +100,6 @@ export const createSocket = () => {
     if (socket) {
       socket.close(1001);
     }
-  };
-
-  const send = <TRequest, TResponse>(
-    command: () => KodiCommand<TRequest, TResponse>,
-    options?: Accessor<Partial<TRequest>>
-  ): ResourceReturn<TResponse> => {
-    const [defaultRequest] = command();
-    const { id, jsonrpc, method, params } = defaultRequest;
-
-    const request = (): KodiRequest<TRequest> => ({
-      id,
-      jsonrpc,
-      method,
-      params: {
-        ...params,
-        ...(options && options()),
-      },
-    });
-
-    const result = createResource<TResponse, KodiRequest<TRequest>>(
-      request,
-      sendMessage
-    );
-
-    return result;
   };
 
   return {

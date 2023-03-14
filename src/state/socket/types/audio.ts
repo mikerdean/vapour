@@ -4,14 +4,13 @@ import {
   MediaDetailsBase,
   Properties,
 } from "./base";
+import { LibraryDetailsGenre } from "./library";
 import {
   KodiMessageFilter,
   KodiMessageLimits,
   KodiMessageLimitsReturned,
   KodiMessageSort,
 } from "./message";
-
-import { LibraryDetailsGenre } from "./library";
 
 export type AudioDetailsBase = MediaDetailsBase & {
   art?: MediaArtwork;

@@ -1,27 +1,20 @@
 import {
-  KodiCommand,
   ProfileDetails,
   ProfileDetailsPaged,
   ProfileDetailsQuery,
 } from "../types";
-import { createRequest, createResponse } from "../utils";
+import { createQueryHook } from "./utils";
 
-export const getCurrentProfile = (): KodiCommand<
+export const useCurrentProfile = createQueryHook<
   ProfileDetailsQuery,
   ProfileDetails
-> => [
-  createRequest("Profiles.GetCurrentProfile", {
-    properties: ["lockmode", "thumbnail"],
-  }),
-  createResponse({ label: "Example" }),
-];
+>("Profiles.GetCurrentProfile", {
+  properties: ["lockmode", "thumbnail"],
+});
 
-export const getProfiles = (): KodiCommand<
+export const useProfiles = createQueryHook<
   ProfileDetailsQuery,
   ProfileDetailsPaged
-> => [
-  createRequest("Profiles.GetProfiles", {
-    properties: ["lockmode", "thumbnail"],
-  }),
-  createResponse({ limits: { total: 0 }, profiles: [] }),
-];
+>("Profiles.GetProfiles", {
+  properties: ["lockmode", "thumbnail"],
+});

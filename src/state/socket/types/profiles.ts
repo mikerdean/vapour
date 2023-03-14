@@ -1,5 +1,4 @@
 import { ItemDetailsBase, Properties } from "./base";
-
 import { KodiMessageLimitsReturned } from "./message";
 
 export type ProfileDetails = ItemDetailsBase & {
