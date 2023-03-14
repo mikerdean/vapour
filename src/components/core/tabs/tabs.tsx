@@ -14,7 +14,7 @@ const Tabs: TabsComponent = (props) => {
               <Show when={isRouteTabItem(item) && item} keyed>
                 {(routeItem) => (
                   <NavLink
-                    activeClass="border-b-2 border-fuschia-500 text-slate-100"
+                    activeClass="border-b-2 border-fuchsia-500 text-slate-100"
                     class="pb-1"
                     href={routeItem.path}
                     end={true}
