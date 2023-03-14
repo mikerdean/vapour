@@ -109,7 +109,7 @@ export const createSocket = () => {
     const [defaultRequest] = command();
     const { id, jsonrpc, method, params } = defaultRequest;
 
-    const request: () => KodiRequest<TRequest> = () => ({
+    const request = (): KodiRequest<TRequest> => ({
       id,
       jsonrpc,
       method,
