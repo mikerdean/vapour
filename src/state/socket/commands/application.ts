@@ -1,7 +1,7 @@
 import { ApplicationProperties, ApplicationPropertiesQuery } from "../types";
 import { createQueryHook } from "./utils";
 
-export const applicationPropertiesAtom = createQueryHook<
+export const useGetApplicationsQuery = createQueryHook<
   ApplicationPropertiesQuery,
   ApplicationProperties
 >("Application.GetProperties", {

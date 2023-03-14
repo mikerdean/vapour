@@ -9,12 +9,12 @@ const defaultQuery: ProfileDetailsQuery = {
   properties: ["lockmode", "thumbnail"],
 };
 
-export const useCurrentProfile = createQueryHook<
+export const useGetCurrentProfileQuery = createQueryHook<
   ProfileDetailsQuery,
   ProfileDetails
 >("Profiles.GetCurrentProfile", defaultQuery);
 
-export const useProfiles = createQueryHook<
+export const useGetProfilesQuery = createQueryHook<
   ProfileDetailsQuery,
   ProfileDetailsPaged
 >("Profiles.GetProfiles", defaultQuery);

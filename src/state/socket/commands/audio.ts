@@ -15,7 +15,7 @@ import {
 } from "../types";
 import { createQueryHook } from "./utils";
 
-export const getAlbumsAtom = createQueryHook<GetAlbumsQuery, AlbumsPaged>(
+export const useGetAlbumsQuery = createQueryHook<GetAlbumsQuery, AlbumsPaged>(
   "AudioLibrary.GetAlbums",
   {
     properties: ["artist", "genre", "thumbnail", "title", "year"],
@@ -23,7 +23,7 @@ export const getAlbumsAtom = createQueryHook<GetAlbumsQuery, AlbumsPaged>(
   }
 );
 
-export const getAlbumAtom = createQueryHook<GetAlbumQuery, GetAlbum>(
+export const useGetAlbumQuery = createQueryHook<GetAlbumQuery, GetAlbum>(
   "AudioLibrary.GetAlbumDetails",
   {
     albumid: 0,
@@ -38,16 +38,16 @@ export const getAlbumAtom = createQueryHook<GetAlbumQuery, GetAlbum>(
   }
 );
 
-export const getArtistsAtom = createQueryHook<GetArtistsQuery, ArtistsPaged>(
-  "AudioLibrary.GetArtists",
-  {
-    albumartistsonly: true,
-    properties: ["thumbnail"],
-    sort: { method: "label", order: "ascending", ignorearticle: true },
-  }
-);
+export const useGetArtistsQuery = createQueryHook<
+  GetArtistsQuery,
+  ArtistsPaged
+>("AudioLibrary.GetArtists", {
+  albumartistsonly: true,
+  properties: ["thumbnail"],
+  sort: { method: "label", order: "ascending", ignorearticle: true },
+});
 
-export const getArtistAtom = createQueryHook<GetArtistQuery, GetArtist>(
+export const useGetArtistQuery = createQueryHook<GetArtistQuery, GetArtist>(
   "AudioLibrary.GetArtistDetails",
   {
     artistid: 0,
@@ -55,7 +55,7 @@ export const getArtistAtom = createQueryHook<GetArtistQuery, GetArtist>(
   }
 );
 
-export const getGenresAtom = createQueryHook<GetGenresQuery, GenresPaged>(
+export const useGetGenresQuery = createQueryHook<GetGenresQuery, GenresPaged>(
   "AudioLibrary.GetGenres",
   {
     properties: ["thumbnail"],
@@ -63,7 +63,7 @@ export const getGenresAtom = createQueryHook<GetGenresQuery, GenresPaged>(
   }
 );
 
-export const getSongsAtom = createQueryHook<GetSongsQuery, SongsPaged>(
+export const useGetSongsQuery = createQueryHook<GetSongsQuery, SongsPaged>(
   "AudioLibrary.GetSongs",
   {
     properties: ["disc", "duration", "track", "title", "year"],
@@ -71,7 +71,7 @@ export const getSongsAtom = createQueryHook<GetSongsQuery, SongsPaged>(
   }
 );
 
-export const recentlyAddedAlbumsAtom = createQueryHook<
+export const useGetRecentlyAddedAlbumsQuery = createQueryHook<
   RecentlyAddedAlbumsQuery,
   AlbumsPaged
 >("AudioLibrary.GetRecentlyAddedAlbums", {
