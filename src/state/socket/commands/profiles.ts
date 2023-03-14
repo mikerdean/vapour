@@ -5,16 +5,16 @@ import {
 } from "../types";
 import { createQueryHook } from "./utils";
 
+const defaultQuery: ProfileDetailsQuery = {
+  properties: ["lockmode", "thumbnail"],
+};
+
 export const useCurrentProfile = createQueryHook<
   ProfileDetailsQuery,
   ProfileDetails
->("Profiles.GetCurrentProfile", {
-  properties: ["lockmode", "thumbnail"],
-});
+>("Profiles.GetCurrentProfile", defaultQuery);
 
 export const useProfiles = createQueryHook<
   ProfileDetailsQuery,
   ProfileDetailsPaged
->("Profiles.GetProfiles", {
-  properties: ["lockmode", "thumbnail"],
-});
+>("Profiles.GetProfiles", defaultQuery);
