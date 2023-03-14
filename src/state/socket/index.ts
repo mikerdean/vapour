@@ -1,4 +1,10 @@
-import { Accessor, createResource, createRoot, createSignal } from "solid-js";
+import {
+  Accessor,
+  ResourceReturn,
+  createResource,
+  createRoot,
+  createSignal,
+} from "solid-js";
 
 import { useHost } from "../host";
 import { addToQueue, getFromQueue, removeFromQueue } from "./queue";
@@ -105,7 +111,7 @@ export const createSocket = () => {
   const send = <TRequest, TResponse>(
     command: () => KodiCommand<TRequest, TResponse>,
     options?: Accessor<Partial<TRequest>>
-  ) => {
+  ): ResourceReturn<TResponse> => {
     const [defaultRequest] = command();
     const { id, jsonrpc, method, params } = defaultRequest;
 
