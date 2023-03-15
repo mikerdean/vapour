@@ -23,12 +23,7 @@ const Thumbnail: ThumbnailComponent = (props) => {
     <figure>
       <Switch>
         <Match when={imageUrl()}>
-          <img
-            src={imageUrl()}
-            alt={props.alt}
-            class="w-full h-auto"
-            loading="lazy"
-          />
+          <img src={imageUrl()} alt={props.alt} class="w-full h-auto" />
         </Match>
         <Match when={!imageUrl()}>
           <FontAwesomeIcon
