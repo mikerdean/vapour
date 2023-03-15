@@ -20,24 +20,24 @@ const Thumbnail: ThumbnailComponent = (props) => {
   });
 
   return (
-    <Switch>
-      <Match when={imageUrl()}>
-        <figure>
+    <figure>
+      <Switch>
+        <Match when={imageUrl()}>
           <img
             src={imageUrl()}
             alt={props.alt}
             class="w-full h-auto"
             loading="lazy"
           />
-        </figure>
-      </Match>
-      <Match when={!imageUrl()}>
-        <FontAwesomeIcon
-          icon={getIconByType(props.type)}
-          class="max-w-full h-auto p-2"
-        />
-      </Match>
-    </Switch>
+        </Match>
+        <Match when={!imageUrl()}>
+          <FontAwesomeIcon
+            icon={getIconByType(props.type)}
+            class="max-w-full h-auto p-2"
+          />
+        </Match>
+      </Switch>
+    </figure>
   );
 };
 
