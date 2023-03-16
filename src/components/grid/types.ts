@@ -1,6 +1,5 @@
 import { FlowProps, JSX } from "solid-js";
 
-import { QueryHook } from "../../state/socket/commands/types";
 import { ThumbnailType } from "../core/thumbnail/types";
 
 export type GridItem = {
@@ -9,12 +8,11 @@ export type GridItem = {
   thumbnail?: string;
 };
 
-export type GridProps<TRequest, TResponse, TResponseItem> = FlowProps<
+export type GridProps<T> = FlowProps<
   {
+    each: T[];
     fallback?: JSX.Element;
-    hook: QueryHook<TRequest, TResponse>;
-    selectFromResult: (response: TResponse) => TResponseItem[];
     thumbnailType: ThumbnailType;
   },
-  (item: TResponseItem, index: () => number) => JSX.Element
+  (item: T, index: () => number) => JSX.Element
 >;
