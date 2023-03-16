@@ -7,7 +7,7 @@ type SearchParamsResult<T extends ZodTypeAny> = [
   (value: z.infer<T>) => void
 ];
 
-const useTypedParams = <T extends ZodTypeAny>(
+const useTypedSearchParams = <T extends ZodTypeAny>(
   schema: T
 ): SearchParamsResult<T> => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -24,4 +24,4 @@ const useTypedParams = <T extends ZodTypeAny>(
   return [params, setParams];
 };
 
-export default useTypedParams;
+export default useTypedSearchParams;
