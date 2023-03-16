@@ -8,6 +8,8 @@ export type GridItem = {
   thumbnail?: string;
 };
 
+export type GridItemOf<T> = GridItem & T;
+
 export type GridProps<T> = FlowProps<
   {
     each: T[];
