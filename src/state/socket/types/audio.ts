@@ -38,6 +38,11 @@ export type AudioDetailsRole = ItemDetailsBase & {
   title: string;
 };
 
+export type AudioDetailsGenre = {
+  genreid: 5;
+  title: string;
+};
+
 export type AudioDetailsAlbum = AudioDetailsMedia & {
   albumid: number;
   albumduration?: number;
@@ -52,7 +57,7 @@ export type AudioDetailsAlbum = AudioDetailsMedia & {
   musicbrainzreleasegroupid?: string;
   playcount?: number;
   releasetype?: string;
-  songgenres?: string[];
+  songgenres?: AudioDetailsGenre[];
   sourceid?: number[];
   style?: string[];
   theme?: string[];
@@ -76,7 +81,7 @@ export type AudioDetailsArtist = AudioDetailsBase & {
   mood?: string[];
   musicbrainzartistid?: string[];
   roles?: AudioDetailsRole[];
-  songgenres?: string[];
+  songgenres?: AudioDetailsGenre[];
   sortname?: string;
   sourceid?: number[];
   style?: string[];

@@ -43,7 +43,7 @@ export const useGetArtistsQuery = createQueryHook<
   ArtistsPaged
 >("AudioLibrary.GetArtists", {
   albumartistsonly: true,
-  properties: ["thumbnail"],
+  properties: ["songgenres", "thumbnail"],
   sort: { method: "label", order: "ascending", ignorearticle: true },
 });
 
