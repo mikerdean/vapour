@@ -11,14 +11,16 @@ import { ThumbnailType } from "../../../core/thumbnail/types";
 import Grid from "../../../grid";
 import GridCard from "../../../grid/gridCard";
 import { GridItemOf } from "../../../grid/types";
+import Pagination from "../../../pagination";
 import { ArtistsComponent } from "./types";
 
 const Artists: ArtistsComponent = () => {
-  const [searchParams] = useTypedSearchParams(pageValidator);
   const emptyArray: GridItemOf<AudioDetailsArtist>[] = [];
+  const pageSize = 100;
+
+  const [searchParams, setSearchParams] = useTypedSearchParams(pageValidator);
 
   const query = createMemo<Partial<GetArtistsQuery>>(() => {
-    const pageSize = 100;
     const params = searchParams();
     const start = (params.page - 1) * pageSize;
     const end = start + pageSize;
@@ -37,18 +39,35 @@ const Artists: ArtistsComponent = () => {
     return data.artists.map((artist) => ({ ...artist, id: artist.artistid }));
   });
 
+  const total = createMemo(() => {
+    const data = artistData();
+    if (!data) {
+      return 0;
+    }
+
+    return data.limits.total;
+  });
+
   return (
-    <Grid each={artists()} thumbnailType={ThumbnailType.Artist}>
-      {(album) => (
-        <GridCard
-          title={album.label}
-          items={album.songgenres
-            ?.map((genre) => genre.title)
-            .slice(0, 2)
-            .sort()}
-        />
-      )}
-    </Grid>
+    <>
+      <Pagination
+        currentPage={searchParams().page}
+        onPageSelected={(page) => setSearchParams({ page })}
+        pageSize={pageSize}
+        total={total()}
+      />
+      <Grid each={artists()} thumbnailType={ThumbnailType.Artist}>
+        {(album) => (
+          <GridCard
+            title={album.label}
+            items={album.songgenres
+              ?.map((genre) => genre.title)
+              .slice(0, 2)
+              .sort()}
+          />
+        )}
+      </Grid>
+    </>
   );
 };
 
