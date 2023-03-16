@@ -9,7 +9,7 @@ import { createUrl } from "./utils";
 
 const Grid = function <T extends GridItem>(props: GridProps<T>): JSX.Element {
   return (
-    <ol class="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-3">
+    <ol class="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-3">
       <For each={props.each}>
         {(item, i) => (
           <li class="flex flex-row items-center">
