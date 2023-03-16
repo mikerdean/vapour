@@ -1,5 +1,3 @@
-import "@fortawesome/fontawesome-svg-core/styles.css";
-
 import { icon } from "@fortawesome/fontawesome-svg-core";
 import { createMemo } from "solid-js";
 
