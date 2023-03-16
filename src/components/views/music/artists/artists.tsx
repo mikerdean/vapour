@@ -1,33 +1,19 @@
 import { createMemo } from "solid-js";
 
-import useTypedSearchParams from "../../../../routes/useTypedSearchParams";
 import { useGetArtistsQuery } from "../../../../state/socket/commands";
-import {
-  AudioDetailsArtist,
-  GetArtistsQuery,
-} from "../../../../state/socket/types";
-import { pageValidator } from "../../../../validators";
+import { AudioDetailsArtist } from "../../../../state/socket/types";
 import { ThumbnailType } from "../../../core/thumbnail/types";
 import Grid from "../../../grid";
 import GridCard from "../../../grid/gridCard";
 import { GridItemOf } from "../../../grid/types";
 import Pagination from "../../../pagination";
+import useSearchPagination from "../../../pagination/useSearchPagination";
 import { ArtistsComponent } from "./types";
 
 const Artists: ArtistsComponent = () => {
   const emptyArray: GridItemOf<AudioDetailsArtist>[] = [];
   const pageSize = 100;
-
-  const [searchParams, setSearchParams] = useTypedSearchParams(pageValidator);
-
-  const query = createMemo<Partial<GetArtistsQuery>>(() => {
-    const params = searchParams();
-    const start = (params.page - 1) * pageSize;
-    const end = start + pageSize;
-
-    return { limits: { start, end } };
-  });
-
+  const [query, searchParams, setSearchParams] = useSearchPagination(pageSize);
   const [artistData] = useGetArtistsQuery(query);
 
   const artists = createMemo(() => {
