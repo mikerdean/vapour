@@ -3,6 +3,7 @@ import { RouteDefinition } from "@solidjs/router";
 import Layout from "../components/layout";
 import Movies from "../components/views/movies";
 import Music from "../components/views/music";
+import Album from "../components/views/music/album";
 import Albums from "../components/views/music/albums";
 import Artist from "../components/views/music/artist";
 import Artists from "../components/views/music/artists";
@@ -41,6 +42,10 @@ const routes: RouteDefinition[] = [
           {
             component: Albums,
             path: "/albums",
+          },
+          {
+            component: Album,
+            path: "/albums/:albumId",
           },
           {
             component: Genres,
