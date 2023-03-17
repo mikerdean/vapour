@@ -9,7 +9,7 @@
     "lint:eslint": "eslint .",
     "lint:prettier": "prettier --check .",
     "preview": "vite preview",
-    "test": "vitest",
+    "test": "NODE_NO_WARNINGS=1 vitest",
     "test:ci": "vitest run",
     "typecheck": "tsc --noEmit",
     "start": "vite"
