@@ -13,7 +13,7 @@ const Genres: GenresComponent = () => {
   const [genreData] = useGetGenresQuery(query);
 
   const encodeGenreForURI = (genre: string): string => {
-    return genre.toLowerCase().replace(/\s+/, "+");
+    return genre.replace(/\s+/g, "+");
   };
 
   const [genres, total] = useGridData(

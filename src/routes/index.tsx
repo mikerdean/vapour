@@ -7,6 +7,7 @@ import Album from "../components/views/music/album";
 import Albums from "../components/views/music/albums";
 import Artist from "../components/views/music/artist";
 import Artists from "../components/views/music/artists";
+import Genre from "../components/views/music/genre";
 import Genres from "../components/views/music/genres";
 import RecentAlbums from "../components/views/music/recentAlbums";
 import Songs from "../components/views/music/songs";
@@ -50,6 +51,10 @@ const routes: RouteDefinition[] = [
           {
             component: Genres,
             path: "/genres",
+          },
+          {
+            component: Genre,
+            path: "/genres/:genre",
           },
           {
             component: Songs,

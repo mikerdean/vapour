@@ -16,7 +16,12 @@ const useGridData = <T extends { limits: KodiMessageLimitsReturned }, TItem>(
       return emptyArray;
     }
 
-    return select(result).map(transform);
+    const selected = select(result);
+    if (!selected) {
+      return emptyArray;
+    }
+
+    return selected.map(transform);
   });
 
   const total = createMemo<number>(() => {
