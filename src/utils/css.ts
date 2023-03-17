@@ -3,6 +3,6 @@ export const css = (
 ): string => {
   return args
     .flat()
-    .filter((arg) => !arg)
+    .filter((arg) => arg)
     .join(" ");
 };
