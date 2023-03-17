@@ -4,7 +4,7 @@ import {
   faAnglesLeft,
   faAnglesRight,
 } from "@fortawesome/free-solid-svg-icons";
-import { For, createMemo } from "solid-js";
+import { For, Show, createMemo } from "solid-js";
 
 import { css } from "../../utils/css";
 import FontAwesomeIcon from "../images/fontAwesomeIcon";
@@ -34,96 +34,98 @@ const Pagination: PaginationComponent = (props) => {
   });
 
   return (
-    <nav class="mb-3 sticky top-24">
-      <ol class="flex justify-center">
-        <li>
-          <button
-            aria-label={"Go back to first page (1)"}
-            class={css(
-              defaultButtonClasses,
-              "bg-slate-800",
-              "border-l",
-              "text-fuchsia-500",
-              "disabled:text-slate-500",
-              "rounded-l"
+    <Show when={totalPages() > 1}>
+      <nav class="mb-3 sticky top-24">
+        <ol class="flex justify-center">
+          <li>
+            <button
+              aria-label={"Go back to first page (1)"}
+              class={css(
+                defaultButtonClasses,
+                "bg-slate-800",
+                "border-l",
+                "text-fuchsia-500",
+                "disabled:text-slate-500",
+                "rounded-l"
+              )}
+              disabled={props.currentPage <= 1}
+              onClick={() => props.onPageSelected(1)}
+              type="button"
+            >
+              <FontAwesomeIcon icon={faAnglesLeft} />
+            </button>
+          </li>
+          <li>
+            <button
+              aria-label={`Go back to previous page (${props.currentPage - 1})`}
+              class={css(
+                defaultButtonClasses,
+                "bg-slate-800",
+                "text-fuchsia-500",
+                "disabled:text-slate-500"
+              )}
+              disabled={props.currentPage <= 1}
+              onClick={() => props.onPageSelected(props.currentPage - 1)}
+              type="button"
+            >
+              <FontAwesomeIcon icon={faAngleLeft} />
+            </button>
+          </li>
+          <For each={pages()}>
+            {(page) => (
+              <li>
+                <button
+                  aria-label={`Change to page ${page}`}
+                  class={css(defaultButtonClasses)}
+                  classList={{
+                    "bg-fuchsia-500 text-slate-100": props.currentPage === page,
+                    "bg-slate-800 text-slate-500": props.currentPage !== page,
+                  }}
+                  onClick={() => props.onPageSelected(page)}
+                  type="button"
+                >
+                  {page}
+                </button>
+              </li>
             )}
-            disabled={props.currentPage <= 1}
-            onClick={() => props.onPageSelected(1)}
-            type="button"
-          >
-            <FontAwesomeIcon icon={faAnglesLeft} />
-          </button>
-        </li>
-        <li>
-          <button
-            aria-label={`Go back to previous page (${props.currentPage - 1})`}
-            class={css(
-              defaultButtonClasses,
-              "bg-slate-800",
-              "text-fuchsia-500",
-              "disabled:text-slate-500"
-            )}
-            disabled={props.currentPage <= 1}
-            onClick={() => props.onPageSelected(props.currentPage - 1)}
-            type="button"
-          >
-            <FontAwesomeIcon icon={faAngleLeft} />
-          </button>
-        </li>
-        <For each={pages()}>
-          {(page) => (
-            <li>
-              <button
-                aria-label={`Change to page ${page}`}
-                class={css(defaultButtonClasses)}
-                classList={{
-                  "bg-fuchsia-500 text-slate-100": props.currentPage === page,
-                  "bg-slate-800 text-slate-500": props.currentPage !== page,
-                }}
-                onClick={() => props.onPageSelected(page)}
-                type="button"
-              >
-                {page}
-              </button>
-            </li>
-          )}
-        </For>
-        <li>
-          <button
-            aria-label={`Go to the next page (${props.currentPage + 1})`}
-            class={css(
-              defaultButtonClasses,
-              "bg-slate-800",
-              "text-fuchsia-500",
-              "disabled:text-slate-500"
-            )}
-            disabled={props.currentPage + 1 > totalPages()}
-            onClick={() => props.onPageSelected(props.currentPage + 1)}
-            type="button"
-          >
-            <FontAwesomeIcon icon={faAngleRight} />
-          </button>
-        </li>
-        <li>
-          <button
-            aria-label={`Go to the last page (${totalPages()})`}
-            class={css(
-              defaultButtonClasses,
-              "bg-slate-800",
-              "border-r",
-              "text-fuchsia-500",
-              "disabled:text-slate-500",
-              "rounded-r"
-            )}
-            disabled={props.currentPage + 1 > totalPages()}
-            onClick={() => props.onPageSelected(totalPages())}
-            type="button"
-          >
-            <FontAwesomeIcon icon={faAnglesRight} />
-          </button>
-        </li>
-      </ol>
-    </nav>
+          </For>
+          <li>
+            <button
+              aria-label={`Go to the next page (${props.currentPage + 1})`}
+              class={css(
+                defaultButtonClasses,
+                "bg-slate-800",
+                "text-fuchsia-500",
+                "disabled:text-slate-500"
+              )}
+              disabled={props.currentPage + 1 > totalPages()}
+              onClick={() => props.onPageSelected(props.currentPage + 1)}
+              type="button"
+            >
+              <FontAwesomeIcon icon={faAngleRight} />
+            </button>
+          </li>
+          <li>
+            <button
+              aria-label={`Go to the last page (${totalPages()})`}
+              class={css(
+                defaultButtonClasses,
+                "bg-slate-800",
+                "border-r",
+                "text-fuchsia-500",
+                "disabled:text-slate-500",
+                "rounded-r"
+              )}
+              disabled={props.currentPage + 1 > totalPages()}
+              onClick={() => props.onPageSelected(totalPages())}
+              type="button"
+            >
+              <FontAwesomeIcon icon={faAnglesRight} />
+            </button>
+          </li>
+        </ol>
+      </nav>
+    </Show>
   );
 };
 
