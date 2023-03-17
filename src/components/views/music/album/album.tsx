@@ -32,7 +32,7 @@ const Album: AlbumComponent = () => {
         <div>
           <Heading level={1}>
             {album.title}
-            {album.year && `(${album.year})`}
+            {album.year && ` (${album.year})`}
           </Heading>
           {album.thumbnail && (
             <div class="mb-3">
