@@ -19,7 +19,11 @@ const Genre: GenreComponent = () => {
 
   const decodedGenre = createMemo(() => {
     const genre = params().genre;
-    return genre ? genre.replace(/[+]/g, " ") : "";
+    if (!genre) {
+      return genre;
+    }
+
+    return decodeURIComponent(genre);
   });
 
   const [query, searchParams, setSearchParams] = useSearchPagination(pageSize);

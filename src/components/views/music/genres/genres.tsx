@@ -12,14 +12,10 @@ const Genres: GenresComponent = () => {
   const [query, searchParams, setSearchParams] = useSearchPagination(pageSize);
   const [genreData] = useGetGenresQuery(query);
 
-  const encodeGenreForURI = (genre: string): string => {
-    return genre.replace(/\s+/g, "+");
-  };
-
   const [genres, total] = useGridData(
     genreData,
     (data) => data.genres,
-    (genre) => ({ ...genre, id: encodeGenreForURI(genre.label) })
+    (genre) => ({ ...genre, id: encodeURIComponent(genre.label) })
   );
 
   return (
