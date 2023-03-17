@@ -12,7 +12,7 @@ const Genres: GenresComponent = () => {
   const [query, searchParams, setSearchParams] = useSearchPagination(pageSize);
   const [genreData] = useGetGenresQuery(query);
 
-  const encodeGenreForURI = (genre: string) => {
+  const encodeGenreForURI = (genre: string): string => {
     return genre.toLowerCase().replace(/\s+/, "+");
   };
 
