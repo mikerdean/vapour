@@ -12,6 +12,8 @@ export const createUrl = (type: ThumbnailType, id: string | number): string => {
       return `/music/genres/${id}`;
     case ThumbnailType.Movie:
       return `/movies/${id}`;
+    case ThumbnailType.MovieSet:
+      return `/movies/sets/${id}`;
     case ThumbnailType.Season:
       return `/tv/seasons/${id}`;
     case ThumbnailType.Song:

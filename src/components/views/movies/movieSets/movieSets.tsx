@@ -75,7 +75,7 @@ const MovieSets: MovieSetsComponent = () => {
         pageSize={pageSize}
         total={total()}
       />
-      <Grid each={movieSets()} thumbnailType={ThumbnailType.Movie}>
+      <Grid each={movieSets()} thumbnailType={ThumbnailType.MovieSet}>
         {(set) => (
           <GridCard
             title={set.title}

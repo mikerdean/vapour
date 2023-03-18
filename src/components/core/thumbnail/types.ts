@@ -6,6 +6,7 @@ export enum ThumbnailType {
   Song,
   Genre,
   Movie,
+  MovieSet,
   TVShow,
   Season,
   Episode,

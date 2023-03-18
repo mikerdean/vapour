@@ -14,6 +14,7 @@ const Grid = function <T extends GridItem>(props: GridProps<T>): JSX.Element {
 
     return (
       type === ThumbnailType.Movie ||
+      type === ThumbnailType.MovieSet ||
       type === ThumbnailType.Season ||
       type === ThumbnailType.TVShow
     );
