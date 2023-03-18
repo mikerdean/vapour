@@ -1,4 +1,4 @@
-import { useGetMoviesQuery } from "../../../../state/socket/commands/video";
+import { useGetMoviesQuery } from "../../../../state/socket/commands";
 import { getVideoDuration } from "../../../../utils/duration";
 import { ThumbnailType } from "../../../core/thumbnail/types";
 import Grid from "../../../grid";
