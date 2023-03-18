@@ -25,17 +25,13 @@ export const getVideoDuration = (seconds: number): string | undefined => {
     return undefined;
   }
 
+  const d = Duration.fromObject({ seconds });
+
   if (seconds < 60) {
-    const formatter = Intl.NumberFormat(undefined, {
-      style: "unit",
-      unit: "second",
+    return d.toHuman({
       unitDisplay: "short",
     });
-
-    return formatter.format(seconds);
   }
-
-  const d = Duration.fromObject({ seconds });
 
   if (seconds < 3600) {
     const minuteShift: (keyof DurationLikeObject)[] =
