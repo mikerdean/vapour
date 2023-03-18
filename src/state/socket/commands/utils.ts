@@ -12,15 +12,22 @@ export const createQueryHook = <TRequest, TResponse>(
   return (optionalParams) => {
     const { send } = useSocket();
 
-    const request = (): KodiRequest<TRequest> => ({
-      id: nanoid(),
-      jsonrpc: "2.0",
-      method,
-      params: {
-        ...params,
-        ...(optionalParams && optionalParams()),
-      },
-    });
+    const request = (): KodiRequest<TRequest> | null => {
+      const newParams = optionalParams && optionalParams();
+      if (newParams === null) {
+        return null;
+      }
+
+      return {
+        id: nanoid(),
+        jsonrpc: "2.0",
+        method,
+        params: {
+          ...params,
+          ...newParams,
+        },
+      };
+    };
 
     const result = createResource<TResponse, KodiRequest<TRequest>>(
       request,

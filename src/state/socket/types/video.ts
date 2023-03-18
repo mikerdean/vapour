@@ -92,6 +92,11 @@ export type VideoDetailsMovie = VideoDetailsFile & {
   year?: number;
 };
 
+export type VideoDetailsMovieSet = VideoDetailsMedia & {
+  plot?: string;
+  setid: number;
+};
+
 export type GetMoviesQuery = Properties<VideoDetailsMovie> & {
   filter?: KodiMessageFilter;
   limits?: KodiMessageLimits;
@@ -101,4 +106,15 @@ export type GetMoviesQuery = Properties<VideoDetailsMovie> & {
 export type GetMovies = {
   limits: KodiMessageLimitsReturned;
   movies: VideoDetailsMovie[];
+};
+
+export type GetMovieSetsQuery = Properties<VideoDetailsMovieSet> & {
+  filter?: KodiMessageFilter;
+  limits?: KodiMessageLimits;
+  sort?: KodiMessageSort;
+};
+
+export type GetMovieSets = {
+  limits: KodiMessageLimitsReturned;
+  sets: VideoDetailsMovieSet[];
 };
