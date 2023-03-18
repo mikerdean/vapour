@@ -13,6 +13,7 @@ export enum ThumbnailType {
 
 export type ThumbnailComponent = Component<{
   alt?: string;
+  played?: boolean;
   type: ThumbnailType;
   uri?: string;
 }>;

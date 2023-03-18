@@ -1,3 +1,4 @@
+import { faCheckCircle } from "@fortawesome/free-solid-svg-icons";
 import { Match, Switch, createMemo } from "solid-js";
 
 import { useHost } from "../../../state/host";
@@ -22,8 +23,14 @@ const Thumbnail: ThumbnailComponent = (props) => {
   return (
     <Switch>
       <Match when={imageUrl()}>
-        <figure>
+        <figure class="relative">
           <img src={imageUrl()} alt={props.alt} class="w-full h-auto" />
+          {props.played && (
+            <FontAwesomeIcon
+              class="absolute right-1 bottom-1 text-fuchsia-500"
+              icon={faCheckCircle}
+            />
+          )}
         </figure>
       </Match>
       <Match when={!imageUrl()}>
