@@ -1,5 +1,5 @@
 import { useGetRecentMoviesQuery } from "../../../../state/socket/commands/video";
-import { getTextDuration } from "../../../../utils/duration";
+import { getVideoDuration } from "../../../../utils/duration";
 import { ThumbnailType } from "../../../core/thumbnail/types";
 import Grid from "../../../grid";
 import GridCard from "../../../grid/gridCard";
@@ -36,7 +36,7 @@ const RecentMovies: RecentMoviesComponent = () => {
         {(movie) => (
           <GridCard
             title={movie.title}
-            items={[getTextDuration(movie.runtime || 0), movie.year]}
+            items={[getVideoDuration(movie.runtime || 0), movie.year]}
           />
         )}
       </Grid>

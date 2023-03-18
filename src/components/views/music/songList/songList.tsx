@@ -1,7 +1,7 @@
 import { faEllipsisVertical } from "@fortawesome/free-solid-svg-icons";
 import { For } from "solid-js";
 
-import { getTextDuration } from "../../../../utils/duration";
+import { getSongDuration } from "../../../../utils/duration";
 import FontAwesomeIcon from "../../../images/fontAwesomeIcon";
 import { SongListComponent } from "./types";
 
@@ -25,7 +25,7 @@ const SongList: SongListComponent = (props) => {
                   {String(song.track).padStart(2, "0")}
                 </span>
                 <span class="grow text-left">{song.title}</span>
-                {song.duration && <span>{getTextDuration(song.duration)}</span>}
+                {song.duration && <span>{getSongDuration(song.duration)}</span>}
               </button>
               <button class="pl-3">
                 <FontAwesomeIcon icon={faEllipsisVertical} />

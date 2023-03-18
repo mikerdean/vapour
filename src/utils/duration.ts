@@ -1,6 +1,6 @@
-import { Duration } from "luxon";
+import { Duration, DurationLikeObject } from "luxon";
 
-export const getTextDuration = (seconds: number): string | undefined => {
+export const getSongDuration = (seconds: number): string | undefined => {
   if (seconds < 0) {
     return undefined;
   }
@@ -18,4 +18,42 @@ export const getTextDuration = (seconds: number): string | undefined => {
   } else {
     return `${d.seconds}s`;
   }
+};
+
+export const getVideoDuration = (seconds: number): string | undefined => {
+  if (seconds < 0) {
+    return undefined;
+  }
+
+  if (seconds < 60) {
+    const formatter = Intl.NumberFormat(undefined, {
+      style: "unit",
+      unit: "second",
+      unitDisplay: "short",
+    });
+
+    return formatter.format(seconds);
+  }
+
+  const d = Duration.fromObject({ seconds });
+
+  if (seconds < 3600) {
+    const minuteShift: (keyof DurationLikeObject)[] =
+      seconds % 60 === 0 ? ["minutes"] : ["minutes", "seconds"];
+
+    return d.shiftTo(...minuteShift).toHuman({
+      listStyle: "long",
+      maximumFractionDigits: 0,
+      unitDisplay: "short",
+    });
+  }
+
+  const hourShift: (keyof DurationLikeObject)[] =
+    seconds % 3600 === 0 ? ["hours"] : ["hours", "minutes"];
+
+  return d.shiftTo(...hourShift).toHuman({
+    listStyle: "long",
+    maximumFractionDigits: 0,
+    unitDisplay: "short",
+  });
 };

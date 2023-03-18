@@ -1,9 +1,9 @@
 import { describe, expect, it } from "vitest";
 
-import { getTextDuration } from "./duration";
+import { getSongDuration, getVideoDuration } from "./duration";
 
 describe("Duration utilities", () => {
-  describe("getTextDuration", () => {
+  describe("getSongDuration", () => {
     it.each([
       [1, "1s"],
       [5, "5s"],
@@ -14,7 +14,7 @@ describe("Duration utilities", () => {
     ])(
       "returns a simplified value for values under 60 seconds (%d)",
       (input, expected) => {
-        const outcome = getTextDuration(input);
+        const outcome = getSongDuration(input);
         expect(outcome).toEqual(expected);
       }
     );
@@ -30,7 +30,7 @@ describe("Duration utilities", () => {
     ])(
       "should render exact minute counts with correct padding (%d)",
       (input, expected) => {
-        const outcome = getTextDuration(input);
+        const outcome = getSongDuration(input);
         expect(outcome).toEqual(expected);
       }
     );
@@ -48,7 +48,7 @@ describe("Duration utilities", () => {
     ])(
       "should render exact minute and second counts with correct padding (%d)",
       (input, expected) => {
-        const outcome = getTextDuration(input);
+        const outcome = getSongDuration(input);
         expect(outcome).toEqual(expected);
       }
     );
@@ -63,9 +63,74 @@ describe("Duration utilities", () => {
     ])(
       "should render exact hour, minute and second counts with correct padding",
       (input, expected) => {
-        const outcome = getTextDuration(input);
+        const outcome = getSongDuration(input);
         expect(outcome).toEqual(expected);
       }
     );
   });
+
+  describe("getVideoDuration", () => {
+    it.each([
+      [1, "1 sec"],
+      [5, "5 secs"],
+      [17, "17 secs"],
+      [28, "28 secs"],
+      [30, "30 secs"],
+      [59, "59 secs"],
+    ])(
+      "returns a simplified value for values under 60 seconds (%d)",
+      (input, expected) => {
+        const outcome = getVideoDuration(input);
+        expect(outcome).toEqual(expected);
+      }
+    );
+  });
+
+  it.each([
+    [60, "1 min"],
+    [120, "2 mins"],
+    [180, "3 mins"],
+    [240, "4 mins"],
+    [300, "5 mins"],
+    [600, "10 mins"],
+    [1500, "25 mins"],
+  ])("should render exact minute counts (%d)", (input, expected) => {
+    const outcome = getVideoDuration(input);
+    expect(outcome).toEqual(expected);
+  });
+
+  it.each([
+    [76, "1 min and 16 secs"],
+    [155, "2 mins and 35 secs"],
+    [203, "3 mins and 23 secs"],
+    [292, "4 mins and 52 secs"],
+    [341, "5 mins and 41 secs"],
+    [601, "10 mins and 1 sec"],
+    [1530, "25 mins and 30 secs"],
+  ])(
+    "should render minute counts and seconds counts (%d)",
+    (input, expected) => {
+      const outcome = getVideoDuration(input);
+      expect(outcome).toEqual(expected);
+    }
+  );
+
+  it.each([
+    [3600, "1 hr"],
+    [3660, "1 hr and 1 min"],
+    [3720, "1 hr and 2 mins"],
+    [3735, "1 hr and 2 mins"],
+    [7200, "2 hrs"],
+    [7260, "2 hrs and 1 min"],
+    [7320, "2 hrs and 2 mins"],
+    [7335, "2 hrs and 2 mins"],
+    [82800, "23 hrs"],
+    [86400, "24 hrs"],
+  ])(
+    "should render rounded hour and minutes counts when a time exceeds an hour (%d)",
+    (input, expected) => {
+      const outcome = getVideoDuration(input);
+      expect(outcome).toEqual(expected);
+    }
+  );
 });
