@@ -18,7 +18,7 @@ const Music: MusicComponent = () => {
       <div class="sticky top-11 z-10 bg-slate-900">
         <Tabs items={musicTabs} />
       </div>
-      <div class="p-3" role="tabpanel">
+      <div class="px-3 pb-3" role="tabpanel">
         <h1 class="sr-only">Music</h1>
         <Outlet />
       </div>
