@@ -5,6 +5,7 @@ import { ThumbnailType } from "../core/thumbnail/types";
 export type GridItem = {
   id: string | number;
   label: string;
+  played?: boolean;
   thumbnail?: string;
 };
 

@@ -36,9 +36,10 @@ const Grid = function <T extends GridItem>(props: GridProps<T>): JSX.Element {
                 class="flex items-center h-full"
               >
                 <Thumbnail
-                  uri={item.thumbnail}
-                  type={props.thumbnailType}
                   alt={`Thumbnail for ${item.label}`}
+                  played={item.played}
+                  type={props.thumbnailType}
+                  uri={item.thumbnail}
                 />
               </NavLink>
             </div>
