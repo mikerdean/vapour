@@ -7,7 +7,7 @@ import {
 } from "./message";
 
 export type VideoDetailsBase = MediaDetailsBase & {
-  artwork?: MediaArtwork;
+  art?: MediaArtwork;
   playcount?: number;
 };
 
