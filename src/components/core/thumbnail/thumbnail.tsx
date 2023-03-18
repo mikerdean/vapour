@@ -1,8 +1,8 @@
-import { faCheckCircle, faCircle } from "@fortawesome/free-solid-svg-icons";
 import { Match, Switch, createMemo } from "solid-js";
 
 import { useHost } from "../../../state/host";
 import FontAwesomeIcon from "../../images/fontAwesomeIcon";
+import ThumbnailPlayed from "./thumbnailPlayed";
 import { ThumbnailComponent } from "./types";
 import { getIconByType } from "./utils";
 
@@ -25,18 +25,7 @@ const Thumbnail: ThumbnailComponent = (props) => {
       <Match when={imageUrl()}>
         <figure class="relative">
           <img src={imageUrl()} alt={props.alt} class="w-full h-auto" />
-          {props.played && (
-            <span>
-              <FontAwesomeIcon
-                class="absolute right-1 bottom-1 text-fuchsia-500 z-[3]"
-                icon={faCheckCircle}
-              />
-              <FontAwesomeIcon
-                class="absolute right-1 bottom-1 text-slate-900 z-[2]"
-                icon={faCircle}
-              />
-            </span>
-          )}
+          {props.played && <ThumbnailPlayed />}
         </figure>
       </Match>
       <Match when={!imageUrl()}>
@@ -44,6 +33,11 @@ const Thumbnail: ThumbnailComponent = (props) => {
           class="max-w-full h-auto p-2"
           icon={getIconByType(props.type)}
         />
+        {props.played && (
+          <div class="relative w-full h-full">
+            <ThumbnailPlayed />
+          </div>
+        )}
       </Match>
     </Switch>
   );
