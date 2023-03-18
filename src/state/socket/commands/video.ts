@@ -16,3 +16,18 @@ export const useGetMoviesQuery = createQueryHook<GetMoviesQuery, GetMovies>(
     sort: { method: "title", order: "ascending" },
   }
 );
+
+export const useGetRecentMoviesQuery = createQueryHook<
+  GetMoviesQuery,
+  GetMovies
+>("VideoLibrary.GetRecentlyAddedMovies", {
+  properties: [
+    "art",
+    "playcount",
+    "runtime",
+    "set",
+    "title",
+    "thumbnail",
+    "year",
+  ],
+});

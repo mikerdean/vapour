@@ -1,46 +1,30 @@
-import { useGetMoviesQuery } from "../../../state/socket/commands/video";
-import { getTextDuration } from "../../../utils/duration";
-import { ThumbnailType } from "../../core/thumbnail/types";
-import Grid from "../../grid";
-import GridCard from "../../grid/gridCard";
-import useGridData from "../../grid/useGridData";
-import Pagination from "../../pagination";
-import useSearchPagination from "../../pagination/useSearchPagination";
+import { Outlet } from "@solidjs/router";
+
+import Tabs from "../../core/tabs";
+import { TabItem } from "../../core/tabs/types";
 import { MoviesComponent } from "./types";
 
 const Movies: MoviesComponent = () => {
-  const pageSize = 100;
-  const [query, searchParams, setSearchParams] = useSearchPagination(pageSize);
-  const [movieData] = useGetMoviesQuery(query);
-
-  const [movies, total] = useGridData(
-    movieData,
-    (data) => data.movies,
-    (movie) => ({
-      ...movie,
-      id: movie.movieid,
-      thumbnail: movie.art?.poster,
-    })
-  );
+  const moviesTabs: TabItem[] = [
+    { label: "Recent", path: "/movies" },
+    { label: "Titles", path: "/movies/titles" },
+    { label: "Sets", path: "/movies/sets" },
+    { label: "Years", path: "/movies/years" },
+    { label: "Genres", path: "/movies/genres" },
+    { label: "Directors", path: "/movies/directors" },
+    { label: "Actors", path: "/movies/actors" },
+  ];
 
   return (
-    <div class="p-3">
-      <h1 class="sr-only">Movies</h1>
-      <Pagination
-        currentPage={searchParams().page}
-        onPageSelected={(page) => setSearchParams({ page })}
-        pageSize={pageSize}
-        total={total()}
-      />
-      <Grid each={movies()} thumbnailType={ThumbnailType.Movie}>
-        {(movie) => (
-          <GridCard
-            title={movie.title}
-            items={[getTextDuration(movie.runtime || 0), movie.year]}
-          />
-        )}
-      </Grid>
-    </div>
+    <>
+      <div class="sticky top-11 z-10 bg-slate-900">
+        <Tabs items={moviesTabs} />
+      </div>
+      <div class="p-3" role="tabpanel">
+        <h1 class="sr-only">Movies</h1>
+        <Outlet />
+      </div>
+    </>
   );
 };
 

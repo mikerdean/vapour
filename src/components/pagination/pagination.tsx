@@ -35,7 +35,7 @@ const Pagination: PaginationComponent = (props) => {
 
   return (
     <Show when={totalPages() > 1}>
-      <nav class="mb-3 sticky top-[5.5rem]">
+      <nav class="mb-3 sticky top-6">
         <ol class="flex justify-center">
           <li>
             <button
