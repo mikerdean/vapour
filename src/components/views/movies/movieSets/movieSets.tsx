@@ -67,6 +67,26 @@ const MovieSets: MovieSetsComponent = () => {
     })
   );
 
+  const getMovieSetTitle = (
+    sets: Record<string, number>,
+    title: string | undefined
+  ): string | undefined => {
+    if (!title) {
+      return undefined;
+    }
+
+    const total = sets[title] || 0;
+    if (total < 1) {
+      return undefined;
+    }
+
+    if (total === 1) {
+      return "1 movie";
+    }
+
+    return `${total} movies`;
+  };
+
   return (
     <>
       <Pagination
@@ -79,7 +99,7 @@ const MovieSets: MovieSetsComponent = () => {
         {(set) => (
           <GridCard
             title={set.title}
-            items={[`${moviesInSets()[set.title || ""] || 0} movies`]}
+            items={[getMovieSetTitle(moviesInSets(), set.title)]}
           />
         )}
       </Grid>
