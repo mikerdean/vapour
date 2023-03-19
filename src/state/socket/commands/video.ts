@@ -3,6 +3,8 @@ import {
   GetMovieSetsQuery,
   GetMovies,
   GetMoviesQuery,
+  GetVideoGenresQuery,
+  VideoGenresPaged,
 } from "../types/video";
 import { createQueryHook } from "./utils";
 
@@ -27,4 +29,13 @@ export const useGetMovieSetsQuery = createQueryHook<
 >("VideoLibrary.GetMovieSets", {
   properties: ["art", "playcount", "title"],
   sort: { method: "title", order: "ascending" },
+});
+
+export const useGetMovieGenresQuery = createQueryHook<
+  GetVideoGenresQuery,
+  VideoGenresPaged
+>("VideoLibrary.GetGenres", {
+  properties: ["thumbnail"],
+  sort: { method: "label", order: "ascending" },
+  type: "movie",
 });

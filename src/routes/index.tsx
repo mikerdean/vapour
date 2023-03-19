@@ -2,6 +2,7 @@ import { RouteDefinition } from "@solidjs/router";
 
 import Layout from "../components/layout";
 import Movies from "../components/views/movies";
+import MovieGenres from "../components/views/movies/movieGenres";
 import MoviesByTitle from "../components/views/movies/moviesByTitle";
 import MovieSets from "../components/views/movies/movieSets";
 import RecentMovies from "../components/views/movies/recentMovies";
@@ -84,6 +85,10 @@ const routes: RouteDefinition[] = [
           {
             component: MovieSets,
             path: "/sets",
+          },
+          {
+            component: MovieGenres,
+            path: "/genres",
           },
         ],
       },

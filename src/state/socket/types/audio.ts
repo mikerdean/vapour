@@ -168,7 +168,7 @@ export type GetAlbumsQuery = Properties<AudioDetailsAlbum> & {
   sort?: KodiMessageSort;
 };
 
-export type GetGenresQuery = Properties<LibraryDetailsGenre> & {
+export type GetMusicGenresQuery = Properties<LibraryDetailsGenre> & {
   limits?: KodiMessageLimits;
   sort: KodiMessageSort;
 };
@@ -197,7 +197,7 @@ export type AlbumsPaged = {
   limits: KodiMessageLimitsReturned;
 };
 
-export type GenresPaged = {
+export type MusicGenresPaged = {
   genres: LibraryDetailsGenre[];
   limits: KodiMessageLimitsReturned;
 };

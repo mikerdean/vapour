@@ -1,15 +1,15 @@
 import {
   AlbumsPaged,
   ArtistsPaged,
-  GenresPaged,
   GetAlbum,
   GetAlbumQuery,
   GetAlbumsQuery,
   GetArtist,
   GetArtistQuery,
   GetArtistsQuery,
-  GetGenresQuery,
+  GetMusicGenresQuery,
   GetSongsQuery,
+  MusicGenresPaged,
   RecentlyAddedAlbumsQuery,
   SongsPaged,
 } from "../types";
@@ -55,13 +55,13 @@ export const useGetArtistQuery = createQueryHook<GetArtistQuery, GetArtist>(
   }
 );
 
-export const useGetGenresQuery = createQueryHook<GetGenresQuery, GenresPaged>(
-  "AudioLibrary.GetGenres",
-  {
-    properties: ["thumbnail"],
-    sort: { method: "label", order: "ascending" },
-  }
-);
+export const useGetMusicGenresQuery = createQueryHook<
+  GetMusicGenresQuery,
+  MusicGenresPaged
+>("AudioLibrary.GetGenres", {
+  properties: ["thumbnail"],
+  sort: { method: "label", order: "ascending" },
+});
 
 export const useGetSongsQuery = createQueryHook<GetSongsQuery, SongsPaged>(
   "AudioLibrary.GetSongs",

@@ -16,10 +16,11 @@ export const getIconByType = (type: ThumbnailType): IconDefinition => {
     case ThumbnailType.Artist:
       return faUsers;
     case ThumbnailType.Song:
-    case ThumbnailType.Genre:
+    case ThumbnailType.MusicGenre:
       return faMusic;
     case ThumbnailType.Movie:
     case ThumbnailType.MovieSet:
+    case ThumbnailType.MovieGenre:
       return faFilm;
     case ThumbnailType.TVShow:
     case ThumbnailType.Season:

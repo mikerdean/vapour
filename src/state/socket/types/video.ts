@@ -1,4 +1,5 @@
 import { MediaArtwork, MediaDetailsBase, Properties } from "./base";
+import { LibraryDetailsGenre } from "./library";
 import {
   KodiMessageFilter,
   KodiMessageLimits,
@@ -117,4 +118,15 @@ export type GetMovieSetsQuery = Properties<VideoDetailsMovieSet> & {
 export type GetMovieSets = {
   limits: KodiMessageLimitsReturned;
   sets: VideoDetailsMovieSet[];
+};
+
+export type GetVideoGenresQuery = Properties<LibraryDetailsGenre> & {
+  limits?: KodiMessageLimits;
+  sort: KodiMessageSort;
+  type: "movie" | "tvshow" | "musicvideo";
+};
+
+export type VideoGenresPaged = {
+  genres: LibraryDetailsGenre[];
+  limits: KodiMessageLimitsReturned;
 };
