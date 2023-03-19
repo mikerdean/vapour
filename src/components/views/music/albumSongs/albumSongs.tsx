@@ -1,7 +1,7 @@
 import { useGetSongsQuery } from "../../../../state/socket/commands";
 import useGridData from "../../../grid/useGridData";
 import SongList from "../songList";
-import { AlbumSongsComponent } from "./types";
+import type { AlbumSongsComponent } from "./types";
 
 const AlbumSongs: AlbumSongsComponent = (props) => {
   const [songData] = useGetSongsQuery(() => ({

@@ -3,7 +3,7 @@ import { ThumbnailType } from "../../../core/thumbnail/types";
 import Grid from "../../../grid";
 import GridCard from "../../../grid/gridCard";
 import useGridData from "../../../grid/useGridData";
-import { ArtistAlbumsComponent } from "./types";
+import type { ArtistAlbumsComponent } from "./types";
 
 const ArtistAlbums: ArtistAlbumsComponent = (props) => {
   const [albumData] = useGetAlbumsQuery(() => ({

@@ -2,13 +2,13 @@ import { Show, createMemo } from "solid-js";
 
 import useTypedParams from "../../../../routes/useTypedParams";
 import { useGetAlbumQuery } from "../../../../state/socket/commands";
-import { AudioDetailsAlbum } from "../../../../state/socket/types";
+import type { AudioDetailsAlbum } from "../../../../state/socket/types";
 import { albumValidator } from "../../../../validators";
 import Heading from "../../../core/heading";
 import Thumbnail from "../../../core/thumbnail";
 import { ThumbnailType } from "../../../core/thumbnail/types";
 import AlbumSongs from "../albumSongs";
-import { AlbumComponent } from "./types";
+import type { AlbumComponent } from "./types";
 
 const Album: AlbumComponent = () => {
   const params = useTypedParams(albumValidator);

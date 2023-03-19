@@ -6,7 +6,7 @@ import GridCard from "../../../grid/gridCard";
 import useGridData from "../../../grid/useGridData";
 import Pagination from "../../../pagination";
 import useSearchPagination from "../../../pagination/useSearchPagination";
-import { RecentMoviesComponent } from "./types";
+import type { RecentMoviesComponent } from "./types";
 
 const RecentMovies: RecentMoviesComponent = () => {
   const pageSize = 100;

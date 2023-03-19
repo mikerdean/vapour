@@ -3,7 +3,7 @@ import useGridData from "../../../grid/useGridData";
 import Pagination from "../../../pagination";
 import useSearchPagination from "../../../pagination/useSearchPagination";
 import SongList from "../songList";
-import { SongsComponent } from "./types";
+import type { SongsComponent } from "./types";
 
 const Songs: SongsComponent = () => {
   const pageSize = 100;

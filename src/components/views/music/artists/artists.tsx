@@ -5,7 +5,7 @@ import GridCard from "../../../grid/gridCard";
 import useGridData from "../../../grid/useGridData";
 import Pagination from "../../../pagination";
 import useSearchPagination from "../../../pagination/useSearchPagination";
-import { ArtistsComponent } from "./types";
+import type { ArtistsComponent } from "./types";
 
 const Artists: ArtistsComponent = () => {
   const pageSize = 100;

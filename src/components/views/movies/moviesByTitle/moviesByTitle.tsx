@@ -6,7 +6,7 @@ import GridCard from "../../../grid/gridCard";
 import useGridData from "../../../grid/useGridData";
 import Pagination from "../../../pagination";
 import useSearchPagination from "../../../pagination/useSearchPagination";
-import { MoviesByTitleComponent } from "./types";
+import type { MoviesByTitleComponent } from "./types";
 
 const MoviesByTitle: MoviesByTitleComponent = () => {
   const pageSize = 100;

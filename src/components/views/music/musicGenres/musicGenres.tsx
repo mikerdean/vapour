@@ -5,7 +5,7 @@ import GridCard from "../../../grid/gridCard";
 import useGridData from "../../../grid/useGridData";
 import Pagination from "../../../pagination";
 import useSearchPagination from "../../../pagination/useSearchPagination";
-import { MusicGenresComponent } from "./types";
+import type { MusicGenresComponent } from "./types";
 
 const MusicGenres: MusicGenresComponent = () => {
   const pageSize = 100;

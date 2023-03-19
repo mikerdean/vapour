@@ -3,7 +3,7 @@ import { For } from "solid-js";
 
 import { getSongDuration } from "../../../../utils/duration";
 import FontAwesomeIcon from "../../../images/fontAwesomeIcon";
-import { SongListComponent } from "./types";
+import type { SongListComponent } from "./types";
 
 const SongList: SongListComponent = (props) => {
   return (

@@ -5,3 +5,4 @@ export * from "./connection";
 export * from "./library";
 export * from "./message";
 export * from "./profiles";
+export * from "./video";

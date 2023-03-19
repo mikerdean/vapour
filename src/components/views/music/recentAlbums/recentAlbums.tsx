@@ -3,7 +3,7 @@ import { ThumbnailType } from "../../../core/thumbnail/types";
 import Grid from "../../../grid";
 import GridCard from "../../../grid/gridCard";
 import useGridData from "../../../grid/useGridData";
-import { RecentAlbumsComponent } from "./types";
+import type { RecentAlbumsComponent } from "./types";
 
 const RecentAlbums: RecentAlbumsComponent = () => {
   const [recentAlbums] = useGetRecentlyAddedAlbumsQuery();

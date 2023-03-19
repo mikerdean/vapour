@@ -1,4 +1,4 @@
-import { RemoteComponent } from "./types";
+import type { RemoteComponent } from "./types";
 
 const Remote: RemoteComponent = () => {
   return <div>Remote</div>;

@@ -1,18 +1,22 @@
+import {} from "../../../../state/socket/types";
+
 import { createMemo } from "solid-js";
 
 import {
   useGetMovieSetsQuery,
   useGetMoviesQuery,
 } from "../../../../state/socket/commands";
-import { KodiMessageFilterOfType } from "../../../../state/socket/types";
-import { GetMoviesQuery } from "../../../../state/socket/types/video";
+import type {
+  GetMoviesQuery,
+  KodiMessageFilterOfType,
+} from "../../../../state/socket/types";
 import { ThumbnailType } from "../../../core/thumbnail/types";
 import Grid from "../../../grid";
 import GridCard from "../../../grid/gridCard";
 import useGridData from "../../../grid/useGridData";
 import Pagination from "../../../pagination";
 import useSearchPagination from "../../../pagination/useSearchPagination";
-import { MovieSetsComponent } from "./types";
+import type { MovieSetsComponent } from "./types";
 
 const MovieSets: MovieSetsComponent = () => {
   const pageSize = 100;
