@@ -10,9 +10,9 @@ import GridCard from "../../../grid/gridCard";
 import useGridData from "../../../grid/useGridData";
 import Pagination from "../../../pagination";
 import useSearchPagination from "../../../pagination/useSearchPagination";
-import { GenreComponent } from "./types";
+import { MusicGenreComponent } from "./types";
 
-const Genre: GenreComponent = () => {
+const MusicGenre: MusicGenreComponent = () => {
   const pageSize = 100;
 
   const params = useTypedParams(genreValidator);
@@ -58,4 +58,4 @@ const Genre: GenreComponent = () => {
   );
 };
 
-export default Genre;
+export default MusicGenre;

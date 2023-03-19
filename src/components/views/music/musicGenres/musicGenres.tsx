@@ -5,9 +5,9 @@ import GridCard from "../../../grid/gridCard";
 import useGridData from "../../../grid/useGridData";
 import Pagination from "../../../pagination";
 import useSearchPagination from "../../../pagination/useSearchPagination";
-import { GenresComponent } from "./types";
+import { MusicGenresComponent } from "./types";
 
-const Genres: GenresComponent = () => {
+const MusicGenres: MusicGenresComponent = () => {
   const pageSize = 100;
   const [query, searchParams, setSearchParams] = useSearchPagination(pageSize);
   const [genreData] = useGetGenresQuery(query);
@@ -33,4 +33,4 @@ const Genres: GenresComponent = () => {
   );
 };
 
-export default Genres;
+export default MusicGenres;

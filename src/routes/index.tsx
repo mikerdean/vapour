@@ -10,8 +10,8 @@ import Album from "../components/views/music/album";
 import Albums from "../components/views/music/albums";
 import Artist from "../components/views/music/artist";
 import Artists from "../components/views/music/artists";
-import Genre from "../components/views/music/genre";
-import Genres from "../components/views/music/genres";
+import MusicGenre from "../components/views/music/musicGenre";
+import MusicGenres from "../components/views/music/musicGenres";
 import RecentAlbums from "../components/views/music/recentAlbums";
 import Songs from "../components/views/music/songs";
 import Remote from "../components/views/remote";
@@ -52,11 +52,11 @@ const routes: RouteDefinition[] = [
             path: "/albums/:albumId",
           },
           {
-            component: Genres,
+            component: MusicGenres,
             path: "/genres",
           },
           {
-            component: Genre,
+            component: MusicGenre,
             path: "/genres/:genre",
           },
           {
