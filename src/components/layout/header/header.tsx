@@ -11,7 +11,7 @@ import {
 } from "../../../state/socket/commands";
 import FontAwesomeIcon from "../../images/fontAwesomeIcon";
 import KodiLogo from "../../images/kodiLogo";
-import { HeaderComponent } from "./types";
+import type { HeaderComponent } from "./types";
 
 const Header: HeaderComponent = () => {
   const [currentProfileData] = useGetCurrentProfileQuery();

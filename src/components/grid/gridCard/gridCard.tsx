@@ -1,6 +1,6 @@
 import { For } from "solid-js";
 
-import { GridCardComponent } from "./types";
+import type { GridCardComponent } from "./types";
 
 const GridCard: GridCardComponent = (props) => {
   return (

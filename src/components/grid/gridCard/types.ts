@@ -1,4 +1,4 @@
-import { Component, JSX } from "solid-js";
+import type { Component, JSX } from "solid-js";
 
 export type GridCardComponent = Component<{
   title: JSX.Element;

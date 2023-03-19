@@ -2,7 +2,7 @@ import { Outlet } from "@solidjs/router";
 
 import Footer from "./footer";
 import Header from "./header";
-import { LayoutComponent } from "./types";
+import type { LayoutComponent } from "./types";
 
 const Layout: LayoutComponent = () => {
   return (

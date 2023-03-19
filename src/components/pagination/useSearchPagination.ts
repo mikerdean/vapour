@@ -1,7 +1,7 @@
 import { Accessor, createMemo } from "solid-js";
 
 import useTypedSearchParams from "../../routes/useTypedSearchParams";
-import { KodiMessageLimits } from "../../state/socket/types";
+import type { KodiMessageLimits } from "../../state/socket/types";
 import { pageValidator } from "../../validators";
 
 const useSearchPagination = (

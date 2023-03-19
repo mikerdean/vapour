@@ -1,7 +1,7 @@
 import { NavLink } from "@solidjs/router";
 
 import FontAwesomeIcon from "../../images/fontAwesomeIcon";
-import { FooterLinkComponent } from "./types";
+import type { FooterLinkComponent } from "./types";
 
 const FooterLink: FooterLinkComponent = (props) => {
   return (

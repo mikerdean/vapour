@@ -7,7 +7,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 
 import FooterLink from "../footerLink";
-import { FooterComponent } from "./types";
+import type { FooterComponent } from "./types";
 
 const Footer: FooterComponent = () => {
   return (

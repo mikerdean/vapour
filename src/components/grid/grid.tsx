@@ -5,7 +5,7 @@ import { For, JSX, createMemo } from "solid-js";
 import Thumbnail from "../core/thumbnail";
 import { ThumbnailType } from "../core/thumbnail/types";
 import FontAwesomeIcon from "../images/fontAwesomeIcon";
-import { GridItem, GridProps } from "./types";
+import type { GridItem, GridProps } from "./types";
 import { createUrl } from "./utils";
 
 const Grid = function <T extends GridItem>(props: GridProps<T>): JSX.Element {

@@ -1,7 +1,7 @@
 import { icon } from "@fortawesome/fontawesome-svg-core";
 import { createMemo } from "solid-js";
 
-import { FontAwesomeIconComponent } from "./types";
+import type { FontAwesomeIconComponent } from "./types";
 
 const FontAwesomeIcon: FontAwesomeIconComponent = (props) => {
   const parsedIcon = createMemo(() => icon(props.icon));

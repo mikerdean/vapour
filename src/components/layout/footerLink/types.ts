@@ -1,5 +1,5 @@
-import { IconDefinition } from "@fortawesome/fontawesome-common-types";
-import { Component } from "solid-js";
+import type { IconDefinition } from "@fortawesome/fontawesome-common-types";
+import type { Component } from "solid-js";
 
 export type FooterLinkComponent = Component<{
   end?: boolean;
