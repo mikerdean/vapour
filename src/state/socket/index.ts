@@ -7,7 +7,7 @@ import { ConnectionState, KodiRequest } from "./types";
 
 const defaultTimeout = 5000;
 
-export const createSocket = () => {
+const createSocket = () => {
   let socket: WebSocket | undefined;
 
   const [connectionState, setConnectionState] = createSignal<ConnectionState>(
