@@ -1,5 +1,5 @@
-import { FieldElement } from "@modular-forms/solid";
-import { Component, JSX } from "solid-js";
+import type { FieldElement } from "@modular-forms/solid";
+import type { Component, JSX } from "solid-js";
 
 export type InputComponent = Component<
   Omit<

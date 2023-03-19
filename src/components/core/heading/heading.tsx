@@ -1,6 +1,6 @@
 import { Dynamic } from "solid-js/web";
 
-import { HeadingComponent } from "./types";
+import type { HeadingComponent } from "./types";
 import { getHeadingClass } from "./utils";
 
 const Heading: HeadingComponent = (props) => {

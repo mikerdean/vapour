@@ -1,4 +1,4 @@
-import { ButtonTabItem, RouteTabItem, TabItem } from "./types";
+import type { ButtonTabItem, RouteTabItem, TabItem } from "./types";
 
 export const isButtonTabItem = (item: TabItem): item is ButtonTabItem =>
   "onClick" in item;

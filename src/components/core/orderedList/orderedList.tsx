@@ -1,6 +1,6 @@
 import { For, JSX } from "solid-js";
 
-import { UnorderedListProps } from "./types";
+import type { UnorderedListProps } from "./types";
 
 const OrderedList = function <T>(props: UnorderedListProps<T>): JSX.Element {
   return (

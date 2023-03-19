@@ -3,7 +3,7 @@ import { Match, Switch, createMemo } from "solid-js";
 import { useHost } from "../../../state/host";
 import FontAwesomeIcon from "../../images/fontAwesomeIcon";
 import ThumbnailPlayed from "./thumbnailPlayed";
-import { ThumbnailComponent } from "./types";
+import type { ThumbnailComponent } from "./types";
 import { getIconByType } from "./utils";
 
 const Thumbnail: ThumbnailComponent = (props) => {

@@ -1,4 +1,4 @@
-import { HeadingLevel } from "./types";
+import type { HeadingLevel } from "./types";
 
 const headingClasses: Record<HeadingLevel, string> = {
   [1]: "text-xl border-b-2 border-slate-600 text-fuchsia-500 mb-4",

@@ -1,4 +1,4 @@
-import { FlowProps, JSX } from "solid-js";
+import type { FlowProps, JSX } from "solid-js";
 
 export type OrderedListProps<T> = FlowProps<
   { each: T[] },

@@ -3,7 +3,7 @@ import { mergeProps } from "solid-js";
 
 import FontAwesomeIcon from "../../images/fontAwesomeIcon";
 import FullscreenMessage from "../fullscreenMessage";
-import { LoadingComponent } from "./types";
+import type { LoadingComponent } from "./types";
 import { defaultProps } from "./utils";
 
 const LoadingFullscreen: LoadingComponent = (props) => {

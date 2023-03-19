@@ -1,4 +1,4 @@
-import { LoadingProps } from "./types";
+import type { LoadingProps } from "./types";
 
 export const defaultProps: Partial<LoadingProps> = {
   text: <span>Loading...</span>,

@@ -1,6 +1,6 @@
 import { For } from "solid-js";
 
-import { DefinitionListComponent } from "./types";
+import type { DefinitionListComponent } from "./types";
 
 const DefinitionList: DefinitionListComponent = (props) => {
   return (

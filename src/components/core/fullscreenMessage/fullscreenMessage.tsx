@@ -1,4 +1,4 @@
-import { FullscreenMessageComponent } from "./types";
+import type { FullscreenMessageComponent } from "./types";
 
 const FullscreenMessage: FullscreenMessageComponent = (props) => {
   return (

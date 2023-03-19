@@ -1,6 +1,6 @@
 import { mergeProps } from "solid-js";
 
-import { ButtonComponent } from "./types";
+import type { ButtonComponent } from "./types";
 
 const defaultProps: Partial<ButtonComponent> = {
   type: "button",

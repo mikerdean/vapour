@@ -2,7 +2,7 @@ import { NavLink } from "@solidjs/router";
 import { For, Show } from "solid-js";
 
 import { isButtonTabItem, isRouteTabItem } from "./typeguards";
-import { TabsComponent } from "./types";
+import type { TabsComponent } from "./types";
 
 const Tabs: TabsComponent = (props) => {
   return (

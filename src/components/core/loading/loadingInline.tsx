@@ -2,7 +2,7 @@ import { faCircleNotch } from "@fortawesome/free-solid-svg-icons";
 import { mergeProps } from "solid-js";
 
 import FontAwesomeIcon from "../../images/fontAwesomeIcon";
-import { LoadingComponent } from "./types";
+import type { LoadingComponent } from "./types";
 import { defaultProps } from "./utils";
 
 const LoadingInline: LoadingComponent = (props) => {

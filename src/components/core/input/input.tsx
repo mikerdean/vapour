@@ -1,6 +1,6 @@
 import { Show, createUniqueId } from "solid-js";
 
-import { InputComponent } from "./types";
+import type { InputComponent } from "./types";
 
 const Input: InputComponent = (props) => {
   const id = createUniqueId();

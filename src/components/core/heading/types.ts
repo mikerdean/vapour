@@ -1,4 +1,4 @@
-import { ParentComponent } from "solid-js";
+import type { ParentComponent } from "solid-js";
 
 export type HeadingLevel = 1 | 2 | 3 | 4 | 5 | 6;
 
