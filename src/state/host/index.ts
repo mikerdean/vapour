@@ -1,6 +1,6 @@
 import { createMemo, createRoot, createSignal } from "solid-js";
 
-import { Host } from "./types";
+import type { Host } from "./types";
 
 export const createHost = () => {
   const [host, setHost] = createSignal<Host | undefined>({

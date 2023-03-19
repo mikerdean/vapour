@@ -1,5 +1,5 @@
-import { ItemDetailsBase, Properties } from "./base";
-import { KodiMessageLimitsReturned } from "./message";
+import type { ItemDetailsBase, Properties } from "./base";
+import type { KodiMessageLimitsReturned } from "./message";
 
 export type ProfileDetails = ItemDetailsBase & {
   lockmode?: number;

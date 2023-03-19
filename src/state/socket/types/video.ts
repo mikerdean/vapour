@@ -1,6 +1,6 @@
-import { MediaArtwork, MediaDetailsBase, Properties } from "./base";
-import { LibraryDetailsGenre } from "./library";
-import {
+import type { MediaArtwork, MediaDetailsBase, Properties } from "./base";
+import type { LibraryDetailsGenre } from "./library";
+import type {
   KodiMessageFilter,
   KodiMessageLimits,
   KodiMessageLimitsReturned,

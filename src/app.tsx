@@ -1,7 +1,7 @@
 import "./index.css";
 
 import { useRoutes } from "@solidjs/router";
-import { Component } from "solid-js";
+import type { Component } from "solid-js";
 
 import Host from "./components/root/host";
 import Socket from "./components/root/socket";

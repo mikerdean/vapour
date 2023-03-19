@@ -1,4 +1,4 @@
-import { Properties } from "./base";
+import type { Properties } from "./base";
 
 export type ApplicationProperties = {
   language?: string;

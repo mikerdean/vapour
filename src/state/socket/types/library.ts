@@ -1,4 +1,4 @@
-import { ItemDetailsBase } from "./base";
+import type { ItemDetailsBase } from "./base";
 
 export type LibraryDetailsGenre = ItemDetailsBase & {
   genreid: number;
