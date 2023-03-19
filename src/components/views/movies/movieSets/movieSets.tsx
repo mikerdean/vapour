@@ -1,5 +1,3 @@
-import {} from "../../../../state/socket/types";
-
 import { createMemo } from "solid-js";
 
 import {
@@ -71,10 +69,8 @@ const MovieSets: MovieSetsComponent = () => {
     })
   );
 
-  const getMovieSetTitle = (
-    sets: Record<string, number>,
-    title: string | undefined
-  ): string | undefined => {
+  const getMovieSetTitle = (title: string | undefined): string | undefined => {
+    const sets = moviesInSets();
     if (!title) {
       return undefined;
     }
@@ -101,10 +97,7 @@ const MovieSets: MovieSetsComponent = () => {
       />
       <Grid each={movieSets()} thumbnailType={ThumbnailType.MovieSet}>
         {(set) => (
-          <GridCard
-            title={set.title}
-            items={[getMovieSetTitle(moviesInSets(), set.title)]}
-          />
+          <GridCard title={set.title} items={[getMovieSetTitle(set.title)]} />
         )}
       </Grid>
     </>
