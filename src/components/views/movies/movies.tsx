@@ -9,10 +9,7 @@ const Movies: MoviesComponent = () => {
     { label: "Recent", path: "/movies" },
     { label: "Titles", path: "/movies/titles" },
     { label: "Sets", path: "/movies/sets" },
-    { label: "Years", path: "/movies/years" },
     { label: "Genres", path: "/movies/genres" },
-    { label: "Directors", path: "/movies/directors" },
-    { label: "Actors", path: "/movies/actors" },
   ];
 
   return (
