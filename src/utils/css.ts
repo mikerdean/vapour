@@ -1,6 +1,6 @@
-export const css = (
-  ...args: (string | string[] | undefined | null)[]
-): string => {
+type CssArgument = string | undefined | null;
+
+export const css = (...args: (CssArgument | CssArgument[])[]): string => {
   return args
     .flat()
     .filter((arg) => arg)
