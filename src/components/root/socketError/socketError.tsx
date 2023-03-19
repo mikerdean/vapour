@@ -5,7 +5,7 @@ import FullscreenMessage from "../../core/fullscreenMessage";
 import Heading from "../../core/heading";
 import OrderedList from "../../core/orderedList";
 import HostSummary from "../hostSummary";
-import { SocketErrorComponent } from "./types";
+import type { SocketErrorComponent } from "./types";
 
 const SocketError: SocketErrorComponent = () => {
   const { host, setHost } = useHost();

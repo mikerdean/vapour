@@ -3,7 +3,7 @@ import { Show } from "solid-js";
 import { useHost } from "../../../state/host";
 import FullscreenMessage from "../../core/fullscreenMessage";
 import HostForm from "../hostForm";
-import { HostComponent } from "./types";
+import type { HostComponent } from "./types";
 
 const Host: HostComponent = (props) => {
   const { host } = useHost();

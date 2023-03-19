@@ -6,7 +6,7 @@ import { Host } from "../../../state/host/types";
 import Button from "../../core/button";
 import Heading from "../../core/heading";
 import Input from "../../core/input";
-import { HostFormComponent } from "./types";
+import type { HostFormComponent } from "./types";
 
 const schema = z.object({
   hostname: z.string().min(1),

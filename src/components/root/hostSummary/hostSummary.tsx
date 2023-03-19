@@ -1,5 +1,5 @@
 import DefinitionList from "../../core/definitionList";
-import { HostSummaryComponent } from "./types";
+import type { HostSummaryComponent } from "./types";
 
 const HostSummary: HostSummaryComponent = (props) => {
   return (

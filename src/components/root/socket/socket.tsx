@@ -4,7 +4,7 @@ import { useSocket } from "../../../state/socket";
 import { ConnectionState } from "../../../state/socket/types";
 import { LoadingFullscreen } from "../../core/loading";
 import SocketError from "../socketError";
-import { SocketComponent } from "./types";
+import type { SocketComponent } from "./types";
 
 const Socket: SocketComponent = (props) => {
   const { connect, connectionState, disconnect } = useSocket();
