@@ -19,6 +19,7 @@ const Pagination: PaginationComponent = (props) => {
     "border-t",
     "border-b",
     "border-sky-900",
+    "text-slate-300",
   ];
 
   const totalPages = createMemo(() => Math.ceil(props.total / props.pageSize));
@@ -44,8 +45,6 @@ const Pagination: PaginationComponent = (props) => {
                 defaultButtonClasses,
                 "bg-slate-800",
                 "border-l",
-                "text-fuchsia-500",
-                "disabled:text-slate-500",
                 "rounded-l"
               )}
               disabled={props.currentPage <= 1}
@@ -58,12 +57,7 @@ const Pagination: PaginationComponent = (props) => {
           <li>
             <button
               aria-label={`Go back to previous page (${props.currentPage - 1})`}
-              class={css(
-                defaultButtonClasses,
-                "bg-slate-800",
-                "text-fuchsia-500",
-                "disabled:text-slate-500"
-              )}
+              class={css(defaultButtonClasses, "bg-slate-800")}
               disabled={props.currentPage <= 1}
               onClick={() => props.onPageSelected(props.currentPage - 1)}
               type="button"
@@ -78,8 +72,8 @@ const Pagination: PaginationComponent = (props) => {
                   aria-label={`Change to page ${page}`}
                   class={css(defaultButtonClasses)}
                   classList={{
-                    "bg-fuchsia-500 text-slate-100": props.currentPage === page,
-                    "bg-slate-800 text-slate-500": props.currentPage !== page,
+                    "bg-fuchsia-600 text-slate-50": props.currentPage === page,
+                    "bg-slate-800": props.currentPage !== page,
                   }}
                   onClick={() => props.onPageSelected(page)}
                   type="button"
@@ -92,12 +86,7 @@ const Pagination: PaginationComponent = (props) => {
           <li>
             <button
               aria-label={`Go to the next page (${props.currentPage + 1})`}
-              class={css(
-                defaultButtonClasses,
-                "bg-slate-800",
-                "text-fuchsia-500",
-                "disabled:text-slate-500"
-              )}
+              class={css(defaultButtonClasses, "bg-slate-800")}
               disabled={props.currentPage + 1 > totalPages()}
               onClick={() => props.onPageSelected(props.currentPage + 1)}
               type="button"
@@ -112,8 +101,6 @@ const Pagination: PaginationComponent = (props) => {
                 defaultButtonClasses,
                 "bg-slate-800",
                 "border-r",
-                "text-fuchsia-500",
-                "disabled:text-slate-500",
                 "rounded-r"
               )}
               disabled={props.currentPage + 1 > totalPages()}

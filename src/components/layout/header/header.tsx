@@ -29,7 +29,7 @@ const Header: HeaderComponent = () => {
   });
 
   return (
-    <header class="sticky top-0 w-full bg-fuchsia-500 text-slate-100 z-10">
+    <header class="sticky top-0 w-full bg-fuchsia-600 text-slate-50 z-10">
       <div class="flex py-2 px-3 items-center">
         <KodiLogo />
         <h1 class="grow ml-2 text-lg">

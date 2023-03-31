@@ -7,7 +7,7 @@ const GridCard: GridCardComponent = (props) => {
     <>
       <div>{props.title}</div>
       <For each={props.items}>
-        {(item) => <div class="text-xs text-slate-500 mt-1">{item}</div>}
+        {(item) => <div class="text-xs text-slate-400 mt-1">{item}</div>}
       </For>
     </>
   );
