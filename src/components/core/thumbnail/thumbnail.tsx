@@ -37,10 +37,10 @@ const Thumbnail: ThumbnailComponent = (props) => {
         </>
       }
     >
-      <figure class="relative">
+      <div class="relative">
         <img src={imageUrl()} alt={props.alt} class="w-full h-auto" />
         {props.played && <ThumbnailPlayed />}
-      </figure>
+      </div>
     </Show>
   );
 };
