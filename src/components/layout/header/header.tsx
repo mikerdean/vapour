@@ -41,12 +41,10 @@ const Header: HeaderComponent = () => {
             <span class="sr-only">Search</span>
           </button>
           <Show when={allowProfileChange()}>
-            {() => (
-              <button class="mr-6" title="Change profile">
-                <FontAwesomeIcon icon={faCircleUser} />
-                <span class="sr-only">Change profile</span>
-              </button>
-            )}
+            <button class="mr-6" title="Change profile">
+              <FontAwesomeIcon icon={faCircleUser} />
+              <span class="sr-only">Change profile</span>
+            </button>
           </Show>
           <button title="Edit settings">
             <FontAwesomeIcon icon={faEllipsisVertical} />
