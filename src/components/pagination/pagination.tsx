@@ -36,7 +36,7 @@ const Pagination: PaginationComponent = (props) => {
   return (
     <Show when={totalPages() > 1}>
       <nav class="mb-3 sticky top-24 z-10">
-        <ol class="flex justify-center">
+        <ol class="flex justify-center" aria-label="Pagination">
           <li>
             <button
               aria-label={"Go back to first page (1)"}
