@@ -29,6 +29,7 @@ const SongList: SongListComponent = (props) => {
               </button>
               <button class="pl-3">
                 <FontAwesomeIcon icon={faEllipsisVertical} />
+                <span class="sr-only">Options for {song.label}</span>
               </button>
             </div>
           </li>
