@@ -32,7 +32,11 @@ const Artist: ArtistComponent = () => {
         <div>
           <Heading level={1}>{artist.label}</Heading>
           {artist.thumbnail && (
-            <Thumbnail type={ThumbnailType.Artist} uri={artist.thumbnail} />
+            <Thumbnail
+              type={ThumbnailType.Artist}
+              uri={artist.thumbnail}
+              alt=""
+            />
           )}
           {artist.description && <p>{artist.description}</p>}
           <Heading level={2}>Albums</Heading>

@@ -37,7 +37,7 @@ const Grid = function <T extends GridItem>(props: GridProps<T>): JSX.Element {
                 class="flex items-center h-full"
               >
                 <Thumbnail
-                  alt={`Thumbnail for ${item.label}`}
+                  alt={""}
                   played={item.played}
                   type={props.thumbnailType}
                   uri={item.thumbnail}

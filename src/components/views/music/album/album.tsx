@@ -36,7 +36,11 @@ const Album: AlbumComponent = () => {
           </Heading>
           {album.thumbnail && (
             <div class="mb-3">
-              <Thumbnail type={ThumbnailType.Album} uri={album.thumbnail} />
+              <Thumbnail
+                type={ThumbnailType.Album}
+                uri={album.thumbnail}
+                alt=""
+              />
             </div>
           )}
           {album.description && <p class="mb-3">{album.description}</p>}
