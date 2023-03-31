@@ -36,17 +36,17 @@ const Header: HeaderComponent = () => {
           <span>Kodi</span>
         </h1>
         <div>
-          <button class="mr-6" title="Search">
+          <button class="mr-6">
             <FontAwesomeIcon icon={faSearch} />
             <span class="sr-only">Search</span>
           </button>
           <Show when={allowProfileChange()}>
-            <button class="mr-6" title="Change profile">
+            <button class="mr-6">
               <FontAwesomeIcon icon={faCircleUser} />
               <span class="sr-only">Change profile</span>
             </button>
           </Show>
-          <button title="Edit settings">
+          <button>
             <FontAwesomeIcon icon={faEllipsisVertical} />
             <span class="sr-only">Edit settings</span>
           </button>
