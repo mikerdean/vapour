@@ -1,13 +1,26 @@
-import { Show, createMemo } from "solid-js";
+import { Show, createMemo, createSignal, onCleanup, onMount } from "solid-js";
 
 import { useHost } from "../../../state/host";
+import { useIntersectionObserver } from "../../context/intersectionObserver";
 import FontAwesomeIcon from "../../images/fontAwesomeIcon";
 import ThumbnailPlayed from "./thumbnailPlayed";
 import type { ThumbnailComponent } from "./types";
 import { getIconByType } from "./utils";
 
 const Thumbnail: ThumbnailComponent = (props) => {
+  let el: HTMLDivElement | undefined;
+
   const { httpUrl } = useHost();
+  const { add, remove } = useIntersectionObserver();
+  const [isVisible, setIsVisible] = createSignal(false, {
+    equals(prev, next) {
+      if (prev) {
+        return true;
+      }
+
+      return next === prev;
+    },
+  });
 
   const imageUrl = createMemo<string | undefined>(() => {
     const baseUrl = httpUrl();
@@ -18,6 +31,24 @@ const Thumbnail: ThumbnailComponent = (props) => {
     const encoded = encodeURIComponent(props.uri);
     const url = new URL(`image/${encoded}`, baseUrl);
     return url.toString();
+  });
+
+  onMount(() => {
+    if (!el) {
+      return;
+    }
+
+    add(el, (entry) => {
+      setIsVisible(entry.isIntersecting);
+    });
+  });
+
+  onCleanup(() => {
+    if (!el) {
+      return;
+    }
+
+    remove(el);
   });
 
   return (
@@ -37,8 +68,12 @@ const Thumbnail: ThumbnailComponent = (props) => {
         </>
       }
     >
-      <div class="relative">
-        <img src={imageUrl()} alt={props.alt} class="w-full h-auto" />
+      <div ref={el} class="relative">
+        <img
+          src={isVisible() ? imageUrl() : undefined}
+          alt={props.alt}
+          class="w-full h-auto"
+        />
         {props.played && <ThumbnailPlayed />}
       </div>
     </Show>
