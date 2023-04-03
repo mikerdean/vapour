@@ -1,4 +1,4 @@
-import { createContext, onCleanup, useContext } from "solid-js";
+import { createContext, createEffect, onCleanup, useContext } from "solid-js";
 
 import type {
   IntersectionEntryCallback,
@@ -29,7 +29,15 @@ const IntersectionObserverProvider: IntersectionObserverProviderComponent = (
     }
   };
 
-  const observer = new IntersectionObserver(observerCallback);
+  let observer: IntersectionObserver;
+
+  createEffect(() => {
+    if (observer) {
+      observer.disconnect();
+    }
+
+    observer = new IntersectionObserver(observerCallback, props);
+  });
 
   const add = (element: Element, callback: IntersectionEntryCallback): void => {
     observer.observe(element);

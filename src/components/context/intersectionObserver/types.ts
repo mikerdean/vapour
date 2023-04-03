@@ -1,6 +1,8 @@
 import { ParentComponent } from "solid-js";
 
-export type IntersectionObserverProviderComponent = ParentComponent;
+export type IntersectionObserverProviderComponent = ParentComponent<
+  Partial<IntersectionObserverInit>
+>;
 
 export type IntersectionEntryCallback = (
   entry: IntersectionObserverEntry
