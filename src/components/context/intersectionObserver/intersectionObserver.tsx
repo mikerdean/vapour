@@ -32,11 +32,11 @@ const IntersectionObserverProvider: IntersectionObserverProviderComponent = (
   let observer: IntersectionObserver;
 
   createEffect(() => {
-    if (observer) {
-      observer.disconnect();
-    }
-
     observer = new IntersectionObserver(observerCallback, props);
+
+    onCleanup(() => {
+      observer.disconnect();
+    });
   });
 
   const add = (element: Element, callback: IntersectionEntryCallback): void => {
@@ -48,10 +48,6 @@ const IntersectionObserverProvider: IntersectionObserverProviderComponent = (
     observer.unobserve(element);
     elementMap.delete(element);
   };
-
-  onCleanup(() => {
-    observer.disconnect();
-  });
 
   return (
     <IntersectionObserverContext.Provider value={{ add, remove }}>
