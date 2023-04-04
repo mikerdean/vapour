@@ -4,7 +4,7 @@
 
 ## Installation
 
-1. Download the addon from the [releases tab](https://github.com/mikerdean/vapour).
+1. [Download the `vapour` addon from the releases tab](https://github.com/mikerdean/vapour/releases).
 2. Enable `Settings > Addons > Unknown resources` in Kodi
 3. Use `Addons > Install from zip` option within Kodi and select the downloaded zip file
 
@@ -22,7 +22,7 @@ To use this addon you will need to enable the following options in Kodi:
 
 You can change the default ports and host names if Kodi fails to connect to the defaults.
 
-# Development
+## Development
 
 This project is developed using:
 
