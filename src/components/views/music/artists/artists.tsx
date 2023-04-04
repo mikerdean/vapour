@@ -22,7 +22,10 @@ const Artists: ArtistsComponent = () => {
     <>
       <Pagination
         currentPage={searchParams().page}
-        onPageSelected={(page) => setSearchParams({ page })}
+        onPageSelected={(page) => {
+          window.scrollTo({ top: 0 });
+          setSearchParams({ page });
+        }}
         pageSize={pageSize}
         total={total()}
       />
