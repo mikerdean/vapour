@@ -69,6 +69,7 @@ const Pagination: PaginationComponent = (props) => {
             {(page) => (
               <li>
                 <button
+                  aria-current={props.currentPage === page ? "page" : undefined}
                   aria-label={`Change to page ${page}`}
                   class={css(defaultButtonClasses)}
                   classList={{
