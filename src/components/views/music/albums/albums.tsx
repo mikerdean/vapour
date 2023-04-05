@@ -23,8 +23,8 @@ const Albums: AlbumsComponent = () => {
       <Pagination
         currentPage={searchParams().page}
         onPageSelected={(page) => {
-          window.scrollTo({ top: 0 });
           setSearchParams({ page });
+          window.scrollTo({ top: 0 });
         }}
         pageSize={pageSize}
         total={total()}
