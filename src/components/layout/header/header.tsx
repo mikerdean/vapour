@@ -32,9 +32,9 @@ const Header: HeaderComponent = () => {
     <header class="sticky top-0 w-full bg-fuchsia-600 text-slate-50 z-10">
       <div class="flex py-2 px-3 items-center">
         <KodiLogo />
-        <h1 class="grow ml-2 text-lg">
+        <p class="grow ml-2 text-lg">
           <span>Kodi</span>
-        </h1>
+        </p>
         <div>
           <button class="mr-6">
             <FontAwesomeIcon icon={faSearch} />
