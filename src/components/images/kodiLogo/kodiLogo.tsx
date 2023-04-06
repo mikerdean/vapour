@@ -5,6 +5,7 @@ const KodiLogo: Component = () => (
     aria-hidden={true}
     enable-background="new 0 0 145 135"
     height="24"
+    role="img"
     viewBox="0 0 115 115"
     width="24"
     xmlns="http://www.w3.org/2000/svg"
