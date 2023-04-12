@@ -28,6 +28,7 @@ export const useGetAlbumQuery = createQueryHook<GetAlbumQuery, GetAlbum>(
   {
     albumid: 0,
     properties: [
+      "albumduration",
       "artist",
       "description",
       "genre",
