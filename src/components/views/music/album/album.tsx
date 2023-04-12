@@ -36,7 +36,7 @@ const Album: AlbumComponent = () => {
             {album.title}
             {album.year && ` (${album.year})`}
           </Heading>
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-3">
+          <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 mb-3">
             {album.thumbnail && (
               <div>
                 <Thumbnail
