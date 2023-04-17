@@ -12,6 +12,10 @@ export const genreValidator = z
   .object({ genre: z.string().min(1) })
   .default({ genre: "" });
 
+export const movieValidator = z
+  .object({ movieId: z.coerce.number().int().gte(1) })
+  .default({ movieId: 0 });
+
 export const pageValidator = z
   .object({ page: z.coerce.number().int().gte(1) })
   .default({ page: 1 });

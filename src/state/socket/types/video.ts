@@ -104,6 +104,14 @@ export type GetMoviesQuery = Properties<VideoDetailsMovie> & {
   sort?: KodiMessageSort;
 };
 
+export type GetMovieQuery = Properties<VideoDetailsMovie> & {
+  movieid: number;
+};
+
+export type GetMovie = {
+  moviedetails: VideoDetailsMovie;
+};
+
 export type GetMovies = {
   limits: KodiMessageLimitsReturned;
   movies: VideoDetailsMovie[];

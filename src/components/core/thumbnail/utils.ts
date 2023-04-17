@@ -4,6 +4,7 @@ import {
   faFilm,
   faMusic,
   faTv,
+  faUser,
   faUsers,
 } from "@fortawesome/free-solid-svg-icons";
 
@@ -13,6 +14,8 @@ export const getIconByType = (type: ThumbnailType): IconDefinition => {
   switch (type) {
     case ThumbnailType.Album:
       return faCompactDisc;
+    case ThumbnailType.Actor:
+      return faUser;
     case ThumbnailType.Artist:
       return faUsers;
     case ThumbnailType.Song:

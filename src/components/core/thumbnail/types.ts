@@ -1,6 +1,7 @@
 import type { Component } from "solid-js";
 
 export enum ThumbnailType {
+  Actor,
   Artist,
   Album,
   Song,
