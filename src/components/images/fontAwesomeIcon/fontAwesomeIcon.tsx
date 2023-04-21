@@ -6,7 +6,7 @@ import type { FontAwesomeIconComponent } from "./types";
 const FontAwesomeIcon: FontAwesomeIconComponent = (props) => {
   const parsedIcon = createMemo(() => icon(props.icon));
 
-  const classes = createMemo((): string => {
+  const classes = createMemo(() => {
     const output = ["svg-inline--fa"];
 
     if (props.class) {
