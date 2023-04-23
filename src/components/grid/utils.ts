@@ -2,6 +2,8 @@ import { ThumbnailType } from "../core/thumbnail/types";
 
 export const createUrl = (type: ThumbnailType, id: string | number): string => {
   switch (type) {
+    case ThumbnailType.Actor:
+      return `movies/actors/${id}`;
     case ThumbnailType.Album:
       return `/music/albums/${id}`;
     case ThumbnailType.Artist:

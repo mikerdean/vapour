@@ -1,4 +1,4 @@
-import { Field, Form, createForm, zodForm } from "@modular-forms/solid";
+import { createForm, zodForm } from "@modular-forms/solid";
 import { z } from "zod";
 
 import { useHost } from "../../../state/host";
@@ -16,20 +16,20 @@ const schema = z.object({
 
 const HostForm: HostFormComponent = () => {
   const { setHost } = useHost();
-  const hostForm = createForm<Host>({ validate: zodForm(schema) });
+  const [, { Field, Form }] = createForm<Host>({ validate: zodForm(schema) });
 
   const onSubmit = (newHost: Host) => {
     setHost(newHost);
   };
 
   return (
-    <Form of={hostForm} onSubmit={onSubmit}>
+    <Form onSubmit={onSubmit}>
       <Heading level={1}>Enter host details</Heading>
-      <Field of={hostForm} name="hostname">
-        {(field) => (
+      <Field name="hostname">
+        {(field, props) => (
           <div class="mb-3">
             <Input
-              {...field.props}
+              {...props}
               error={field.error}
               label="Hostname"
               type="text"
@@ -37,11 +37,11 @@ const HostForm: HostFormComponent = () => {
           </div>
         )}
       </Field>
-      <Field of={hostForm} name="httpPort">
-        {(field) => (
+      <Field name="httpPort" type="number">
+        {(field, props) => (
           <div class="mb-3">
             <Input
-              {...field.props}
+              {...props}
               error={field.error}
               label="HTTP port"
               min={1000}
@@ -51,11 +51,11 @@ const HostForm: HostFormComponent = () => {
           </div>
         )}
       </Field>
-      <Field of={hostForm} name="tcpPort">
-        {(field) => (
+      <Field name="tcpPort" type="number">
+        {(field, props) => (
           <div class="mb-5">
             <Input
-              {...field.props}
+              {...props}
               error={field.error}
               label="TCP port"
               min={1000}
