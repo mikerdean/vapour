@@ -1,7 +1,7 @@
 import { Show, createMemo, createSignal, onCleanup, onMount } from "solid-js";
 
 import { useHost } from "../../context/hostProvider";
-import { useIntersectionObserver } from "../../context/intersectionObserver";
+import { useIntersectionObserver } from "../../context/intersectionObserverProvider";
 import FontAwesomeIcon from "../../images/fontAwesomeIcon";
 import ThumbnailPlayed from "./thumbnailPlayed";
 import type { ThumbnailComponent } from "./types";

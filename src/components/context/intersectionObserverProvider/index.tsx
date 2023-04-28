@@ -1,6 +1,6 @@
 import IntersectionObserverProvider, {
   useIntersectionObserver,
-} from "./intersectionObserver";
+} from "./intersectionObserverProvider";
 
 export default IntersectionObserverProvider;
 export { useIntersectionObserver };
