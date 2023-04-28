@@ -4,8 +4,8 @@ import { useRoutes } from "@solidjs/router";
 import type { Component } from "solid-js";
 
 import IntersectionObserverProvider from "./components/context/intersectionObserver";
+import Connection from "./components/root/connection";
 import Host from "./components/root/host";
-import Socket from "./components/root/socket";
 import routes from "./routes";
 
 const App: Component = () => {
@@ -14,9 +14,9 @@ const App: Component = () => {
   return (
     <IntersectionObserverProvider>
       <Host>
-        <Socket>
+        <Connection>
           <Routes />
-        </Socket>
+        </Connection>
       </Host>
     </IntersectionObserverProvider>
   );

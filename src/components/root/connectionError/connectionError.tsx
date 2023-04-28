@@ -5,9 +5,9 @@ import FullscreenMessage from "../../core/fullscreenMessage";
 import Heading from "../../core/heading";
 import OrderedList from "../../core/orderedList";
 import HostSummary from "../hostSummary";
-import type { SocketErrorComponent } from "./types";
+import type { ConnectionErrorComponent } from "./types";
 
-const SocketError: SocketErrorComponent = () => {
+const ConnectionError: ConnectionErrorComponent = () => {
   const { host, setHost } = useHost();
   const { reconnect } = useSocket();
 
@@ -40,4 +40,4 @@ const SocketError: SocketErrorComponent = () => {
   );
 };
 
-export default SocketError;
+export default ConnectionError;

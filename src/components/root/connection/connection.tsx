@@ -3,10 +3,10 @@ import { Match, Switch, onCleanup, onMount } from "solid-js";
 import { useSocket } from "../../../state/socket";
 import { ConnectionState } from "../../../state/socket/types";
 import { LoadingFullscreen } from "../../core/loading";
-import SocketError from "../socketError";
-import type { SocketComponent } from "./types";
+import ConnectionError from "../connectionError";
+import type { ConnectionComponent } from "./types";
 
-const Socket: SocketComponent = (props) => {
+const Connection: ConnectionComponent = (props) => {
   const { connect, connectionState, disconnect } = useSocket();
 
   onMount(() => {
@@ -18,7 +18,7 @@ const Socket: SocketComponent = (props) => {
   });
 
   return (
-    <Switch fallback={<SocketError />}>
+    <Switch fallback={<ConnectionError />}>
       <Match when={connectionState() === ConnectionState.Connected}>
         {props.children}
       </Match>
@@ -29,4 +29,4 @@ const Socket: SocketComponent = (props) => {
   );
 };
 
-export default Socket;
+export default Connection;
