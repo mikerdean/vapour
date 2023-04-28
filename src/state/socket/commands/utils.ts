@@ -1,7 +1,7 @@
 import { nanoid } from "nanoid";
 import { createResource } from "solid-js";
 
-import { useSocket } from "../../../components/context/socket/socket";
+import { useSocket } from "../../../components/context/socketProvider";
 import { KodiRequest } from "../types";
 import { QueryHook } from "./types";
 

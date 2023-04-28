@@ -1,5 +1,5 @@
 import { useHost } from "../../context/hostProvider";
-import { useSocket } from "../../context/socket/socket";
+import { useSocket } from "../../context/socketProvider";
 import Button from "../../core/button";
 import FullscreenMessage from "../../core/fullscreenMessage";
 import Heading from "../../core/heading";
