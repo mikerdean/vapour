@@ -1,18 +1,44 @@
-import { createRoot, createSignal } from "solid-js";
+import { createContext, useContext } from "solid-js";
+import { createStore } from "solid-js/store";
 
-import { useHost } from "../host";
-import { addToQueue, getFromQueue, removeFromQueue } from "./queue";
-import { isKodiError, isKodiResponse } from "./typeguards";
-import { ConnectionState, KodiRequest } from "./types";
+import { useHost } from "../../../state/host";
+import {
+  addToQueue,
+  getFromQueue,
+  removeFromQueue,
+} from "../../../state/socket/queue";
+import { isKodiError, isKodiResponse } from "../../../state/socket/typeguards";
+import type { KodiRequest } from "../../../state/socket/types";
+import type { SocketContext, SocketProviderComponent } from "./types";
+import { ConnectionState } from "./types";
 
-const defaultTimeout = 5000;
+const SocketContext = createContext<SocketContext>([
+  { connectionState: ConnectionState.Connecting },
+  {
+    connect() {
+      // do nothing
+    },
+    disconnect() {
+      // do nothing
+    },
+    reconnect() {
+      // do nothing
+    },
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    send<TRequest, TResponse>() {
+      return Promise.resolve({} as TResponse);
+    },
+  },
+]);
 
-const createSocket = () => {
+const timeout = 5000;
+
+const SocketProvider: SocketProviderComponent = (props) => {
   let socket: WebSocket | undefined;
 
-  const [connectionState, setConnectionState] = createSignal<ConnectionState>(
-    ConnectionState.Connecting
-  );
+  const [state, setState] = createStore({
+    connectionState: ConnectionState.Connecting,
+  });
 
   const connect = (): void => {
     const { websocketUrl } = useHost();
@@ -24,7 +50,7 @@ const createSocket = () => {
     socket = new WebSocket(url);
 
     socket.onopen = () => {
-      setConnectionState(ConnectionState.Connected);
+      setState("connectionState", ConnectionState.Connected);
     };
 
     socket.onmessage = (ev: MessageEvent<string>) => {
@@ -37,20 +63,20 @@ const createSocket = () => {
           }
         }
       } catch (err) {
-        console.log("Error from socket: ", err);
+        console.error("Error from socket: ", err);
       }
     };
 
     socket.onclose = () => {
       setTimeout(() => {
-        setConnectionState(ConnectionState.NotConnected);
+        setState("connectionState", ConnectionState.NotConnected);
         socket = undefined;
       }, 250);
     };
   };
 
   const reconnect = (): void => {
-    setConnectionState(ConnectionState.Connecting);
+    setState("connectionState", ConnectionState.Connecting);
     socket = undefined;
     connect();
   };
@@ -68,9 +94,9 @@ const createSocket = () => {
       const timer = setTimeout(() => {
         removeFromQueue(id);
         return reject(
-          Error(`Message ${id} exceeded the timeout value (${defaultTimeout})`)
+          Error(`Message ${id} exceeded the timeout value (${timeout})`)
         );
-      }, defaultTimeout);
+      }, timeout);
 
       addToQueue(id, (message) => {
         clearTimeout(timer);
@@ -102,15 +128,16 @@ const createSocket = () => {
     }
   };
 
-  return {
-    connectionState,
-    connect,
-    disconnect,
-    reconnect,
-    send,
-  };
+  return (
+    <SocketContext.Provider
+      value={[state, { connect, disconnect, reconnect, send }]}
+    >
+      {props.children}
+    </SocketContext.Provider>
+  );
 };
 
-const socketRoot = createRoot(createSocket);
+const useSocket = () => useContext(SocketContext);
 
-export const useSocket = () => socketRoot;
+export default SocketProvider;
+export { useSocket };

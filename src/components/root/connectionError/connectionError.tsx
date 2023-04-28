@@ -1,5 +1,5 @@
 import { useHost } from "../../../state/host";
-import { useSocket } from "../../../state/socket";
+import { useSocket } from "../../context/socket/socket";
 import Button from "../../core/button";
 import FullscreenMessage from "../../core/fullscreenMessage";
 import Heading from "../../core/heading";
@@ -9,7 +9,7 @@ import type { ConnectionErrorComponent } from "./types";
 
 const ConnectionError: ConnectionErrorComponent = () => {
   const { host, setHost } = useHost();
-  const { reconnect } = useSocket();
+  const [, { reconnect }] = useSocket();
 
   return (
     <FullscreenMessage>

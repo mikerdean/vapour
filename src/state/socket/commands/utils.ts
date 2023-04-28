@@ -1,16 +1,16 @@
 import { nanoid } from "nanoid";
 import { createResource } from "solid-js";
 
+import { useSocket } from "../../../components/context/socket/socket";
 import { KodiRequest } from "../types";
 import { QueryHook } from "./types";
-import { useSocket } from "..";
 
 export const createQueryHook = <TRequest, TResponse>(
   method: string,
   params: TRequest
 ): QueryHook<TRequest, TResponse> => {
   return (optionalParams) => {
-    const { send } = useSocket();
+    const [, { send }] = useSocket();
 
     const request = (): KodiRequest<TRequest> | null => {
       const newParams = optionalParams && optionalParams();
