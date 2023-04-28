@@ -12,7 +12,7 @@ import type { KodiRequest } from "../../../state/socket/types";
 import type { SocketContext, SocketProviderComponent } from "./types";
 import { ConnectionState } from "./types";
 
-const SocketContext = createContext<SocketContext>([
+const socketContext = createContext<SocketContext>([
   { connectionState: ConnectionState.Connecting },
   {
     connect() {
@@ -129,15 +129,15 @@ const SocketProvider: SocketProviderComponent = (props) => {
   };
 
   return (
-    <SocketContext.Provider
+    <socketContext.Provider
       value={[state, { connect, disconnect, reconnect, send }]}
     >
       {props.children}
-    </SocketContext.Provider>
+    </socketContext.Provider>
   );
 };
 
-const useSocket = () => useContext(SocketContext);
+const useSocket = () => useContext(socketContext);
 
 export default SocketProvider;
 export { useSocket };

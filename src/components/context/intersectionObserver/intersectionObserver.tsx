@@ -6,7 +6,7 @@ import type {
   IntersectionObserverProviderComponent,
 } from "./types";
 
-const IntersectionObserverContext = createContext<IntersectionObserverContext>({
+const intersectionObserverContext = createContext<IntersectionObserverContext>({
   add() {
     // do nothing,
   },
@@ -50,13 +50,13 @@ const IntersectionObserverProvider: IntersectionObserverProviderComponent = (
   };
 
   return (
-    <IntersectionObserverContext.Provider value={{ add, remove }}>
+    <intersectionObserverContext.Provider value={{ add, remove }}>
       {props.children}
-    </IntersectionObserverContext.Provider>
+    </intersectionObserverContext.Provider>
   );
 };
 
-const useIntersectionObserver = () => useContext(IntersectionObserverContext);
+const useIntersectionObserver = () => useContext(intersectionObserverContext);
 
 export default IntersectionObserverProvider;
 export { useIntersectionObserver };
