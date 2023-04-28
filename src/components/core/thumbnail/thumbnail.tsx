@@ -1,6 +1,6 @@
 import { Show, createMemo, createSignal, onCleanup, onMount } from "solid-js";
 
-import { useHost } from "../../../state/host";
+import { useHost } from "../../context/hostProvider";
 import { useIntersectionObserver } from "../../context/intersectionObserver";
 import FontAwesomeIcon from "../../images/fontAwesomeIcon";
 import ThumbnailPlayed from "./thumbnailPlayed";
@@ -10,7 +10,7 @@ import { getIconByType } from "./utils";
 const Thumbnail: ThumbnailComponent = (props) => {
   let el: HTMLDivElement | undefined;
 
-  const { httpUrl } = useHost();
+  const [host] = useHost();
   const { add, remove } = useIntersectionObserver();
   const [isVisible, setIsVisible] = createSignal(false, {
     equals(prev, next) {
@@ -23,7 +23,7 @@ const Thumbnail: ThumbnailComponent = (props) => {
   });
 
   const imageUrl = createMemo<string | undefined>(() => {
-    const baseUrl = httpUrl();
+    const baseUrl = host.httpUrl;
     if (!baseUrl || !props.uri) {
       return;
     }

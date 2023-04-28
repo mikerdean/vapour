@@ -3,6 +3,7 @@ import "./index.css";
 import { useRoutes } from "@solidjs/router";
 import type { Component } from "solid-js";
 
+import HostProvider from "./components/context/hostProvider";
 import IntersectionObserverProvider from "./components/context/intersectionObserver";
 import SocketProvider from "./components/context/socket";
 import Connection from "./components/root/connection";
@@ -14,13 +15,15 @@ const App: Component = () => {
 
   return (
     <IntersectionObserverProvider>
-      <Host>
-        <SocketProvider>
-          <Connection>
-            <Routes />
-          </Connection>
-        </SocketProvider>
-      </Host>
+      <HostProvider>
+        <Host>
+          <SocketProvider>
+            <Connection>
+              <Routes />
+            </Connection>
+          </SocketProvider>
+        </Host>
+      </HostProvider>
     </IntersectionObserverProvider>
   );
 };

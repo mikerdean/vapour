@@ -1,8 +1,8 @@
 import { createForm, zodForm } from "@modular-forms/solid";
 import { z } from "zod";
 
-import { useHost } from "../../../state/host";
-import { Host } from "../../../state/host/types";
+import { useHost } from "../../context/hostProvider";
+import { Host } from "../../context/hostProvider/types";
 import Button from "../../core/button";
 import Heading from "../../core/heading";
 import Input from "../../core/input";
@@ -15,11 +15,11 @@ const schema = z.object({
 });
 
 const HostForm: HostFormComponent = () => {
-  const { setHost } = useHost();
+  const [, { update }] = useHost();
   const [, { Field, Form }] = createForm<Host>({ validate: zodForm(schema) });
 
   const onSubmit = (newHost: Host) => {
-    setHost(newHost);
+    update(newHost);
   };
 
   return (

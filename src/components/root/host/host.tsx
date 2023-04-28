@@ -1,16 +1,16 @@
 import { Show } from "solid-js";
 
-import { useHost } from "../../../state/host";
+import { useHost } from "../../context/hostProvider";
 import FullscreenMessage from "../../core/fullscreenMessage";
 import HostForm from "../hostForm";
 import type { HostComponent } from "./types";
 
 const Host: HostComponent = (props) => {
-  const { host } = useHost();
+  const [state] = useHost();
 
   return (
     <Show
-      when={host()}
+      when={state.host}
       fallback={
         <FullscreenMessage>
           <HostForm />

@@ -1,4 +1,4 @@
-import { useHost } from "../../../state/host";
+import { useHost } from "../../context/hostProvider";
 import { useSocket } from "../../context/socket/socket";
 import Button from "../../core/button";
 import FullscreenMessage from "../../core/fullscreenMessage";
@@ -8,7 +8,7 @@ import HostSummary from "../hostSummary";
 import type { ConnectionErrorComponent } from "./types";
 
 const ConnectionError: ConnectionErrorComponent = () => {
-  const { host, setHost } = useHost();
+  const [hostState, { clear }] = useHost();
   const [, { reconnect }] = useSocket();
 
   return (
@@ -32,9 +32,9 @@ const ConnectionError: ConnectionErrorComponent = () => {
       </div>
       <hr class="mb-5" />
       <p class="mb-2">We tried to connect you to:</p>
-      <HostSummary host={host()} />
+      <HostSummary host={hostState.host} />
       <div class="my-5">
-        <Button onClick={() => setHost(undefined)}>Try a different host</Button>
+        <Button onClick={clear}>Try a different host</Button>
       </div>
     </FullscreenMessage>
   );

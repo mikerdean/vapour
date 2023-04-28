@@ -1,7 +1,6 @@
 import { createContext, useContext } from "solid-js";
 import { createStore } from "solid-js/store";
 
-import { useHost } from "../../../state/host";
 import {
   addToQueue,
   getFromQueue,
@@ -9,6 +8,7 @@ import {
 } from "../../../state/socket/queue";
 import { isKodiError, isKodiResponse } from "../../../state/socket/typeguards";
 import type { KodiRequest } from "../../../state/socket/types";
+import { useHost } from "../hostProvider";
 import type { SocketContext, SocketProviderComponent } from "./types";
 import { ConnectionState } from "./types";
 
@@ -40,9 +40,10 @@ const SocketProvider: SocketProviderComponent = (props) => {
     connectionState: ConnectionState.Connecting,
   });
 
+  const [host] = useHost();
+
   const connect = (): void => {
-    const { websocketUrl } = useHost();
-    const url = websocketUrl();
+    const url = host.websocketUrl;
     if (socket || !url) {
       return;
     }
