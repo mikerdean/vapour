@@ -1,6 +1,6 @@
 import type { Component } from "solid-js";
 
-import { Host } from "../../../state/host/types";
+import { Host } from "../../context/hostProvider/types";
 
 export type HostSummaryComponent = Component<{
   host?: Host;
