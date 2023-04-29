@@ -8,7 +8,7 @@ import HostSummary from "../hostSummary";
 import type { ConnectionErrorComponent } from "./types";
 
 const ConnectionError: ConnectionErrorComponent = () => {
-  const [hostState, { clear }] = useHost();
+  const [state, { clear }] = useHost();
   const [, { reconnect }] = useSocket();
 
   return (
@@ -32,7 +32,7 @@ const ConnectionError: ConnectionErrorComponent = () => {
       </div>
       <hr class="mb-5" />
       <p class="mb-2">We tried to connect you to:</p>
-      <HostSummary host={hostState.host} />
+      <HostSummary host={state.host} />
       <div class="my-5">
         <Button onClick={clear}>Try a different host</Button>
       </div>
