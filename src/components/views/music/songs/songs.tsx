@@ -1,4 +1,4 @@
-import { useGetSongsQuery } from "../../../../socket/commands";
+import { useGetSongsQuery } from "../../../../socket/query";
 import useGridData from "../../../grid/useGridData";
 import Pagination from "../../../pagination";
 import useSearchPagination from "../../../pagination/useSearchPagination";

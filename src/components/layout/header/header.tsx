@@ -8,7 +8,7 @@ import { Show, createMemo } from "solid-js";
 import {
   useGetCurrentProfileQuery,
   useGetProfilesQuery,
-} from "../../../socket/commands";
+} from "../../../socket/query";
 import FontAwesomeIcon from "../../images/fontAwesomeIcon";
 import KodiLogo from "../../images/kodiLogo";
 import type { HeaderComponent } from "./types";

@@ -1,4 +1,4 @@
-import { useGetArtistsQuery } from "../../../../socket/commands";
+import { useGetArtistsQuery } from "../../../../socket/query";
 import { ThumbnailType } from "../../../core/thumbnail/types";
 import Grid from "../../../grid";
 import GridCard from "../../../grid/gridCard";

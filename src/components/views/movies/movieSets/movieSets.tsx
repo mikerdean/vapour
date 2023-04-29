@@ -3,7 +3,7 @@ import { createMemo } from "solid-js";
 import {
   useGetMovieSetsQuery,
   useGetMoviesQuery,
-} from "../../../../socket/commands";
+} from "../../../../socket/query";
 import type {
   GetMoviesQuery,
   KodiMessageFilterOfType,
