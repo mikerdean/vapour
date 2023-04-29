@@ -8,7 +8,7 @@ import FontAwesomeIcon from "../images/fontAwesomeIcon";
 import type { GridItem, GridProps } from "./types";
 import { createUrl } from "./utils";
 
-const Grid = function <T extends GridItem>(props: GridProps<T>): JSX.Element {
+const Grid = <T extends GridItem>(props: GridProps<T>): JSX.Element => {
   const tallThumbnail = createMemo(() => {
     const type = props.thumbnailType;
 
