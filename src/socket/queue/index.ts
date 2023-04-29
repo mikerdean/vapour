@@ -1,4 +1,4 @@
-import type { KodiMessageEvent } from "./types";
+import type { KodiMessageEvent } from "../types";
 
 const messageMap = new Map<string, KodiMessageEvent>();
 
