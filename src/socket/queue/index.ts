@@ -6,12 +6,16 @@ const addToQueue = (id: string, listener: KodiMessageEvent): void => {
   messageMap.set(id, listener);
 };
 
-const getFromQueue = (id: string): KodiMessageEvent | undefined => {
-  return messageMap.get(id);
+const dequeue = (id: string): KodiMessageEvent | undefined => {
+  const value = messageMap.get(id);
+  if (value) {
+    messageMap.delete(id);
+  }
+  return value;
 };
 
 const removeFromQueue = (id: string): boolean => {
   return messageMap.delete(id);
 };
 
-export { addToQueue, getFromQueue, removeFromQueue };
+export { addToQueue, dequeue, removeFromQueue };

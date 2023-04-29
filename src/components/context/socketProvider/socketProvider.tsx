@@ -1,11 +1,7 @@
 import { createContext, useContext } from "solid-js";
 import { createStore } from "solid-js/store";
 
-import {
-  addToQueue,
-  getFromQueue,
-  removeFromQueue,
-} from "../../../socket/queue";
+import { addToQueue, dequeue, removeFromQueue } from "../../../socket/queue";
 import { isKodiError, isKodiResponse } from "../../../socket/typeguards";
 import type { KodiRequest } from "../../../socket/types";
 import { useHost } from "../hostProvider";
@@ -58,7 +54,7 @@ const SocketProvider: SocketProviderComponent = (props) => {
       try {
         const message = JSON.parse(ev.data);
         if (isKodiResponse(message)) {
-          const callback = getFromQueue(message.id);
+          const callback = dequeue(message.id);
           if (callback) {
             callback(message);
           }
