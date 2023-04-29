@@ -1,4 +1,7 @@
-import { ApplicationProperties, ApplicationPropertiesQuery } from "../types";
+import type {
+  ApplicationProperties,
+  ApplicationPropertiesQuery,
+} from "../types";
 import { createQueryHook } from "./utils";
 
 export const useGetApplicationsQuery = createQueryHook<

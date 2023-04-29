@@ -1,4 +1,4 @@
-import {
+import type {
   ProfileDetails,
   ProfileDetailsPaged,
   ProfileDetailsQuery,
