@@ -3,11 +3,11 @@ import { createMemo } from "solid-js";
 import {
   useGetMovieSetsQuery,
   useGetMoviesQuery,
-} from "../../../../state/socket/commands";
+} from "../../../../socket/commands";
 import type {
   GetMoviesQuery,
   KodiMessageFilterOfType,
-} from "../../../../state/socket/types";
+} from "../../../../socket/types";
 import { ThumbnailType } from "../../../core/thumbnail/types";
 import Grid from "../../../grid";
 import GridCard from "../../../grid/gridCard";

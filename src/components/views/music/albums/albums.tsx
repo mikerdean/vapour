@@ -1,4 +1,4 @@
-import { useGetAlbumsQuery } from "../../../../state/socket/commands";
+import { useGetAlbumsQuery } from "../../../../socket/commands";
 import { ThumbnailType } from "../../../core/thumbnail/types";
 import Grid from "../../../grid";
 import GridCard from "../../../grid/gridCard";

@@ -1,8 +1,8 @@
 import { Show, createMemo } from "solid-js";
 
 import useTypedParams from "../../../../routes/useTypedParams";
-import { useGetAlbumQuery } from "../../../../state/socket/commands";
-import type { AudioDetailsAlbum } from "../../../../state/socket/types";
+import { useGetAlbumQuery } from "../../../../socket/commands";
+import type { AudioDetailsAlbum } from "../../../../socket/types";
 import { getSongDuration } from "../../../../utils/duration";
 import { albumValidator } from "../../../../validators";
 import DefinitionList from "../../../core/definitionList";

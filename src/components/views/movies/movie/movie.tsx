@@ -1,8 +1,8 @@
 import { For, Show, createMemo } from "solid-js";
 
 import useTypedParams from "../../../../routes/useTypedParams";
-import { useGetMovieDetailsQuery } from "../../../../state/socket/commands";
-import type { VideoDetailsMovie } from "../../../../state/socket/types";
+import { useGetMovieDetailsQuery } from "../../../../socket/commands";
+import type { VideoDetailsMovie } from "../../../../socket/types";
 import { getVideoDuration } from "../../../../utils/duration";
 import { movieValidator } from "../../../../validators";
 import DefinitionList from "../../../core/definitionList";

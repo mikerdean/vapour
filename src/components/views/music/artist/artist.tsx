@@ -1,8 +1,8 @@
 import { Show, createMemo } from "solid-js";
 
 import useTypedParams from "../../../../routes/useTypedParams";
-import { useGetArtistQuery } from "../../../../state/socket/commands";
-import type { AudioDetailsArtist } from "../../../../state/socket/types";
+import { useGetArtistQuery } from "../../../../socket/commands";
+import type { AudioDetailsArtist } from "../../../../socket/types";
 import { artistValidator } from "../../../../validators";
 import Heading from "../../../core/heading";
 import Thumbnail from "../../../core/thumbnail";

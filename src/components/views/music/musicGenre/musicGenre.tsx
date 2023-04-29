@@ -1,7 +1,7 @@
 import { createMemo } from "solid-js";
 
 import useTypedParams from "../../../../routes/useTypedParams";
-import { useGetArtistsQuery } from "../../../../state/socket/commands";
+import { useGetArtistsQuery } from "../../../../socket/commands";
 import { genreValidator } from "../../../../validators";
 import Heading from "../../../core/heading";
 import { ThumbnailType } from "../../../core/thumbnail/types";

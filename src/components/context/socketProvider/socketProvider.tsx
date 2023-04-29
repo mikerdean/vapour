@@ -5,9 +5,9 @@ import {
   addToQueue,
   getFromQueue,
   removeFromQueue,
-} from "../../../state/socket/queue";
-import { isKodiError, isKodiResponse } from "../../../state/socket/typeguards";
-import type { KodiRequest } from "../../../state/socket/types";
+} from "../../../socket/queue";
+import { isKodiError, isKodiResponse } from "../../../socket/typeguards";
+import type { KodiRequest } from "../../../socket/types";
 import { useHost } from "../hostProvider";
 import type { SocketContext, SocketProviderComponent } from "./types";
 import { ConnectionState } from "./types";
