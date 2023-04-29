@@ -20,6 +20,7 @@ import Songs from "../components/views/music/songs";
 import Remote from "../components/views/remote";
 import Settings from "../components/views/settings";
 import TV from "../components/views/tv";
+import MovieSet from "../components/views/movies/movieSet";
 
 const routes: RouteDefinition[] = [
   {
@@ -87,6 +88,10 @@ const routes: RouteDefinition[] = [
           {
             component: MovieSets,
             path: "/sets",
+          },
+          {
+            component: MovieSet,
+            path: "/sets/:setId",
           },
           {
             component: MovieGenres,

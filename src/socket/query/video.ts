@@ -1,6 +1,8 @@
 import type {
   GetMovie,
   GetMovieQuery,
+  GetMovieSet,
+  GetMovieSetDetailsQuery,
   GetMovieSets,
   GetMovieSetsQuery,
   GetMovies,
@@ -58,3 +60,15 @@ export const useGetMovieDetailsQuery = createQueryHook<GetMovieQuery, GetMovie>(
     ],
   }
 );
+
+export const useGetMovieSetDetailsQuery = createQueryHook<
+  GetMovieSetDetailsQuery,
+  GetMovieSet
+>("VideoLibrary.GetMovieSetDetails", {
+  movies: {
+    properties: ["art", "playcount", "runtime", "set", "title", "year"],
+    sort: { method: "year", order: "ascending" },
+  },
+  properties: ["art", "playcount", "title"],
+  setid: 0,
+});

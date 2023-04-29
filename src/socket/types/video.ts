@@ -128,6 +128,21 @@ export type GetMovieSets = {
   sets: VideoDetailsMovieSet[];
 };
 
+export type GetMovieSetDetailsQuery = Properties<VideoDetailsMovieSet> & {
+  limits?: KodiMessageLimits;
+  movies: Properties<VideoDetailsMovie> & {
+    sort?: KodiMessageSort;
+  };
+  setid: number;
+};
+
+export type GetMovieSet = {
+  limits: KodiMessageLimitsReturned;
+  setdetails: VideoDetailsMovieSet & {
+    movies: VideoDetailsMovie[];
+  };
+};
+
 export type GetVideoGenresQuery = Properties<LibraryDetailsGenre> & {
   limits?: KodiMessageLimits;
   sort: KodiMessageSort;

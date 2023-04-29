@@ -16,6 +16,10 @@ export const movieValidator = z
   .object({ movieId: z.coerce.number().int().gte(1) })
   .default({ movieId: 0 });
 
+export const movieSetValidator = z
+  .object({ setId: z.coerce.number().int().gte(1) })
+  .default({ setId: 0 });
+
 export const pageValidator = z
   .object({ page: z.coerce.number().int().gte(1) })
   .default({ page: 1 });
