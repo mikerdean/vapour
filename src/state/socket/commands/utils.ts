@@ -2,8 +2,8 @@ import { nanoid } from "nanoid";
 import { createResource } from "solid-js";
 
 import { useSocket } from "../../../components/context/socketProvider";
-import { KodiRequest } from "../types";
-import { QueryHook } from "./types";
+import type { KodiRequest } from "../types";
+import type { QueryHook } from "./types";
 
 export const createQueryHook = <TRequest, TResponse>(
   method: string,
