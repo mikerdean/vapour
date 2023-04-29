@@ -1,7 +1,12 @@
 import { createContext, useContext } from "solid-js";
 import { createStore } from "solid-js/store";
 
-import { Host, HostContext, HostProviderComponent, HostStore } from "./types";
+import type {
+  Host,
+  HostContext,
+  HostProviderComponent,
+  HostStore,
+} from "./types";
 
 const hostContext = createContext<HostContext>([
   {

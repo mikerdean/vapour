@@ -1,4 +1,4 @@
-import { RouteDefinition } from "@solidjs/router";
+import type { RouteDefinition } from "@solidjs/router";
 
 import Layout from "../components/layout";
 import Movies from "../components/views/movies";
