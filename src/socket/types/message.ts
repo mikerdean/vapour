@@ -11,6 +11,7 @@ export type KodiRequest<T> = KodiMessageBase & {
 };
 
 export type KodiNotification<T> = KodiMessageBase & {
+  method: string;
   result: T;
 };
 

@@ -1,12 +1,15 @@
 import type { ParentComponent } from "solid-js";
 
 import type { KodiRequest } from "../../../socket/types";
+import { NotificationMap } from "../../../socket/types/notifications";
 
 export enum ConnectionState {
   NotConnected,
   Connecting,
   Connected,
 }
+
+export type NotificationEventListener = (message: unknown) => void;
 
 export type SocketContext = [
   { connectionState: ConnectionState },
@@ -17,6 +20,14 @@ export type SocketContext = [
     send: <TRequest, TResponse>(
       request: KodiRequest<TRequest>
     ) => Promise<TResponse>;
+    subscribe: <T extends keyof NotificationMap>(
+      type: T,
+      listener: (message: NotificationMap[T]) => void
+    ) => void;
+    unsubscribe: <T extends keyof NotificationMap>(
+      type: T,
+      listener: (message: NotificationMap[T]) => void
+    ) => void;
   }
 ];
 

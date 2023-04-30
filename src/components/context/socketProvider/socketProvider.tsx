@@ -2,10 +2,19 @@ import { createContext, useContext } from "solid-js";
 import { createStore } from "solid-js/store";
 
 import { addToQueue, dequeue, removeFromQueue } from "../../../socket/queue";
-import { isKodiError, isKodiResponse } from "../../../socket/typeguards";
+import {
+  isKodiError,
+  isKodiNotification,
+  isKodiResponse,
+} from "../../../socket/typeguards";
 import type { KodiRequest } from "../../../socket/types";
+import type { NotificationMap } from "../../../socket/types/notifications";
 import { useHost } from "../hostProvider";
-import type { SocketContext, SocketProviderComponent } from "./types";
+import type {
+  NotificationEventListener,
+  SocketContext,
+  SocketProviderComponent,
+} from "./types";
 import { ConnectionState } from "./types";
 
 const socketContext = createContext<SocketContext>([
@@ -24,6 +33,12 @@ const socketContext = createContext<SocketContext>([
     send<TRequest, TResponse>() {
       return Promise.resolve({} as TResponse);
     },
+    subscribe() {
+      // do nothing
+    },
+    unsubscribe() {
+      // do nothing
+    },
   },
 ]);
 
@@ -31,6 +46,8 @@ const timeout = 5000;
 
 const SocketProvider: SocketProviderComponent = (props) => {
   let socket: WebSocket | undefined;
+
+  const listeners = new Map<string, Set<NotificationEventListener>>();
 
   const [state, setState] = createStore({
     connectionState: ConnectionState.Connecting,
@@ -53,10 +70,20 @@ const SocketProvider: SocketProviderComponent = (props) => {
     socket.onmessage = (ev: MessageEvent<string>) => {
       try {
         const message = JSON.parse(ev.data);
+
         if (isKodiResponse(message)) {
           const callback = dequeue(message.id);
           if (callback) {
             callback(message);
+          }
+        }
+
+        if (isKodiNotification(message)) {
+          const callbacks = listeners.get(message.method);
+          if (callbacks) {
+            for (const callback of callbacks) {
+              callback(message);
+            }
           }
         }
       } catch (err) {
@@ -125,9 +152,35 @@ const SocketProvider: SocketProviderComponent = (props) => {
     }
   };
 
+  const subscribe = <T extends keyof NotificationMap>(
+    type: T,
+    listener: (message: NotificationMap[T]) => void
+  ): void => {
+    let set = listeners.get(type);
+    if (!set) {
+      set = new Set<NotificationEventListener>();
+      listeners.set(type, set);
+    }
+
+    set.add(listener as NotificationEventListener);
+  };
+
+  const unsubscribe = <T extends keyof NotificationMap>(
+    type: T,
+    listener: (message: NotificationMap[T]) => void
+  ): void => {
+    const set = listeners.get(type);
+    if (set) {
+      set.delete(listener as NotificationEventListener);
+    }
+  };
+
   return (
     <socketContext.Provider
-      value={[state, { connect, disconnect, reconnect, send }]}
+      value={[
+        state,
+        { connect, disconnect, reconnect, send, subscribe, unsubscribe },
+      ]}
     >
       {props.children}
     </socketContext.Provider>
