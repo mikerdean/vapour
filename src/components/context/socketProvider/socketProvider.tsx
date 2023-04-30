@@ -18,7 +18,7 @@ import type {
 import { ConnectionState } from "./types";
 
 const socketContext = createContext<SocketContext>([
-  { connectionState: ConnectionState.Connecting },
+  { connectionState: ConnectionState.NotConnected },
   {
     connect() {
       // do nothing
