@@ -67,7 +67,7 @@ const SocketProvider: SocketProviderComponent = (props) => {
       setState("connectionState", ConnectionState.Connected);
     };
 
-    socket.onmessage = (ev: MessageEvent<string>) => {
+    socket.onmessage = (ev: MessageEvent<string>): void => {
       try {
         const message = JSON.parse(ev.data);
 
@@ -76,6 +76,8 @@ const SocketProvider: SocketProviderComponent = (props) => {
           if (callback) {
             callback(message);
           }
+
+          return;
         }
 
         if (isKodiNotification(message)) {
@@ -84,6 +86,8 @@ const SocketProvider: SocketProviderComponent = (props) => {
             for (const callback of callbacks) {
               callback(message);
             }
+
+            return;
           }
         }
       } catch (err) {
