@@ -6,6 +6,7 @@ import Movie from "../components/views/movies/movie/movie";
 import MovieGenre from "../components/views/movies/movieGenre";
 import MovieGenres from "../components/views/movies/movieGenres";
 import MoviesByTitle from "../components/views/movies/moviesByTitle";
+import MovieSet from "../components/views/movies/movieSet";
 import MovieSets from "../components/views/movies/movieSets";
 import RecentMovies from "../components/views/movies/recentMovies";
 import Music from "../components/views/music";
@@ -20,7 +21,6 @@ import Songs from "../components/views/music/songs";
 import Remote from "../components/views/remote";
 import Settings from "../components/views/settings";
 import TV from "../components/views/tv";
-import MovieSet from "../components/views/movies/movieSet";
 
 const routes: RouteDefinition[] = [
   {

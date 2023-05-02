@@ -1,13 +1,14 @@
 import { Show, createMemo } from "solid-js";
+
 import useTypedParams from "../../../../routes/useTypedParams";
 import { useGetMovieSetDetailsQuery } from "../../../../socket/query";
+import { getVideoDuration } from "../../../../utils/duration";
 import { movieSetValidator } from "../../../../validators";
-import type { MovieSetComponent } from "./types";
 import Heading from "../../../core/heading";
 import { ThumbnailType } from "../../../core/thumbnail/types";
 import Grid from "../../../grid";
 import GridCard from "../../../grid/gridCard";
-import { getVideoDuration } from "../../../../utils/duration";
+import type { MovieSetComponent } from "./types";
 
 const MovieSet: MovieSetComponent = () => {
   const params = useTypedParams(movieSetValidator);

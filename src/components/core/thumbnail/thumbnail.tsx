@@ -73,6 +73,8 @@ const Thumbnail: ThumbnailComponent = (props) => {
           src={isVisible() ? imageUrl() : undefined}
           alt={props.alt}
           class="w-full h-auto"
+          fetchpriority="auto"
+          elementtiming=""
         />
         {props.played && <ThumbnailPlayed />}
       </div>
