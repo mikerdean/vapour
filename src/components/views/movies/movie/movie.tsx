@@ -85,7 +85,7 @@ const Movie: MovieComponent = () => {
             {movie.year && ` (${movie.year})`}
           </Heading>
           <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 mb-3">
-            {movie.art?.poster && (
+            <Show when={movie.art?.poster}>
               <div>
                 <Thumbnail
                   type={ThumbnailType.Album}
@@ -93,7 +93,7 @@ const Movie: MovieComponent = () => {
                   alt=""
                 />
               </div>
-            )}
+            </Show>
             <div>
               <DefinitionList
                 label="Album details"
@@ -115,7 +115,9 @@ const Movie: MovieComponent = () => {
                   { header: "Year", description: movie.year || "Unknown" },
                 ]}
               />
-              {movie.plot && <p class="mt-3">{movie.plot}</p>}
+              <Show when={movie.plot}>
+                <p class="mt-3">{movie.plot}</p>
+              </Show>
             </div>
           </div>
           <Show when={cast().length}>
