@@ -1,8 +1,11 @@
-import { For, Show, createMemo } from "solid-js";
+import { For, Show, createMemo, createSignal } from "solid-js";
 
 import useTypedParams from "../../../../routes/useTypedParams";
 import { useGetMovieDetailsQuery } from "../../../../socket/query";
-import type { VideoDetailsMovie } from "../../../../socket/types";
+import type {
+  VideoDetailsCast,
+  VideoDetailsMovie,
+} from "../../../../socket/types";
 import { getVideoDuration } from "../../../../utils/duration";
 import { movieValidator } from "../../../../validators";
 import DefinitionList from "../../../core/definitionList";
@@ -14,6 +17,8 @@ import type { MovieComponent } from "./types";
 const Movie: MovieComponent = () => {
   const params = useTypedParams(movieValidator);
 
+  const [maxActors, setMaxActors] = createSignal(10);
+
   const [movieData] = useGetMovieDetailsQuery(() => ({
     movieid: params().movieId,
   }));
@@ -24,15 +29,29 @@ const Movie: MovieComponent = () => {
       return;
     }
 
-    const movie = result.moviedetails;
-    const cast = movie.cast
-      ? movie.cast.filter((actor) => actor.thumbnail)
-      : [];
+    return result.moviedetails;
+  });
 
-    return {
-      ...movie,
-      cast,
-    };
+  const cast = createMemo<VideoDetailsCast[]>(() => {
+    const movieMemo = movie();
+    if (!movieMemo || !movieMemo.cast) {
+      return [];
+    }
+
+    return movieMemo.cast
+      .filter((actor) => actor.thumbnail)
+      .slice(0, maxActors());
+  });
+
+  const castShowMore = createMemo<boolean>(() => {
+    const movieMemo = movie();
+    if (!movieMemo || !movieMemo.cast) {
+      return false;
+    }
+
+    const filteredCast = movieMemo.cast.filter((actor) => actor.thumbnail);
+
+    return maxActors() < filteredCast.length;
   });
 
   return (
@@ -77,10 +96,10 @@ const Movie: MovieComponent = () => {
               {movie.plot && <p class="mt-3">{movie.plot}</p>}
             </div>
           </div>
-          <Show when={movie.cast && movie.cast.length}>
+          <Show when={cast().length}>
             <Heading level={2}>Actors</Heading>
             <div class="grid grid-cols-4 sm:grid-cols-6 md:grid-cols-8 lg:grid-cols-12 gap-3">
-              <For each={movie.cast}>
+              <For each={cast()}>
                 {(actor) => (
                   <div class="border-2 border-cyan-900 rounded-lg overflow-hidden">
                     <Thumbnail
@@ -91,6 +110,17 @@ const Movie: MovieComponent = () => {
                   </div>
                 )}
               </For>
+              <Show when={castShowMore()}>
+                <div>
+                  <button
+                    class="border-2 border-cyan-900 rounded-lg overflow-hidden w-full h-full text-xs p-1"
+                    onClick={() => setMaxActors((prev) => prev + 10)}
+                    type="button"
+                  >
+                    Show more actors...
+                  </button>
+                </div>
+              </Show>
             </div>
           </Show>
         </div>
