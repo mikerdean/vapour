@@ -1,5 +1,6 @@
 import { For, Show, createMemo, createSignal } from "solid-js";
 
+import { useMediaQuery } from "../../../../mediaQuery";
 import useTypedParams from "../../../../routes/useTypedParams";
 import { useGetMovieDetailsQuery } from "../../../../socket/query";
 import type {
@@ -8,6 +9,7 @@ import type {
 } from "../../../../socket/types";
 import { getVideoDuration } from "../../../../utils/duration";
 import { movieValidator } from "../../../../validators";
+import Button from "../../../core/button";
 import DefinitionList from "../../../core/definitionList";
 import Heading from "../../../core/heading";
 import Thumbnail from "../../../core/thumbnail";
@@ -17,7 +19,10 @@ import type { MovieComponent } from "./types";
 const Movie: MovieComponent = () => {
   const params = useTypedParams(movieValidator);
 
-  const [maxActors, setMaxActors] = createSignal(10);
+  const [castPage, setCastPage] = createSignal(1);
+  const [isSmallScreen] = useMediaQuery("(min-width: 640px)");
+  const [isMediumScreen] = useMediaQuery("(min-width: 768px)");
+  const [isLargeScreen] = useMediaQuery("(min-width: 1024px)");
 
   const [movieData] = useGetMovieDetailsQuery(() => ({
     movieid: params().movieId,
@@ -32,6 +37,23 @@ const Movie: MovieComponent = () => {
     return result.moviedetails;
   });
 
+  const maxCast = createMemo<number>(() => {
+    let castPerPage = 4;
+    if (isSmallScreen()) {
+      castPerPage = 6;
+    }
+
+    if (isMediumScreen()) {
+      castPerPage = 8;
+    }
+
+    if (isLargeScreen()) {
+      castPerPage = 12;
+    }
+
+    return castPage() * castPerPage;
+  });
+
   const cast = createMemo<VideoDetailsCast[]>(() => {
     const movieMemo = movie();
     if (!movieMemo || !movieMemo.cast) {
@@ -40,7 +62,7 @@ const Movie: MovieComponent = () => {
 
     return movieMemo.cast
       .filter((actor) => actor.thumbnail)
-      .slice(0, maxActors());
+      .slice(0, maxCast());
   });
 
   const castShowMore = createMemo<boolean>(() => {
@@ -51,7 +73,7 @@ const Movie: MovieComponent = () => {
 
     const filteredCast = movieMemo.cast.filter((actor) => actor.thumbnail);
 
-    return maxActors() < filteredCast.length;
+    return maxCast() < filteredCast.length;
   });
 
   return (
@@ -110,18 +132,14 @@ const Movie: MovieComponent = () => {
                   </div>
                 )}
               </For>
-              <Show when={castShowMore()}>
-                <div>
-                  <button
-                    class="border-2 border-cyan-900 rounded-lg overflow-hidden w-full h-full text-xs p-1"
-                    onClick={() => setMaxActors((prev) => prev + 10)}
-                    type="button"
-                  >
-                    Show more cast...
-                  </button>
-                </div>
-              </Show>
             </div>
+            <Show when={castShowMore()}>
+              <div class="my-5">
+                <Button onClick={() => setCastPage((prev) => prev + 1)}>
+                  Show more cast...
+                </Button>
+              </div>
+            </Show>
           </Show>
         </div>
       )}
