@@ -96,7 +96,7 @@ const Movie: MovieComponent = () => {
             </Show>
             <div>
               <DefinitionList
-                label="Album details"
+                label="Movie details"
                 each={[
                   {
                     header: "Runtime",
