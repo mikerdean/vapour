@@ -97,7 +97,7 @@ const Movie: MovieComponent = () => {
             </div>
           </div>
           <Show when={cast().length}>
-            <Heading level={2}>Actors</Heading>
+            <Heading level={2}>Cast</Heading>
             <div class="grid grid-cols-4 sm:grid-cols-6 md:grid-cols-8 lg:grid-cols-12 gap-3">
               <For each={cast()}>
                 {(actor) => (
@@ -117,7 +117,7 @@ const Movie: MovieComponent = () => {
                     onClick={() => setMaxActors((prev) => prev + 10)}
                     type="button"
                   >
-                    Show more actors...
+                    Show more cast...
                   </button>
                 </div>
               </Show>
