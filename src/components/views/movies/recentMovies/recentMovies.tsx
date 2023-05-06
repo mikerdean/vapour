@@ -4,16 +4,12 @@ import { ThumbnailType } from "../../../core/thumbnail/types";
 import Grid from "../../../grid";
 import GridCard from "../../../grid/gridCard";
 import useGridData from "../../../grid/useGridData";
-import Pagination from "../../../pagination";
-import useSearchPagination from "../../../pagination/useSearchPagination";
 import type { RecentMoviesComponent } from "./types";
 
 const RecentMovies: RecentMoviesComponent = () => {
-  const pageSize = 100;
-  const [query, searchParams, setSearchParams] = useSearchPagination(pageSize);
-  const [movieData] = useGetRecentMoviesQuery(query);
+  const [movieData] = useGetRecentMoviesQuery();
 
-  const [movies, total] = useGridData(
+  const [movies] = useGridData(
     movieData,
     (data) => data.movies,
     (movie) => ({
@@ -26,12 +22,6 @@ const RecentMovies: RecentMoviesComponent = () => {
 
   return (
     <>
-      <Pagination
-        currentPage={searchParams().page}
-        onPageSelected={(page) => setSearchParams({ page })}
-        pageSize={pageSize}
-        total={total()}
-      />
       <Grid each={movies()} thumbnailType={ThumbnailType.Movie}>
         {(movie) => (
           <GridCard
