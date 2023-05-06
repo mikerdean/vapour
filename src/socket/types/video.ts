@@ -98,6 +98,30 @@ export type VideoDetailsMovieSet = VideoDetailsMedia & {
   setid: number;
 };
 
+export type VideoDetailsTVShow = VideoDetailsItem & {
+  cast?: VideoDetailsCast[];
+  episode?: number;
+  episodeguide?: string;
+  genre?: string[];
+  imdbnumber?: string;
+  mpaa?: string;
+  originaltitle?: string;
+  premiered?: string;
+  rating?: number;
+  runtime?: number;
+  season?: number;
+  sorttitle?: string;
+  status?: string;
+  studio?: string[];
+  tag?: string[];
+  tvshowid: number;
+  uniqueid?: number;
+  userrating?: number;
+  votes?: number;
+  watchedepisodes?: number;
+  year?: number;
+};
+
 export type GetMoviesQuery = Properties<VideoDetailsMovie> & {
   filter?: KodiMessageFilter;
   limits?: KodiMessageLimits;
@@ -152,4 +176,15 @@ export type GetVideoGenresQuery = Properties<LibraryDetailsGenre> & {
 export type VideoGenresPaged = {
   genres: LibraryDetailsGenre[];
   limits: KodiMessageLimitsReturned;
+};
+
+export type GetTVShowsQuery = Properties<VideoDetailsTVShow> & {
+  filter?: KodiMessageFilter;
+  limits?: KodiMessageLimits;
+  sort: KodiMessageSort;
+};
+
+export type GetTVShows = {
+  limits: KodiMessageLimitsReturned;
+  tvshows: VideoDetailsTVShow[];
 };

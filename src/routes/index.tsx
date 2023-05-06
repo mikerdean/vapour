@@ -21,6 +21,7 @@ import Songs from "../components/views/music/songs";
 import Remote from "../components/views/remote";
 import Settings from "../components/views/settings";
 import TV from "../components/views/tv";
+import TVInProgress from "../components/views/tv/tvInProgress";
 
 const routes: RouteDefinition[] = [
   {
@@ -72,6 +73,12 @@ const routes: RouteDefinition[] = [
       {
         component: TV,
         path: "tv",
+        children: [
+          {
+            component: TVInProgress,
+            path: "/",
+          },
+        ],
       },
       {
         component: Movies,
