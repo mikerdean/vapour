@@ -3,7 +3,7 @@ import { createResource } from "solid-js";
 
 import { useSocket } from "../../components/context/socketProvider";
 import type { KodiRequest } from "../types";
-import type { QueryHook } from "./types";
+import { QueryHook, skipToken } from "./types";
 
 export const createQueryHook = <TRequest, TResponse>(
   method: string,
@@ -14,7 +14,7 @@ export const createQueryHook = <TRequest, TResponse>(
 
     const request = (): KodiRequest<TRequest> | null => {
       const newParams = optionalParams && optionalParams();
-      if (newParams === null) {
+      if (newParams === skipToken) {
         return null;
       }
 
