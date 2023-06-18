@@ -35,23 +35,23 @@ This project is developed using:
 To hack on this repo, you can clone the repository and then:
 
 ```
-yarn install
+npm install
 ```
 
 To run the development server you can use:
 
 ```
-yarn start
+npm start
 ```
 
-This will start a `vite` development server which can be accessed at the details summarised in the console.
+This will start a `vite` development server, the address for accessing this will be displayed in your shell. In order to develop successfully with this repository, you will need a running version of Kodi, with the aforementioned options enabled.
 
 To run the suite of tests, you can run:
 
 ```
-yarn test
+npm test
 ```
 
 All tests are setup using `vitest` and will start a watcher process.
 
-For a better development experience with this repo, you can use [Volta](https://docs.volta.sh/guide/getting-started) to ensure nodeJS and yarn are the minimum versions tested with this repository.
+For a better development experience with this repo, you can use [Volta](https://docs.volta.sh/guide/getting-started) to ensure nodeJS is the minimum version tested with this repository.
