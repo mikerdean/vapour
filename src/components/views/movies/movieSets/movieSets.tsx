@@ -4,6 +4,7 @@ import {
   useGetMovieSetsQuery,
   useGetMoviesQuery,
 } from "../../../../socket/query";
+import { skipToken } from "../../../../socket/query/types";
 import type {
   GetMoviesQuery,
   KodiMessageFilterOfType,
@@ -21,23 +22,25 @@ const MovieSets: MovieSetsComponent = () => {
   const [query, searchParams, setSearchParams] = useSearchPagination(pageSize);
   const [movieSetData] = useGetMovieSetsQuery(query);
 
-  const movieQuery = createMemo<Partial<GetMoviesQuery> | null>(() => {
-    const data = movieSetData();
-    if (!data) {
-      return null;
-    }
+  const movieQuery = createMemo<Partial<GetMoviesQuery> | typeof skipToken>(
+    () => {
+      const data = movieSetData();
+      if (!data) {
+        return skipToken;
+      }
 
-    return {
-      filter: {
-        or: data.sets.map<KodiMessageFilterOfType>((set) => ({
-          field: "set",
-          operator: "is",
-          value: set.title || "",
-        })),
-      },
-      properties: ["set"],
-    };
-  });
+      return {
+        filter: {
+          or: data.sets.map<KodiMessageFilterOfType>((set) => ({
+            field: "set",
+            operator: "is",
+            value: set.title || "",
+          })),
+        },
+        properties: ["set"],
+      };
+    }
+  );
 
   const [movieData] = useGetMoviesQuery(movieQuery);
 
