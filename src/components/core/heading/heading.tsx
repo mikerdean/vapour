@@ -8,7 +8,7 @@ const Heading: HeadingComponent = (props) => {
   const classes = () => getHeadingClass(props.level);
 
   return (
-    <Dynamic component={tag()} class={classes()}>
+    <Dynamic id={props.id} component={tag()} class={classes()}>
       {props.children}
     </Dynamic>
   );

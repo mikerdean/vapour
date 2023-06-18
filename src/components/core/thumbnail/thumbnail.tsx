@@ -68,13 +68,11 @@ const Thumbnail: ThumbnailComponent = (props) => {
         </>
       }
     >
-      <div ref={el} class="relative">
+      <div ref={el} class="relative" data-testid="thumbnail-placeholder">
         <img
           src={isVisible() ? imageUrl() : undefined}
           alt={props.alt}
           class="w-full h-auto"
-          fetchpriority="auto"
-          elementtiming=""
         />
         {props.played && <ThumbnailPlayed />}
       </div>
