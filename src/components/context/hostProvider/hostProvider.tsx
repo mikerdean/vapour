@@ -3,38 +3,20 @@ import { createStore } from "solid-js/store";
 
 import type {
   Host,
-  HostContext,
+  HostContextType,
+  HostMethods,
   HostProviderComponent,
   HostStore,
 } from "./types";
 
-const hostContext = createContext<HostContext>([
-  {
-    host: undefined,
-    get httpUrl() {
-      return undefined;
-    },
-    get websocketUrl() {
-      return undefined;
-    },
-  },
-  {
-    clear() {
-      // do nothing
-    },
-    update() {
-      // do nothing
-    },
-  },
+const HostContext = createContext<HostContextType>([
+  {} as HostStore,
+  {} as HostMethods,
 ]);
 
 const HostProvider: HostProviderComponent = (props) => {
   const [state, setState] = createStore<HostStore>({
-    host: {
-      hostname: window.location.hostname,
-      httpPort: 8080,
-      tcpPort: 9090,
-    },
+    host: props.host, // eslint-disable-line solid/reactivity
     get httpUrl() {
       if (!this.host) {
         return undefined;
@@ -66,13 +48,13 @@ const HostProvider: HostProviderComponent = (props) => {
   };
 
   return (
-    <hostContext.Provider value={[state, { clear, update }]}>
+    <HostContext.Provider value={[state, { clear, update }]}>
       {props.children}
-    </hostContext.Provider>
+    </HostContext.Provider>
   );
 };
 
-const useHost = () => useContext(hostContext);
+const useHost = () => useContext(HostContext);
 
 export default HostProvider;
 export { useHost };

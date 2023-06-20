@@ -12,12 +12,13 @@ export type HostStore = {
   get websocketUrl(): string | undefined;
 };
 
-export type HostContext = [
-  HostStore,
-  {
-    clear: () => void;
-    update: (host: Host) => void;
-  }
-];
+export type HostMethods = {
+  clear: () => void;
+  update: (host: Host) => void;
+};
 
-export type HostProviderComponent = ParentComponent;
+export type HostContextType = [HostStore, HostMethods];
+
+export type HostProviderComponent = ParentComponent<{
+  host?: Host;
+}>;

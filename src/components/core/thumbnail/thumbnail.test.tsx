@@ -5,27 +5,30 @@ import { describe, expect, it } from "vitest";
 import { mockIsIntersecting } from "../../../utils/intersectionObserver";
 import { setup } from "../../../utils/testing";
 import HostProvider from "../../context/hostProvider";
+import type { Host } from "../../context/hostProvider/types";
 import IntersectionObserverProvider from "../../context/intersectionObserverProvider";
 import { ThumbnailType } from "./types";
 import Thumbnail from ".";
 
-const setupThumbnail = (ui: () => JSX.Element) =>
+const defaultHost = { hostname: "localhost", httpPort: 8080, tcpPort: 9090 };
+
+const setupThumbnail = (ui: () => JSX.Element, host?: Host) =>
   setup(() => (
-    <HostProvider>
+    <HostProvider host={host}>
       <IntersectionObserverProvider>{ui()}</IntersectionObserverProvider>
     </HostProvider>
   ));
 
 describe("Thumbnail component", () => {
   it("renders a default icon if no uri is provided", () => {
-    setupThumbnail(() => <Thumbnail type={ThumbnailType.Album} />);
+    setupThumbnail(() => <Thumbnail type={ThumbnailType.Album} />, defaultHost);
 
     const icon = screen.getByRole("img", { hidden: true });
     expect(icon).toBeInTheDocument();
     expect(icon).toHaveAttribute("data-icon");
   });
 
-  /*it("renders a default icon if no host is found", () => {
+  it("renders a default icon if no host is found", () => {
     setupThumbnail(() => (
       <Thumbnail type={ThumbnailType.Artist} uri="image://someKodiImage.jpg" />
     ));
@@ -33,12 +36,15 @@ describe("Thumbnail component", () => {
     const icon = screen.getByRole("img", { hidden: true });
     expect(icon).toBeInTheDocument();
     expect(icon).toHaveAttribute("data-icon");
-  });*/
+  });
 
   it("renders a placeholder image that waits to be in view", () => {
-    setupThumbnail(() => (
-      <Thumbnail type={ThumbnailType.Song} uri="image://someKodiImage.jpg" />
-    ));
+    setupThumbnail(
+      () => (
+        <Thumbnail type={ThumbnailType.Song} uri="image://someKodiImage.jpg" />
+      ),
+      defaultHost
+    );
 
     const icon = screen.getByRole("img", { hidden: true });
     expect(icon).toBeInTheDocument();
@@ -46,9 +52,12 @@ describe("Thumbnail component", () => {
   });
 
   it("renders an image when the intersection observer is triggered", () => {
-    setupThumbnail(() => (
-      <Thumbnail type={ThumbnailType.Song} uri="image://someKodiImage.jpg" />
-    ));
+    setupThumbnail(
+      () => (
+        <Thumbnail type={ThumbnailType.Song} uri="image://someKodiImage.jpg" />
+      ),
+      defaultHost
+    );
 
     const placeholder = screen.getByTestId("thumbnail-placeholder");
     expect(placeholder).toBeInTheDocument();

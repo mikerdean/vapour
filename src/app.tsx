@@ -15,7 +15,13 @@ const App: Component = () => {
 
   return (
     <IntersectionObserverProvider>
-      <HostProvider>
+      <HostProvider
+        host={{
+          hostname: window.location.hostname,
+          httpPort: 8080,
+          tcpPort: 9090,
+        }}
+      >
         <Host>
           <SocketProvider>
             <Connection>
