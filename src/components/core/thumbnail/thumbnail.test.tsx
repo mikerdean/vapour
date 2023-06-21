@@ -73,4 +73,28 @@ describe("Thumbnail component", () => {
       `http://localhost:8080/image/image%3A%2F%2FsomeKodiImage.jpg`
     );
   });
+
+  it("renders the correct `played` label when the prop is set", () => {
+    setupThumbnail(
+      () => <Thumbnail type={ThumbnailType.Song} played={true} />,
+      defaultHost
+    );
+
+    expect(screen.getByTitle("Played")).toBeInTheDocument();
+  });
+
+  it("renders the correct `played` label when the prop is set and a URI is provided", () => {
+    setupThumbnail(
+      () => (
+        <Thumbnail
+          type={ThumbnailType.Song}
+          uri="image://someKodiImage.jpg"
+          played={true}
+        />
+      ),
+      defaultHost
+    );
+
+    expect(screen.getByTitle("Played")).toBeInTheDocument();
+  });
 });

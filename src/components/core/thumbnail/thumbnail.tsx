@@ -60,21 +60,28 @@ const Thumbnail: ThumbnailComponent = (props) => {
             class="max-w-full h-auto p-2"
             icon={getIconByType(props.type)}
           />
-          {props.played && (
-            <div class="relative w-full h-full">
+          <Show when={props.played}>
+            <div class="relative w-full h-full" title="Played">
               <ThumbnailPlayed />
             </div>
-          )}
+          </Show>
         </>
       }
     >
-      <div ref={el} class="relative" data-testid="thumbnail-placeholder">
+      <div
+        ref={el}
+        class="relative"
+        data-testid="thumbnail-placeholder"
+        title={props.played ? "Played" : undefined}
+      >
         <img
           src={isVisible() ? imageUrl() : undefined}
           alt={props.alt}
           class="w-full h-auto"
         />
-        {props.played && <ThumbnailPlayed />}
+        <Show when={props.played}>
+          <ThumbnailPlayed />
+        </Show>
       </div>
     </Show>
   );
