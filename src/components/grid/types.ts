@@ -14,7 +14,6 @@ export type GridItemOf<T> = GridItem & T;
 export type GridProps<T> = FlowProps<
   {
     each: T[];
-    fallback?: JSX.Element;
     thumbnailType: ThumbnailType;
   },
   (item: T, index: () => number) => JSX.Element
