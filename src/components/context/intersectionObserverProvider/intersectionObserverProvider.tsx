@@ -2,18 +2,14 @@ import { createContext, createEffect, onCleanup, useContext } from "solid-js";
 
 import type {
   IntersectionEntryCallback,
-  IntersectionObserverContext,
+  IntersectionObserverContextType,
   IntersectionObserverProviderComponent,
 } from "./types";
 
-const intersectionObserverContext = createContext<IntersectionObserverContext>({
-  add() {
-    // do nothing,
-  },
-  remove() {
-    // do nothing
-  },
-});
+const IntersectionObserverContext =
+  createContext<IntersectionObserverContextType>(
+    {} as IntersectionObserverContextType
+  );
 
 const IntersectionObserverProvider: IntersectionObserverProviderComponent = (
   props
@@ -50,13 +46,13 @@ const IntersectionObserverProvider: IntersectionObserverProviderComponent = (
   };
 
   return (
-    <intersectionObserverContext.Provider value={{ add, remove }}>
+    <IntersectionObserverContext.Provider value={{ add, remove }}>
       {props.children}
-    </intersectionObserverContext.Provider>
+    </IntersectionObserverContext.Provider>
   );
 };
 
-const useIntersectionObserver = () => useContext(intersectionObserverContext);
+const useIntersectionObserver = () => useContext(IntersectionObserverContext);
 
 export default IntersectionObserverProvider;
 export { useIntersectionObserver };

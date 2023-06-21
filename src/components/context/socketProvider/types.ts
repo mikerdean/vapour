@@ -11,24 +11,27 @@ export enum ConnectionState {
 
 export type NotificationEventListener = (message: unknown) => void;
 
-export type SocketContext = [
-  { connectionState: ConnectionState },
-  {
-    connect: () => void;
-    disconnect: () => void;
-    reconnect: () => void;
-    send: <TRequest, TResponse>(
-      request: KodiRequest<TRequest>
-    ) => Promise<TResponse>;
-    subscribe: <T extends keyof NotificationMap>(
-      type: T,
-      listener: (message: NotificationMap[T]) => void
-    ) => void;
-    unsubscribe: <T extends keyof NotificationMap>(
-      type: T,
-      listener: (message: NotificationMap[T]) => void
-    ) => void;
-  }
-];
+export type SocketState = {
+  connectionState: ConnectionState;
+};
+
+export type SocketMethods = {
+  connect: () => void;
+  disconnect: () => void;
+  reconnect: () => void;
+  send: <TRequest, TResponse>(
+    request: KodiRequest<TRequest>
+  ) => Promise<TResponse>;
+  subscribe: <T extends keyof NotificationMap>(
+    type: T,
+    listener: (message: NotificationMap[T]) => void
+  ) => void;
+  unsubscribe: <T extends keyof NotificationMap>(
+    type: T,
+    listener: (message: NotificationMap[T]) => void
+  ) => void;
+};
+
+export type SocketContextType = [SocketState, SocketMethods];
 
 export type SocketProviderComponent = ParentComponent;

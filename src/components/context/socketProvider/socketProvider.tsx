@@ -12,34 +12,16 @@ import type { NotificationMap } from "../../../socket/types/notifications";
 import { useHost } from "../hostProvider";
 import type {
   NotificationEventListener,
-  SocketContext,
+  SocketContextType,
+  SocketMethods,
   SocketProviderComponent,
+  SocketState,
 } from "./types";
 import { ConnectionState } from "./types";
 
-const socketContext = createContext<SocketContext>([
-  { connectionState: ConnectionState.NotConnected },
-  {
-    connect() {
-      // do nothing
-    },
-    disconnect() {
-      // do nothing
-    },
-    reconnect() {
-      // do nothing
-    },
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    send<TRequest, TResponse>() {
-      return Promise.resolve({} as TResponse);
-    },
-    subscribe() {
-      // do nothing
-    },
-    unsubscribe() {
-      // do nothing
-    },
-  },
+const SocketContext = createContext<SocketContextType>([
+  {} as SocketState,
+  {} as SocketMethods,
 ]);
 
 const timeout = 5000;
@@ -49,7 +31,7 @@ const SocketProvider: SocketProviderComponent = (props) => {
 
   const listeners = new Map<string, Set<NotificationEventListener>>();
 
-  const [state, setState] = createStore({
+  const [state, setState] = createStore<SocketState>({
     connectionState: ConnectionState.Connecting,
   });
 
@@ -180,18 +162,18 @@ const SocketProvider: SocketProviderComponent = (props) => {
   };
 
   return (
-    <socketContext.Provider
+    <SocketContext.Provider
       value={[
         state,
         { connect, disconnect, reconnect, send, subscribe, unsubscribe },
       ]}
     >
       {props.children}
-    </socketContext.Provider>
+    </SocketContext.Provider>
   );
 };
 
-const useSocket = () => useContext(socketContext);
+const useSocket = () => useContext(SocketContext);
 
 export default SocketProvider;
 export { useSocket };
