@@ -92,7 +92,7 @@ const SocketProvider: SocketProviderComponent = (props) => {
   };
 
   const send = async <TRequest, TResponse>(
-    request: KodiRequest<TRequest>
+    request: KodiRequest<TRequest>,
   ): Promise<TResponse> =>
     new Promise((resolve, reject) => {
       if (!socket) {
@@ -104,7 +104,7 @@ const SocketProvider: SocketProviderComponent = (props) => {
       const timer = setTimeout(() => {
         removeFromQueue(id);
         return reject(
-          Error(`Message ${id} exceeded the timeout value (${timeout})`)
+          Error(`Message ${id} exceeded the timeout value (${timeout})`),
         );
       }, timeout);
 
@@ -117,8 +117,8 @@ const SocketProvider: SocketProviderComponent = (props) => {
         if (isKodiError(message)) {
           return reject(
             Error(
-              `Message {${id} response returned an error from JSONRPC: ${message.error.message}`
-            )
+              `Message {${id} response returned an error from JSONRPC: ${message.error.message}`,
+            ),
           );
         }
 
@@ -140,7 +140,7 @@ const SocketProvider: SocketProviderComponent = (props) => {
 
   const subscribe = <T extends keyof NotificationMap>(
     type: T,
-    listener: (message: NotificationMap[T]) => void
+    listener: (message: NotificationMap[T]) => void,
   ): void => {
     let set = listeners.get(type);
     if (!set) {
@@ -153,7 +153,7 @@ const SocketProvider: SocketProviderComponent = (props) => {
 
   const unsubscribe = <T extends keyof NotificationMap>(
     type: T,
-    listener: (message: NotificationMap[T]) => void
+    listener: (message: NotificationMap[T]) => void,
   ): void => {
     const set = listeners.get(type);
     if (set) {

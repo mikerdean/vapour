@@ -1,7 +1,7 @@
 export const calculateStart = (
   currentPage: number,
   totalPages: number,
-  maxPages: number
+  maxPages: number,
 ): number => {
   if (totalPages < maxPages) {
     return 1;

@@ -45,7 +45,7 @@ const Pagination: PaginationComponent = (props) => {
                 defaultButtonClasses,
                 "bg-slate-800",
                 "border-l",
-                "rounded-l"
+                "rounded-l",
               )}
               disabled={props.currentPage <= 1}
               onClick={() => props.onPageSelected(1)}
@@ -102,7 +102,7 @@ const Pagination: PaginationComponent = (props) => {
                 defaultButtonClasses,
                 "bg-slate-800",
                 "border-r",
-                "rounded-r"
+                "rounded-r",
               )}
               disabled={props.currentPage + 1 > totalPages()}
               onClick={() => props.onPageSelected(totalPages())}

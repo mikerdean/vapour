@@ -4,11 +4,11 @@ import z, { ZodTypeAny } from "zod";
 
 type SearchParamsResult<T extends ZodTypeAny> = [
   Accessor<z.infer<T>>,
-  (value: z.infer<T>) => void
+  (value: z.infer<T>) => void,
 ];
 
 const useTypedSearchParams = <T extends ZodTypeAny>(
-  schema: T
+  schema: T,
 ): SearchParamsResult<T> => {
   const [searchParams, setSearchParams] = useSearchParams();
 

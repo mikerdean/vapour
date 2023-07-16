@@ -45,7 +45,7 @@ const MovieGenre: MovieGenreComponent = () => {
       id: movie.movieid,
       played: (movie.playcount || 0) > 0,
       thumbnail: movie.art?.poster || movie.thumbnail,
-    })
+    }),
   );
 
   return (

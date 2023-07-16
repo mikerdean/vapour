@@ -7,7 +7,7 @@ import type { TabItem } from "./types";
 
 const setupTabs = function <T extends TabItem>(
   length: number,
-  tabSetup: (value: unknown, index: number) => T
+  tabSetup: (value: unknown, index: number) => T,
 ) {
   const tabs: T[] = Array.from({ length }, tabSetup);
 

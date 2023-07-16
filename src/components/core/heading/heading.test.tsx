@@ -18,7 +18,7 @@ describe("Heading component", () => {
 
       expect(heading).toBeInTheDocument();
       expect(heading).not.toHaveAttribute("id");
-    }
+    },
   );
 
   test.each(headingLevels)(
@@ -35,6 +35,6 @@ describe("Heading component", () => {
 
       expect(heading).toBeInTheDocument();
       expect(heading).toHaveAttribute("id", "suppliedId");
-    }
+    },
   );
 });

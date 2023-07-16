@@ -8,7 +8,7 @@ export const getSongDuration = (seconds: number): string | undefined => {
   const d = Duration.fromObject({ seconds }).shiftTo(
     "hours",
     "minutes",
-    "seconds"
+    "seconds",
   );
 
   if (d.hours > 0) {

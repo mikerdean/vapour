@@ -21,7 +21,7 @@ const MoviesByTitle: MoviesByTitleComponent = () => {
       id: movie.movieid,
       played: movie.playcount !== undefined && movie.playcount > 0,
       thumbnail: movie.art?.poster,
-    })
+    }),
   );
 
   return (

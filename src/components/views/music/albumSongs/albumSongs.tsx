@@ -18,7 +18,7 @@ const AlbumSongs: AlbumSongsComponent = (props) => {
   const [songs] = useGridData(
     songData,
     (data) => data.songs,
-    (song) => ({ ...song, id: song.songid })
+    (song) => ({ ...song, id: song.songid }),
   );
 
   return <SongList songs={songs()} />;

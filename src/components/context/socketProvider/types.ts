@@ -20,15 +20,15 @@ export type SocketMethods = {
   disconnect: () => void;
   reconnect: () => void;
   send: <TRequest, TResponse>(
-    request: KodiRequest<TRequest>
+    request: KodiRequest<TRequest>,
   ) => Promise<TResponse>;
   subscribe: <T extends keyof NotificationMap>(
     type: T,
-    listener: (message: NotificationMap[T]) => void
+    listener: (message: NotificationMap[T]) => void,
   ) => void;
   unsubscribe: <T extends keyof NotificationMap>(
     type: T,
-    listener: (message: NotificationMap[T]) => void
+    listener: (message: NotificationMap[T]) => void,
   ) => void;
 };
 

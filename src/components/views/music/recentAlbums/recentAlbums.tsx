@@ -11,7 +11,7 @@ const RecentAlbums: RecentAlbumsComponent = () => {
   const [albums] = useGridData(
     recentAlbums,
     (data) => data.albums,
-    (album) => ({ ...album, id: album.albumid })
+    (album) => ({ ...album, id: album.albumid }),
   );
 
   return (

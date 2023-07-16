@@ -15,7 +15,7 @@ const Albums: AlbumsComponent = () => {
   const [albums, total] = useGridData(
     albumData,
     (data) => data.albums,
-    (album) => ({ ...album, id: album.albumid })
+    (album) => ({ ...album, id: album.albumid }),
   );
 
   return (

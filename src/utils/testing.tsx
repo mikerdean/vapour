@@ -34,7 +34,7 @@ export const setup = (ui: () => JSX.Element): ResultWithUser => {
 };
 
 export const setupWithRouter = (
-  routes: RouteDefinition | RouteDefinition[]
+  routes: RouteDefinition | RouteDefinition[],
 ): ResultWithUser => {
   const user = userEvent.setup();
   const view = render(() => <InMemoryRouter routes={routes} />, {});

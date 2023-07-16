@@ -39,7 +39,7 @@ const MovieSets: MovieSetsComponent = () => {
         },
         properties: ["set"],
       };
-    }
+    },
   );
 
   const [movieData] = useGetMoviesQuery(movieQuery);
@@ -69,7 +69,7 @@ const MovieSets: MovieSetsComponent = () => {
       id: movieSet.setid,
       played: movieSet.playcount !== undefined && movieSet.playcount > 0,
       thumbnail: movieSet.art?.poster,
-    })
+    }),
   );
 
   const getMovieSetTitle = (title: string | undefined): string | undefined => {

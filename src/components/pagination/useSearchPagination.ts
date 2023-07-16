@@ -5,11 +5,11 @@ import type { KodiMessageLimits } from "../../socket/types";
 import { pageValidator } from "../../validators";
 
 const useSearchPagination = (
-  pageSize: number
+  pageSize: number,
 ): [
   Accessor<{ limits: KodiMessageLimits }>,
   Accessor<{ page: number }>,
-  (params: { page: number }) => void
+  (params: { page: number }) => void,
 ] => {
   const [searchParams, setSearchParams] = useTypedSearchParams(pageValidator);
 

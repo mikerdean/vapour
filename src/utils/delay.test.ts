@@ -21,6 +21,6 @@ describe("delay utility", () => {
 
       await vi.advanceTimersByTimeAsync(ms);
       expect(delayed).toEqual(true);
-    }
+    },
   );
 });

@@ -6,7 +6,7 @@ import type { GridItemOf } from "./types";
 const useGridData = <T extends { limits: KodiMessageLimitsReturned }, TItem>(
   data: Accessor<T | undefined>,
   select: (data: T) => TItem[],
-  transform: (item: TItem) => GridItemOf<TItem>
+  transform: (item: TItem) => GridItemOf<TItem>,
 ): [Accessor<GridItemOf<TItem>[]>, Accessor<number>] => {
   const emptyArray: GridItemOf<TItem>[] = [];
 

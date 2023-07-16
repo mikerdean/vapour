@@ -24,8 +24,8 @@ describe("useGridData hook", () => {
       useGridData(
         data,
         (data) => data.items,
-        (item) => ({ ...item, id: item.id, label: item.title })
-      )
+        (item) => ({ ...item, id: item.id, label: item.title }),
+      ),
     );
 
     const [filtered, total] = result;
@@ -63,8 +63,8 @@ describe("useGridData hook", () => {
       useGridData(
         data,
         (data) => data.items,
-        (item) => ({ ...item, id: item.id, label: item.title, played: true })
-      )
+        (item) => ({ ...item, id: item.id, label: item.title, played: true }),
+      ),
     );
 
     const [filtered, total] = result;

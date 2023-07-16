@@ -43,7 +43,7 @@ describe("Thumbnail component", () => {
       () => (
         <Thumbnail type={ThumbnailType.Song} uri="image://someKodiImage.jpg" />
       ),
-      defaultHost
+      defaultHost,
     );
 
     const icon = screen.getByRole("img", { hidden: true });
@@ -56,7 +56,7 @@ describe("Thumbnail component", () => {
       () => (
         <Thumbnail type={ThumbnailType.Song} uri="image://someKodiImage.jpg" />
       ),
-      defaultHost
+      defaultHost,
     );
 
     const placeholder = screen.getByTestId("thumbnail-placeholder");
@@ -70,14 +70,14 @@ describe("Thumbnail component", () => {
 
     expect(img).toHaveAttribute(
       "src",
-      `http://localhost:8080/image/image%3A%2F%2FsomeKodiImage.jpg`
+      `http://localhost:8080/image/image%3A%2F%2FsomeKodiImage.jpg`,
     );
   });
 
   it("renders the correct `played` label when the prop is set", () => {
     setupThumbnail(
       () => <Thumbnail type={ThumbnailType.Song} played={true} />,
-      defaultHost
+      defaultHost,
     );
 
     expect(screen.getByTitle("Played")).toBeInTheDocument();
@@ -92,7 +92,7 @@ describe("Thumbnail component", () => {
           played={true}
         />
       ),
-      defaultHost
+      defaultHost,
     );
 
     expect(screen.getByTitle("Played")).toBeInTheDocument();

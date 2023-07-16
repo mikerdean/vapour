@@ -7,7 +7,7 @@ import { QueryHook, skipToken } from "./types";
 
 export const createQueryHook = <TRequest, TResponse>(
   method: string,
-  params: TRequest
+  params: TRequest,
 ): QueryHook<TRequest, TResponse> => {
   return (optionalParams) => {
     const [, { send }] = useSocket();
@@ -31,7 +31,7 @@ export const createQueryHook = <TRequest, TResponse>(
 
     const result = createResource<TResponse, KodiRequest<TRequest>>(
       request,
-      send
+      send,
     );
 
     return result;

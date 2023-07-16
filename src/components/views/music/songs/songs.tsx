@@ -13,7 +13,7 @@ const Songs: SongsComponent = () => {
   const [songs, total] = useGridData(
     songData,
     (data) => data.songs,
-    (song) => ({ ...song, id: song.songid })
+    (song) => ({ ...song, id: song.songid }),
   );
 
   return (

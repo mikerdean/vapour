@@ -16,7 +16,7 @@ describe("Duration utilities", () => {
       (input, expected) => {
         const outcome = getSongDuration(input);
         expect(outcome).toEqual(expected);
-      }
+      },
     );
 
     it.each([
@@ -32,7 +32,7 @@ describe("Duration utilities", () => {
       (input, expected) => {
         const outcome = getSongDuration(input);
         expect(outcome).toEqual(expected);
-      }
+      },
     );
 
     it.each([
@@ -50,7 +50,7 @@ describe("Duration utilities", () => {
       (input, expected) => {
         const outcome = getSongDuration(input);
         expect(outcome).toEqual(expected);
-      }
+      },
     );
 
     it.each([
@@ -65,7 +65,7 @@ describe("Duration utilities", () => {
       (input, expected) => {
         const outcome = getSongDuration(input);
         expect(outcome).toEqual(expected);
-      }
+      },
     );
   });
 
@@ -82,7 +82,7 @@ describe("Duration utilities", () => {
       (input, expected) => {
         const outcome = getVideoDuration(input);
         expect(outcome).toEqual(expected);
-      }
+      },
     );
   });
 
@@ -112,7 +112,7 @@ describe("Duration utilities", () => {
     (input, expected) => {
       const outcome = getVideoDuration(input);
       expect(outcome).toEqual(expected);
-    }
+    },
   );
 
   it.each([
@@ -131,6 +131,6 @@ describe("Duration utilities", () => {
     (input, expected) => {
       const outcome = getVideoDuration(input);
       expect(outcome).toEqual(expected);
-    }
+    },
   );
 });

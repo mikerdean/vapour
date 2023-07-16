@@ -8,11 +8,11 @@ import type {
 
 const IntersectionObserverContext =
   createContext<IntersectionObserverContextType>(
-    {} as IntersectionObserverContextType
+    {} as IntersectionObserverContextType,
   );
 
 const IntersectionObserverProvider: IntersectionObserverProviderComponent = (
-  props
+  props,
 ) => {
   const elementMap = new WeakMap<Element, IntersectionEntryCallback>();
 

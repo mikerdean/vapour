@@ -19,7 +19,7 @@ export const useGetMoviesQuery = createQueryHook<GetMoviesQuery, GetMovies>(
   {
     properties: ["art", "playcount", "runtime", "set", "title", "year"],
     sort: { method: "title", order: "ascending" },
-  }
+  },
 );
 
 export const useGetRecentMoviesQuery = createQueryHook<
@@ -60,7 +60,7 @@ export const useGetMovieDetailsQuery = createQueryHook<GetMovieQuery, GetMovie>(
       "title",
       "year",
     ],
-  }
+  },
 );
 
 export const useGetMovieSetDetailsQuery = createQueryHook<
@@ -80,7 +80,7 @@ export const useGetTVShowsQuery = createQueryHook<GetTVShowsQuery, GetTVShows>(
   {
     properties: ["art", "episode", "title", "watchedepisodes", "year"],
     sort: { method: "title", order: "ascending" },
-  }
+  },
 );
 
 export const useGetInProgressTVShowsQuery = createQueryHook<

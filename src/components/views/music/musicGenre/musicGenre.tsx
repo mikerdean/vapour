@@ -39,7 +39,7 @@ const MusicGenre: MusicGenreComponent = () => {
   const [artists, total] = useGridData(
     artistData,
     (data) => data.artists,
-    (artist) => ({ ...artist, id: artist.artistid })
+    (artist) => ({ ...artist, id: artist.artistid }),
   );
 
   return (

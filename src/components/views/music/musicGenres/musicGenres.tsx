@@ -15,7 +15,7 @@ const MusicGenres: MusicGenresComponent = () => {
   const [genres, total] = useGridData(
     genreData,
     (data) => data.genres,
-    (genre) => ({ ...genre, id: encodeURIComponent(genre.label) })
+    (genre) => ({ ...genre, id: encodeURIComponent(genre.label) }),
   );
 
   return (

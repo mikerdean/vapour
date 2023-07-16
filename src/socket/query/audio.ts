@@ -20,7 +20,7 @@ export const useGetAlbumsQuery = createQueryHook<GetAlbumsQuery, AlbumsPaged>(
   {
     properties: ["artist", "genre", "thumbnail", "title", "year"],
     sort: { method: "title", order: "ascending" },
-  }
+  },
 );
 
 export const useGetAlbumQuery = createQueryHook<GetAlbumQuery, GetAlbum>(
@@ -36,7 +36,7 @@ export const useGetAlbumQuery = createQueryHook<GetAlbumQuery, GetAlbum>(
       "title",
       "year",
     ],
-  }
+  },
 );
 
 export const useGetArtistsQuery = createQueryHook<
@@ -53,7 +53,7 @@ export const useGetArtistQuery = createQueryHook<GetArtistQuery, GetArtist>(
   {
     artistid: 0,
     properties: ["description", "thumbnail"],
-  }
+  },
 );
 
 export const useGetMusicGenresQuery = createQueryHook<
@@ -69,7 +69,7 @@ export const useGetSongsQuery = createQueryHook<GetSongsQuery, SongsPaged>(
   {
     properties: ["disc", "duration", "track", "title", "year"],
     sort: { method: "track" },
-  }
+  },
 );
 
 export const useGetRecentlyAddedAlbumsQuery = createQueryHook<

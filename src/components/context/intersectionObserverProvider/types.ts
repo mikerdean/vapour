@@ -5,7 +5,7 @@ export type IntersectionObserverProviderComponent = ParentComponent<
 >;
 
 export type IntersectionEntryCallback = (
-  entry: IntersectionObserverEntry
+  entry: IntersectionObserverEntry,
 ) => void;
 
 export type IntersectionObserverContextType = {

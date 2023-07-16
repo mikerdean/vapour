@@ -9,7 +9,7 @@ export class MockIntersectionObserver implements IntersectionObserver {
 
   constructor(
     callback: IntersectionObserverCallback,
-    options?: IntersectionObserverInit
+    options?: IntersectionObserverInit,
   ) {
     this.callback = callback;
     this.elements = new Set();
@@ -20,7 +20,7 @@ export class MockIntersectionObserver implements IntersectionObserver {
   }
 
   private static getThreshold(
-    threshold: number | number[] | undefined
+    threshold: number | number[] | undefined,
   ): number[] {
     if (threshold === undefined) {
       return [0];
@@ -33,7 +33,7 @@ export class MockIntersectionObserver implements IntersectionObserver {
 
   private createObservationEntry(
     element: Element,
-    isIntersecting: boolean
+    isIntersecting: boolean,
   ): IntersectionObserverEntry {
     return {
       boundingClientRect: element.getBoundingClientRect(),
@@ -78,7 +78,7 @@ export class MockIntersectionObserver implements IntersectionObserver {
 
   triggerAll(isIntersecting: boolean) {
     const entries = [...this.elements].map((element) =>
-      this.createObservationEntry(element, isIntersecting)
+      this.createObservationEntry(element, isIntersecting),
     );
     this.callback(entries, this);
   }
@@ -105,7 +105,7 @@ export const mockAllIsIntersecting = (isIntersecting: boolean): void => {
 
 export const mockIsIntersecting = (
   element: Element,
-  isIntersecting: boolean
+  isIntersecting: boolean,
 ): void => {
   for (const observer of mockInstances) {
     observer.triggerIntersection(element, isIntersecting);

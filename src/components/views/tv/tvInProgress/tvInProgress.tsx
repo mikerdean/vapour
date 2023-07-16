@@ -16,7 +16,7 @@ const TVInProgress: TVInProgressComponent = () => {
       id: tvshow.tvshowid,
       played: false,
       thumbnail: tvshow.art?.poster,
-    })
+    }),
   );
 
   return (
