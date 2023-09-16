@@ -1,5 +1,4 @@
-import { createForm, zodForm } from "@modular-forms/solid";
-import { z } from "zod";
+import { createForm, valiForm } from "@modular-forms/solid";
 
 import { useHost } from "../../context/hostProvider";
 import { Host } from "../../context/hostProvider/types";
@@ -7,16 +6,34 @@ import Button from "../../core/button";
 import Heading from "../../core/heading";
 import Input from "../../core/input";
 import type { HostFormComponent } from "./types";
+import {
+  coerce,
+  integer,
+  maxValue,
+  minLength,
+  minValue,
+  number,
+  object,
+  string,
+} from "valibot";
 
-const schema = z.object({
-  hostname: z.string().min(1),
-  httpPort: z.coerce.number().int().gte(1000).lte(99999),
-  tcpPort: z.coerce.number().int().gte(1000).lte(99999),
+const portMin = 1000;
+const portMax = 99999;
+
+const portPipeline = coerce(
+  number([integer(), minValue(portMin), maxValue(portMax)]),
+  Number,
+);
+
+const schema = object({
+  hostname: string([minLength(1)]),
+  httpPort: portPipeline,
+  tcpPort: portPipeline,
 });
 
 const HostForm: HostFormComponent = () => {
   const [, { update }] = useHost();
-  const [, { Field, Form }] = createForm<Host>({ validate: zodForm(schema) });
+  const [, { Field, Form }] = createForm<Host>({ validate: valiForm(schema) });
 
   const onSubmit = (newHost: Host) => {
     update(newHost);
@@ -44,8 +61,8 @@ const HostForm: HostFormComponent = () => {
               {...props}
               error={field.error}
               label="HTTP port"
-              min={1000}
-              max={99999}
+              min={portMin}
+              max={portMax}
               type="number"
             />
           </div>
@@ -58,8 +75,8 @@ const HostForm: HostFormComponent = () => {
               {...props}
               error={field.error}
               label="TCP port"
-              min={1000}
-              max={99999}
+              min={portMin}
+              max={portMax}
               type="number"
             />
           </div>

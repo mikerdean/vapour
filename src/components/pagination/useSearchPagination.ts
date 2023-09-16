@@ -11,7 +11,9 @@ const useSearchPagination = (
   Accessor<{ page: number }>,
   (params: { page: number }) => void,
 ] => {
-  const [searchParams, setSearchParams] = useTypedSearchParams(pageValidator);
+  const [searchParams, setSearchParams] = useTypedSearchParams(pageValidator, {
+    page: 1,
+  });
 
   const query = createMemo(() => {
     const params = searchParams();

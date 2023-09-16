@@ -1,25 +1,35 @@
-import { z } from "zod";
+import {
+  coerce,
+  integer,
+  minLength,
+  minValue,
+  number,
+  object,
+  string,
+} from "valibot";
 
-export const albumValidator = z
-  .object({ albumId: z.coerce.number().int().gte(1) })
-  .default({ albumId: 0 });
+const idPipeline = coerce(number([integer(), minValue(1)]), Number);
 
-export const artistValidator = z
-  .object({ artistId: z.coerce.number().int().gte(1) })
-  .default({ artistId: 0 });
+export const albumValidator = object({
+  albumId: idPipeline,
+});
 
-export const genreValidator = z
-  .object({ genre: z.string().min(1) })
-  .default({ genre: "" });
+export const artistValidator = object({
+  artistId: idPipeline,
+});
 
-export const movieValidator = z
-  .object({ movieId: z.coerce.number().int().gte(1) })
-  .default({ movieId: 0 });
+export const genreValidator = object({
+  genre: string([minLength(1)]),
+});
 
-export const movieSetValidator = z
-  .object({ setId: z.coerce.number().int().gte(1) })
-  .default({ setId: 0 });
+export const movieValidator = object({
+  movieId: idPipeline,
+});
 
-export const pageValidator = z
-  .object({ page: z.coerce.number().int().gte(1) })
-  .default({ page: 1 });
+export const movieSetValidator = object({
+  setId: idPipeline,
+});
+
+export const pageValidator = object({
+  page: idPipeline,
+});

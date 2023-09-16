@@ -23,7 +23,7 @@
     "luxon": "3.4.3",
     "nanoid": "5.0.1",
     "solid-js": "1.7.11",
-    "zod": "3.22.2"
+    "valibot": "0.16.0"
   },
   "devDependencies": {
     "@fortawesome/fontawesome-common-types": "6.4.2",

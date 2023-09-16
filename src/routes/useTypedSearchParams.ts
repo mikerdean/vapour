@@ -1,30 +1,28 @@
-import { useSearchParams } from "@solidjs/router";
+import { type SetParams, useSearchParams } from "@solidjs/router";
 import { Accessor, createMemo } from "solid-js";
-import z, { ZodTypeAny } from "zod";
+import { type BaseSchema, safeParse } from "valibot";
 
-type SearchParamsResult<T extends ZodTypeAny> = [
-  Accessor<z.infer<T>>,
-  (value: z.infer<T>) => void,
-];
+type SearchParamsResult<T> = [Accessor<T>, (value: T) => void];
 
-const useTypedSearchParams = <T extends ZodTypeAny>(
-  schema: T,
+const useTypedSearchParams = <T extends SetParams>(
+  schema: BaseSchema<T>,
+  defaultValue: T,
 ): SearchParamsResult<T> => {
   const [searchParams, setSearchParams] = useSearchParams();
 
-  const params = createMemo<z.infer<T>>(() => {
-    const result = schema.safeParse(searchParams);
+  const params = createMemo<T>(() => {
+    const result = safeParse(schema, searchParams);
     if (result.success) {
-      return result.data;
+      return result.output;
     }
 
-    return schema.parse(undefined);
+    return defaultValue;
   });
 
-  const setParams = (value: z.infer<T>): void => {
-    const result = schema.safeParse(value);
+  const setParams = (value: T): void => {
+    const result = safeParse(schema, value);
     if (result.success) {
-      setSearchParams(result.data);
+      setSearchParams(result.output);
     }
   };
 

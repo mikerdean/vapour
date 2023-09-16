@@ -1,20 +1,10 @@
 import { useParams } from "@solidjs/router";
-import { Accessor, createMemo } from "solid-js";
-import z, { ZodTypeAny } from "zod";
+import { type Accessor, createMemo } from "solid-js";
+import { type BaseSchema, parse } from "valibot";
 
-type ParamsResult<T extends ZodTypeAny> = Accessor<z.infer<T>>;
-
-const useTypedParams = <T extends ZodTypeAny>(schema: T): ParamsResult<T> => {
+const useTypedParams = <T>(schema: BaseSchema<T>): Accessor<T> => {
   const routeParams = useParams();
-  const params = createMemo<z.infer<T>>(() => {
-    const result = schema.safeParse(routeParams);
-    if (result.success) {
-      return result.data;
-    }
-
-    return schema.parse(undefined);
-  });
-
+  const params = createMemo<T>(() => parse(schema, routeParams));
   return params;
 };
 
