@@ -4,6 +4,7 @@ import { createResource } from "solid-js";
 import { useSocket } from "../../components/context/socketProvider";
 import type { KodiRequest } from "../types";
 import { QueryHook, skipToken } from "./types";
+import { serialize } from "../../utils/serialize";
 
 const toHex = (buffer: ArrayBuffer): string =>
   Array.from(new Uint8Array(buffer))
@@ -11,7 +12,7 @@ const toHex = (buffer: ArrayBuffer): string =>
     .join("");
 
 const createHash = async (request: unknown): Promise<string> => {
-  const json = JSON.stringify(request);
+  const json = serialize(request);
   const encoder = new TextEncoder();
   const buffer = encoder.encode(json);
   const hash = await window.crypto.subtle.digest("SHA-256", buffer);
