@@ -53,6 +53,7 @@ export const useGetMovieDetailsQuery = createQueryHook<GetMovieQuery, GetMovie>(
     properties: [
       "art",
       "cast",
+      "genre",
       "playcount",
       "plot",
       "runtime",

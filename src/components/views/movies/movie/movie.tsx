@@ -104,7 +104,12 @@ const Movie: MovieComponent = () => {
                       ? getVideoDuration(movie.runtime)
                       : "Unknown",
                   },
-                  { header: "Genre", description: movie.genre || "Unknown" },
+                  {
+                    header: "Genre",
+                    description: movie.genre
+                      ? movie.genre.join(", ")
+                      : "Unknown",
+                  },
                   {
                     header: "Status",
                     description:
