@@ -5,6 +5,12 @@ import { useSocket } from "../../components/context/socketProvider";
 import type { KodiRequest } from "../types";
 import { QueryHook, skipToken } from "./types";
 import { serialize } from "../../utils/serialize";
+import { DateTime } from "luxon";
+
+type Cached<T> = {
+  expires: string;
+  value: T;
+};
 
 const toHex = (buffer: ArrayBuffer): string =>
   Array.from(new Uint8Array(buffer))
@@ -23,7 +29,7 @@ export const createQueryHook = <TRequest, TResponse>(
   method: string,
   params: TRequest,
 ): QueryHook<TRequest, TResponse> => {
-  const cache = new Map<string, TResponse>();
+  const cache = new Map<string, Cached<TResponse>>();
 
   return (optionalParams) => {
     const [, { send }] = useSocket();
@@ -32,13 +38,25 @@ export const createQueryHook = <TRequest, TResponse>(
       request: KodiRequest<TRequest>,
     ): Promise<TResponse> => {
       const hash = await createHash(request.params);
-      const valueInCache = cache.get(hash);
-      if (valueInCache) {
-        return valueInCache;
+      const cached = cache.get(hash);
+      const now = DateTime.utc();
+
+      if (cached) {
+        const expiresBy = DateTime.fromISO(cached.expires);
+        if (now < expiresBy) {
+          return cached.value;
+        }
+
+        cache.delete(hash);
       }
 
       const value = await send<TRequest, TResponse>(request);
-      cache.set(hash, value);
+
+      const expires = now.plus({ minutes: 5 }).toISO();
+      if (expires) {
+        cache.set(hash, { expires, value });
+      }
+
       return value;
     };
 
