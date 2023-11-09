@@ -77,7 +77,10 @@ const Thumbnail: ThumbnailComponent = (props) => {
         <img
           src={isVisible() ? imageUrl() : undefined}
           alt={props.alt}
-          class="w-full h-auto"
+          class="w-full h-auto transition-opacity opacity-0 ease-in duration-300"
+          classList={{
+            "opacity-100": isVisible(),
+          }}
         />
         <Show when={props.played}>
           <ThumbnailPlayed />
