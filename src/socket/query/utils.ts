@@ -12,7 +12,7 @@ const toHex = (buffer: ArrayBuffer): string =>
     .map((b) => b.toString(16).padStart(2, "0"))
     .join("");
 
-const createHash = async (request: unknown): Promise<string> => {
+const createHash = async <T>(request: T): Promise<string> => {
   const json = serialize(request);
   const encoder = new TextEncoder();
   const buffer = encoder.encode(json);
