@@ -5,8 +5,8 @@ import { For, JSX, createMemo } from "solid-js";
 import Thumbnail from "../core/thumbnail";
 import { ThumbnailType } from "../core/thumbnail.types";
 import FontAwesomeIcon from "../images/fontAwesomeIcon";
-import type { GridItem, GridProps } from "./types";
-import { createUrl } from "./utils";
+import type { GridItem, GridProps } from "./grid.types";
+import { createUrl } from "./grid.utils";
 
 const Grid = <T extends GridItem>(props: GridProps<T>): JSX.Element => {
   const tallThumbnail = createMemo(() => {

@@ -1,7 +1,7 @@
 import { Accessor, createMemo } from "solid-js";
 
 import type { KodiMessageLimitsReturned } from "../../socket/types";
-import type { GridItemOf } from "./types";
+import type { GridItemOf } from "./grid.types";
 
 const useGridData = <T extends { limits: KodiMessageLimitsReturned }, TItem>(
   data: Accessor<T | undefined>,
