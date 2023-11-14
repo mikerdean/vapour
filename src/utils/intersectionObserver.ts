@@ -1,8 +1,8 @@
 const mockInstances = new Set<MockIntersectionObserver>();
 
 export class MockIntersectionObserver implements IntersectionObserver {
-  private readonly callback: IntersectionObserverCallback;
-  private readonly elements: Set<Element>;
+  readonly #callback: IntersectionObserverCallback;
+  readonly #elements: Set<Element>;
   readonly root: Document | Element | null;
   readonly rootMargin: string;
   readonly thresholds: readonly number[];
@@ -11,8 +11,8 @@ export class MockIntersectionObserver implements IntersectionObserver {
     callback: IntersectionObserverCallback,
     options?: IntersectionObserverInit,
   ) {
-    this.callback = callback;
-    this.elements = new Set();
+    this.#callback = callback;
+    this.#elements = new Set();
     this.root = options?.root || null;
     this.rootMargin = options?.rootMargin || "0px 0px 0px 0px";
     this.thresholds = MockIntersectionObserver.getThreshold(options?.threshold);
@@ -64,12 +64,12 @@ export class MockIntersectionObserver implements IntersectionObserver {
   }
 
   disconnect(): void {
-    this.elements.clear();
+    this.#elements.clear();
     mockInstances.delete(this);
   }
 
   observe(target: Element): void {
-    this.elements.add(target);
+    this.#elements.add(target);
   }
 
   takeRecords(): IntersectionObserverEntry[] {
@@ -77,23 +77,23 @@ export class MockIntersectionObserver implements IntersectionObserver {
   }
 
   triggerAll(isIntersecting: boolean) {
-    const entries = [...this.elements].map((element) =>
+    const entries = [...this.#elements].map((element) =>
       this.createObservationEntry(element, isIntersecting),
     );
-    this.callback(entries, this);
+    this.#callback(entries, this);
   }
 
   triggerIntersection(target: Element, isIntersecting: boolean) {
-    if (!this.elements.has(target)) {
+    if (!this.#elements.has(target)) {
       return;
     }
 
     const entry = this.createObservationEntry(target, isIntersecting);
-    this.callback([entry], this);
+    this.#callback([entry], this);
   }
 
   unobserve(target: Element): void {
-    this.elements.delete(target);
+    this.#elements.delete(target);
   }
 }
 
