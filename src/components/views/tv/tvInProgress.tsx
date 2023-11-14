@@ -1,9 +1,9 @@
-import { useGetInProgressTVShowsQuery } from "../../../../socket/query";
-import { ThumbnailType } from "../../../core/thumbnail.types";
-import Grid from "../../../grid";
-import GridCard from "../../../grid/gridCard";
-import useGridData from "../../../grid/useGridData";
-import type { TVInProgressComponent } from "./types";
+import { useGetInProgressTVShowsQuery } from "../../../socket/query";
+import { ThumbnailType } from "../../core/thumbnail.types";
+import Grid from "../../grid";
+import GridCard from "../../grid/gridCard";
+import useGridData from "../../grid/useGridData";
+import type { TVInProgressComponent } from "./tvInProgress.types";
 
 const TVInProgress: TVInProgressComponent = () => {
   const [tvshowData] = useGetInProgressTVShowsQuery();
