@@ -1,11 +1,11 @@
-import { useHost } from "../../context/hostProvider";
-import { useSocket } from "../../context/socketProvider";
-import Button from "../../core/button";
-import FullscreenMessage from "../../core/fullscreenMessage";
-import Heading from "../../core/heading";
-import OrderedList from "../../core/orderedList";
-import HostSummary from "../hostSummary";
-import type { ConnectionErrorComponent } from "./types";
+import { useHost } from "../context/hostProvider";
+import { useSocket } from "../context/socketProvider";
+import Button from "../core/button";
+import FullscreenMessage from "../core/fullscreenMessage";
+import Heading from "../core/heading";
+import OrderedList from "../core/orderedList";
+import HostSummary from "./hostSummary";
+import type { ConnectionErrorComponent } from "./connectionError.types";
 
 const ConnectionError: ConnectionErrorComponent = () => {
   const [state, { clear }] = useHost();

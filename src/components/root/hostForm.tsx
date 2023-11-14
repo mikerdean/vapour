@@ -1,11 +1,11 @@
 import { createForm, valiForm } from "@modular-forms/solid";
 
-import { useHost } from "../../context/hostProvider";
-import { Host } from "../../context/hostProvider/types";
-import Button from "../../core/button";
-import Heading from "../../core/heading";
-import Input from "../../core/input";
-import type { HostFormComponent } from "./types";
+import { useHost } from "../context/hostProvider";
+import type { Host } from "../context/hostProvider/types";
+import Button from "../core/button";
+import Heading from "../core/heading";
+import Input from "../core/input";
+import type { HostFormComponent } from "./hostForm.types";
 import {
   coerce,
   integer,
