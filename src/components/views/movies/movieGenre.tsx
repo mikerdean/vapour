@@ -1,17 +1,17 @@
 import { createMemo } from "solid-js";
 
-import useTypedParams from "../../../../routes/useTypedParams";
-import { useGetMoviesQuery } from "../../../../socket/query";
-import { getVideoDuration } from "../../../../utils/duration";
-import { genreValidator } from "../../../../validators";
-import Heading from "../../../core/heading";
-import { ThumbnailType } from "../../../core/thumbnail.types";
-import Grid from "../../../grid";
-import GridCard from "../../../grid/gridCard";
-import useGridData from "../../../grid/useGridData";
-import Pagination from "../../../pagination";
-import useSearchPagination from "../../../pagination/useSearchPagination";
-import type { MovieGenreComponent } from "./types";
+import useTypedParams from "../../../routes/useTypedParams";
+import { useGetMoviesQuery } from "../../../socket/query";
+import { getVideoDuration } from "../../../utils/duration";
+import { genreValidator } from "../../../validators";
+import Heading from "../../core/heading";
+import { ThumbnailType } from "../../core/thumbnail.types";
+import Grid from "../../grid";
+import GridCard from "../../grid/gridCard";
+import useGridData from "../../grid/useGridData";
+import Pagination from "../../pagination";
+import useSearchPagination from "../../pagination/useSearchPagination";
+import type { MovieGenreComponent } from "./movieGenre.types";
 
 const MovieGenre: MovieGenreComponent = () => {
   const pageSize = 100;

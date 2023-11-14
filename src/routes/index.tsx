@@ -2,7 +2,7 @@ import type { RouteDefinition } from "@solidjs/router";
 
 import Layout from "../components/layout";
 import Movies from "../components/views/movies";
-import Movie from "../components/views/movies/movie/movie";
+import Movie from "../components/views/movies/movie";
 import MovieGenre from "../components/views/movies/movieGenre";
 import MovieGenres from "../components/views/movies/movieGenres";
 import MoviesByTitle from "../components/views/movies/moviesByTitle";

@@ -1,11 +1,11 @@
-import { useGetMovieGenresQuery } from "../../../../socket/query";
-import { ThumbnailType } from "../../../core/thumbnail.types";
-import Grid from "../../../grid";
-import GridCard from "../../../grid/gridCard";
-import useGridData from "../../../grid/useGridData";
-import Pagination from "../../../pagination";
-import useSearchPagination from "../../../pagination/useSearchPagination";
-import type { MovieGenresComponent } from "./types";
+import { useGetMovieGenresQuery } from "../../../socket/query";
+import { ThumbnailType } from "../../core/thumbnail.types";
+import Grid from "../../grid";
+import GridCard from "../../grid/gridCard";
+import useGridData from "../../grid/useGridData";
+import Pagination from "../../pagination";
+import useSearchPagination from "../../pagination/useSearchPagination";
+import type { MovieGenresComponent } from "./movieGenres.types";
 
 const MovieGenres: MovieGenresComponent = () => {
   const pageSize = 100;

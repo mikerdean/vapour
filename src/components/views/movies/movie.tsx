@@ -1,20 +1,20 @@
 import { For, Show, createMemo, createSignal } from "solid-js";
 
-import { useMediaQuery } from "../../../../mediaQuery";
-import useTypedParams from "../../../../routes/useTypedParams";
-import { useGetMovieDetailsQuery } from "../../../../socket/query";
+import { useMediaQuery } from "../../../mediaQuery";
+import useTypedParams from "../../../routes/useTypedParams";
+import { useGetMovieDetailsQuery } from "../../../socket/query";
 import type {
   VideoDetailsCast,
   VideoDetailsMovie,
-} from "../../../../socket/types";
-import { getVideoDuration } from "../../../../utils/duration";
-import { movieValidator } from "../../../../validators";
-import Button from "../../../core/button";
-import DefinitionList from "../../../core/definitionList";
-import Heading from "../../../core/heading";
-import Thumbnail from "../../../core/thumbnail";
-import { ThumbnailType } from "../../../core/thumbnail.types";
-import type { MovieComponent } from "./types";
+} from "../../../socket/types";
+import { getVideoDuration } from "../../../utils/duration";
+import { movieValidator } from "../../../validators";
+import Button from "../../core/button";
+import DefinitionList from "../../core/definitionList";
+import Heading from "../../core/heading";
+import Thumbnail from "../../core/thumbnail";
+import { ThumbnailType } from "../../core/thumbnail.types";
+import type { MovieComponent } from "./movie.types";
 
 const Movie: MovieComponent = () => {
   const params = useTypedParams(movieValidator);

@@ -1,12 +1,12 @@
-import { useGetMoviesQuery } from "../../../../socket/query";
-import { getVideoDuration } from "../../../../utils/duration";
-import { ThumbnailType } from "../../../core/thumbnail.types";
-import Grid from "../../../grid";
-import GridCard from "../../../grid/gridCard";
-import useGridData from "../../../grid/useGridData";
-import Pagination from "../../../pagination";
-import useSearchPagination from "../../../pagination/useSearchPagination";
-import type { MoviesByTitleComponent } from "./types";
+import { useGetMoviesQuery } from "../../../socket/query";
+import { getVideoDuration } from "../../../utils/duration";
+import { ThumbnailType } from "../../core/thumbnail.types";
+import Grid from "../../grid";
+import GridCard from "../../grid/gridCard";
+import useGridData from "../../grid/useGridData";
+import Pagination from "../../pagination";
+import useSearchPagination from "../../pagination/useSearchPagination";
+import type { MoviesByTitleComponent } from "./moviesByTitle.types";
 
 const MoviesByTitle: MoviesByTitleComponent = () => {
   const pageSize = 100;
