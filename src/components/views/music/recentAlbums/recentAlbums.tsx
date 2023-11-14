@@ -1,5 +1,5 @@
 import { useGetRecentlyAddedAlbumsQuery } from "../../../../socket/query";
-import { ThumbnailType } from "../../../core/thumbnail/types";
+import { ThumbnailType } from "../../../core/thumbnail.types";
 import Grid from "../../../grid";
 import GridCard from "../../../grid/gridCard";
 import useGridData from "../../../grid/useGridData";

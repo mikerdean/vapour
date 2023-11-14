@@ -13,7 +13,7 @@ import Button from "../../../core/button";
 import DefinitionList from "../../../core/definitionList";
 import Heading from "../../../core/heading";
 import Thumbnail from "../../../core/thumbnail";
-import { ThumbnailType } from "../../../core/thumbnail/types";
+import { ThumbnailType } from "../../../core/thumbnail.types";
 import type { MovieComponent } from "./types";
 
 const Movie: MovieComponent = () => {

@@ -1,4 +1,4 @@
-import { ThumbnailType } from "../core/thumbnail/types";
+import { ThumbnailType } from "../core/thumbnail.types";
 
 export const createUrl = (type: ThumbnailType, id: string | number): string => {
   switch (type) {

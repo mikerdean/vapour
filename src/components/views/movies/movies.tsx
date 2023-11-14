@@ -1,7 +1,7 @@
 import { Outlet } from "@solidjs/router";
 
 import Tabs from "../../core/tabs";
-import type { TabItem } from "../../core/tabs/types";
+import type { TabItem } from "../../core/tabs.types";
 import type { MoviesComponent } from "./types";
 
 const Movies: MoviesComponent = () => {

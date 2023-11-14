@@ -4,7 +4,7 @@ import useTypedParams from "../../../../routes/useTypedParams";
 import { useGetArtistsQuery } from "../../../../socket/query";
 import { genreValidator } from "../../../../validators";
 import Heading from "../../../core/heading";
-import { ThumbnailType } from "../../../core/thumbnail/types";
+import { ThumbnailType } from "../../../core/thumbnail.types";
 import Grid from "../../../grid";
 import GridCard from "../../../grid/gridCard";
 import useGridData from "../../../grid/useGridData";

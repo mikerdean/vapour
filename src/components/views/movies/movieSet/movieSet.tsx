@@ -5,7 +5,7 @@ import { useGetMovieSetDetailsQuery } from "../../../../socket/query";
 import { getVideoDuration } from "../../../../utils/duration";
 import { movieSetValidator } from "../../../../validators";
 import Heading from "../../../core/heading";
-import { ThumbnailType } from "../../../core/thumbnail/types";
+import { ThumbnailType } from "../../../core/thumbnail.types";
 import Grid from "../../../grid";
 import GridCard from "../../../grid/gridCard";
 import type { MovieSetComponent } from "./types";

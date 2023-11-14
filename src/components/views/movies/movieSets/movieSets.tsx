@@ -9,7 +9,7 @@ import type {
   GetMoviesQuery,
   KodiMessageFilterOfType,
 } from "../../../../socket/types";
-import { ThumbnailType } from "../../../core/thumbnail/types";
+import { ThumbnailType } from "../../../core/thumbnail.types";
 import Grid from "../../../grid";
 import GridCard from "../../../grid/gridCard";
 import useGridData from "../../../grid/useGridData";

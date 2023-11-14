@@ -6,7 +6,7 @@ import type { AudioDetailsArtist } from "../../../../socket/types";
 import { artistValidator } from "../../../../validators";
 import Heading from "../../../core/heading";
 import Thumbnail from "../../../core/thumbnail";
-import { ThumbnailType } from "../../../core/thumbnail/types";
+import { ThumbnailType } from "../../../core/thumbnail.types";
 import ArtistAlbums from "../artistAlbums";
 import type { ArtistComponent } from "./types";
 

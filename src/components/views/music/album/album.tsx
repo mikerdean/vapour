@@ -8,7 +8,7 @@ import { albumValidator } from "../../../../validators";
 import DefinitionList from "../../../core/definitionList";
 import Heading from "../../../core/heading";
 import Thumbnail from "../../../core/thumbnail";
-import { ThumbnailType } from "../../../core/thumbnail/types";
+import { ThumbnailType } from "../../../core/thumbnail.types";
 import AlbumSongs from "../albumSongs";
 import type { AlbumComponent } from "./types";
 

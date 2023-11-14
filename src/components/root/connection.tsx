@@ -2,7 +2,7 @@ import { Match, Switch, onCleanup, onMount } from "solid-js";
 
 import { ConnectionState } from "../../socket/types";
 import { useSocket } from "../context/socketProvider";
-import { LoadingFullscreen } from "../core/loading";
+import LoadingFullscreen from "../core/loadingFullscreen";
 import ConnectionError from "./connectionError";
 import type { ConnectionComponent } from "./connection.types";
 
