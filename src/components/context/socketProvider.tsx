@@ -1,23 +1,23 @@
 import { createContext, useContext } from "solid-js";
 import { createStore } from "solid-js/store";
 
-import { addToQueue, dequeue, removeFromQueue } from "../../../socket/queue";
+import { addToQueue, dequeue, removeFromQueue } from "../../socket/queue";
 import {
   isKodiError,
   isKodiNotification,
   isKodiResponse,
-} from "../../../socket/typeguards";
-import type { KodiRequest } from "../../../socket/types";
-import type { NotificationMap } from "../../../socket/types/notifications";
-import { useHost } from "../hostProvider";
+} from "../../socket/typeguards";
+import type { KodiRequest } from "../../socket/types";
+import type { NotificationMap } from "../../socket/types/notifications";
+import { useHost } from "./hostProvider";
 import type {
   NotificationEventListener,
   SocketContextType,
   SocketMethods,
   SocketProviderComponent,
   SocketState,
-} from "./types";
-import { ConnectionState } from "./types";
+} from "./socketProvider.types";
+import { ConnectionState } from "./socketProvider.types";
 
 const SocketContext = createContext<SocketContextType>([
   {} as SocketState,

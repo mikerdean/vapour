@@ -7,7 +7,7 @@ import type {
   HostMethods,
   HostProviderComponent,
   HostStore,
-} from "./types";
+} from "./hostProvider.types";
 
 const HostContext = createContext<HostContextType>([
   {} as HostStore,

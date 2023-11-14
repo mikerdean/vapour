@@ -1,7 +1,7 @@
 import type { ParentComponent } from "solid-js";
 
-import type { KodiRequest } from "../../../socket/types";
-import { NotificationMap } from "../../../socket/types/notifications";
+import type { KodiRequest } from "../../socket/types";
+import type { NotificationMap } from "../../socket/types/notifications";
 
 export enum ConnectionState {
   NotConnected,

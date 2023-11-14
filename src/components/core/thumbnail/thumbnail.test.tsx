@@ -5,7 +5,7 @@ import { describe, expect, it } from "vitest";
 import { mockIsIntersecting } from "../../../utils/intersectionObserver";
 import { setup } from "../../../utils/testing";
 import HostProvider from "../../context/hostProvider";
-import type { Host } from "../../context/hostProvider/types";
+import type { Host } from "../../context/hostProvider.types";
 import IntersectionObserverProvider from "../../context/intersectionObserverProvider";
 import { ThumbnailType } from "./types";
 import Thumbnail from ".";

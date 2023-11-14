@@ -4,7 +4,7 @@ import type {
   IntersectionEntryCallback,
   IntersectionObserverContextType,
   IntersectionObserverProviderComponent,
-} from "./types";
+} from "./intersectionObserverProvider.types";
 
 const IntersectionObserverContext =
   createContext<IntersectionObserverContextType>(
