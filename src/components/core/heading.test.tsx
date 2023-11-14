@@ -4,6 +4,7 @@ import { describe, expect, test } from "vitest";
 import { setup } from "../../utils/testing";
 import { HeadingLevel } from "./heading.types";
 import Heading from "./heading";
+import { createSignal } from "solid-js";
 
 const headingLevels: HeadingLevel[] = [1, 2, 3, 4, 5, 6];
 
@@ -37,4 +38,18 @@ describe("Heading component", () => {
       expect(heading).toHaveAttribute("id", "suppliedId");
     },
   );
+
+  test("changes the heading level based on the supplied prop", () => {
+    const [level, setLevel] = createSignal<HeadingLevel>(1);
+    const name = "test";
+
+    setup(() => <Heading level={level()}>{name}</Heading>);
+
+    const h1 = screen.getByRole("heading", { level: 1, name });
+    expect(h1).toBeInTheDocument();
+
+    setLevel(3);
+    const h3 = screen.getByRole("heading", { level: 3, name });
+    expect(h3).toBeInTheDocument();
+  });
 });
