@@ -1,6 +1,6 @@
 # vapour
 
-`vapour` is a web interface plugin for Kodi designed for use primarily with mobile devices in mind (although other devices are also catered for).
+`vapour` is a web interface plugin for Kodi designed for use primarily with mobile devices (although other devices are also catered for).
 
 ## Installation
 
