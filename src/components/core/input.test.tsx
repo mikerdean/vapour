@@ -21,6 +21,8 @@ describe("Input component", () => {
 
     const inputs = screen.getAllByRole("textbox");
     expect(inputs.length).toEqual(2);
+    expect(inputs[0]).toHaveAttribute("id");
+    expect(inputs[1]).toHaveAttribute("id");
     expect(inputs[0].id).not.toEqual(inputs[1].id);
   });
 
