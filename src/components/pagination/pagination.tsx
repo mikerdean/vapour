@@ -8,8 +8,8 @@ import { For, Show, createMemo } from "solid-js";
 
 import { css } from "../../utils/css";
 import FontAwesomeIcon from "../images/fontAwesomeIcon";
-import type { PaginationComponent } from "./types";
-import { calculateStart } from "./utils";
+import type { PaginationComponent } from "./pagination.types";
+import { calculateStart } from "./pagination.utils";
 
 const Pagination: PaginationComponent = (props) => {
   const defaultButtonClasses = [
