@@ -1,9 +1,9 @@
-import { useGetSongsQuery } from "../../../../socket/query";
-import useGridData from "../../../grid/useGridData";
-import Pagination from "../../../pagination";
-import useSearchPagination from "../../../pagination/useSearchPagination";
-import SongList from "../songList";
-import type { SongsComponent } from "./types";
+import { useGetSongsQuery } from "../../../socket/query";
+import useGridData from "../../grid/useGridData";
+import Pagination from "../../pagination";
+import useSearchPagination from "../../pagination/useSearchPagination";
+import SongList from "./songList";
+import type { SongsComponent } from "./songs.types";
 
 const Songs: SongsComponent = () => {
   const pageSize = 100;

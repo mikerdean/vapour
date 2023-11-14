@@ -1,11 +1,11 @@
-import { useGetArtistsQuery } from "../../../../socket/query";
-import { ThumbnailType } from "../../../core/thumbnail.types";
-import Grid from "../../../grid";
-import GridCard from "../../../grid/gridCard";
-import useGridData from "../../../grid/useGridData";
-import Pagination from "../../../pagination";
-import useSearchPagination from "../../../pagination/useSearchPagination";
-import type { ArtistsComponent } from "./types";
+import { useGetArtistsQuery } from "../../../socket/query";
+import { ThumbnailType } from "../../core/thumbnail.types";
+import Grid from "../../grid";
+import GridCard from "../../grid/gridCard";
+import useGridData from "../../grid/useGridData";
+import Pagination from "../../pagination";
+import useSearchPagination from "../../pagination/useSearchPagination";
+import type { ArtistsComponent } from "./artists.types";
 
 const Artists: ArtistsComponent = () => {
   const pageSize = 100;

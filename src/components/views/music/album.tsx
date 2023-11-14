@@ -1,16 +1,16 @@
 import { Show, createMemo } from "solid-js";
 
-import useTypedParams from "../../../../routes/useTypedParams";
-import { useGetAlbumQuery } from "../../../../socket/query";
-import type { AudioDetailsAlbum } from "../../../../socket/types";
-import { getSongDuration } from "../../../../utils/duration";
-import { albumValidator } from "../../../../validators";
-import DefinitionList from "../../../core/definitionList";
-import Heading from "../../../core/heading";
-import Thumbnail from "../../../core/thumbnail";
-import { ThumbnailType } from "../../../core/thumbnail.types";
-import AlbumSongs from "../albumSongs";
-import type { AlbumComponent } from "./types";
+import useTypedParams from "../../../routes/useTypedParams";
+import { useGetAlbumQuery } from "../../../socket/query";
+import type { AudioDetailsAlbum } from "../../../socket/types";
+import { getSongDuration } from "../../../utils/duration";
+import { albumValidator } from "../../../validators";
+import DefinitionList from "../../core/definitionList";
+import Heading from "../../core/heading";
+import Thumbnail from "../../core/thumbnail";
+import { ThumbnailType } from "../../core/thumbnail.types";
+import AlbumSongs from "./albumSongs";
+import type { AlbumComponent } from "./album.types";
 
 const Album: AlbumComponent = () => {
   const params = useTypedParams(albumValidator);

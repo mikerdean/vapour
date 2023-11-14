@@ -1,9 +1,9 @@
-import { useGetRecentlyAddedAlbumsQuery } from "../../../../socket/query";
-import { ThumbnailType } from "../../../core/thumbnail.types";
-import Grid from "../../../grid";
-import GridCard from "../../../grid/gridCard";
-import useGridData from "../../../grid/useGridData";
-import type { RecentAlbumsComponent } from "./types";
+import { useGetRecentlyAddedAlbumsQuery } from "../../../socket/query";
+import { ThumbnailType } from "../../core/thumbnail.types";
+import Grid from "../../grid";
+import GridCard from "../../grid/gridCard";
+import useGridData from "../../grid/useGridData";
+import type { RecentAlbumsComponent } from "./recentAlbums.types";
 
 const RecentAlbums: RecentAlbumsComponent = () => {
   const [recentAlbums] = useGetRecentlyAddedAlbumsQuery();

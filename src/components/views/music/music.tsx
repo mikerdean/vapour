@@ -2,7 +2,7 @@ import { Outlet } from "@solidjs/router";
 
 import Tabs from "../../core/tabs";
 import type { TabItem } from "../../core/tabs.types";
-import type { MusicComponent } from "./types";
+import type { MusicComponent } from "./music.types";
 
 const Music: MusicComponent = () => {
   const musicTabs: TabItem[] = [

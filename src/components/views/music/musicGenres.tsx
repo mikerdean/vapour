@@ -1,11 +1,11 @@
-import { useGetMusicGenresQuery } from "../../../../socket/query";
-import { ThumbnailType } from "../../../core/thumbnail.types";
-import Grid from "../../../grid";
-import GridCard from "../../../grid/gridCard";
-import useGridData from "../../../grid/useGridData";
-import Pagination from "../../../pagination";
-import useSearchPagination from "../../../pagination/useSearchPagination";
-import type { MusicGenresComponent } from "./types";
+import { useGetMusicGenresQuery } from "../../../socket/query";
+import { ThumbnailType } from "../../core/thumbnail.types";
+import Grid from "../../grid";
+import GridCard from "../../grid/gridCard";
+import useGridData from "../../grid/useGridData";
+import Pagination from "../../pagination";
+import useSearchPagination from "../../pagination/useSearchPagination";
+import type { MusicGenresComponent } from "./musicGenres.types";
 
 const MusicGenres: MusicGenresComponent = () => {
   const pageSize = 100;

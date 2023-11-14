@@ -1,9 +1,9 @@
 import { faEllipsisVertical } from "@fortawesome/free-solid-svg-icons";
 import { For } from "solid-js";
 
-import { getSongDuration } from "../../../../utils/duration";
-import FontAwesomeIcon from "../../../images/fontAwesomeIcon";
-import type { SongListComponent } from "./types";
+import { getSongDuration } from "../../../utils/duration";
+import FontAwesomeIcon from "../../images/fontAwesomeIcon";
+import type { SongListComponent } from "./songList.types";
 
 const SongList: SongListComponent = (props) => {
   return (
