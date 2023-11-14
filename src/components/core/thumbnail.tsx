@@ -12,6 +12,9 @@ const Thumbnail: ThumbnailComponent = (props) => {
 
   const [host] = useHost();
   const { add, remove } = useIntersectionObserver();
+
+  const [isLoaded, setIsLoaded] = createSignal(false);
+
   const [isVisible, setIsVisible] = createSignal(false, {
     equals(prev, next) {
       if (prev) {
@@ -75,8 +78,9 @@ const Thumbnail: ThumbnailComponent = (props) => {
           alt={props.alt}
           class="w-full h-auto transition-opacity opacity-0 ease-in duration-300"
           classList={{
-            "opacity-100": isVisible(),
+            "opacity-100": isVisible() && isLoaded(),
           }}
+          onLoad={() => setIsLoaded(true)}
         />
         <Show when={props.played}>
           <ThumbnailPlayed />
