@@ -73,7 +73,7 @@ export class MockIntersectionObserver implements IntersectionObserver {
   }
 
   takeRecords(): IntersectionObserverEntry[] {
-    throw new Error("Method not implemented.");
+    throw Error("Method not implemented.");
   }
 
   triggerAll(isIntersecting: boolean) {
