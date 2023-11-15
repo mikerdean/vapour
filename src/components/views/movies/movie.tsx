@@ -86,7 +86,7 @@ const Movie: MovieComponent = () => {
           </Heading>
           <div class="sm:flex">
             <Show when={movie.art?.poster}>
-              <div class="mr-5 mb-5 sm:max-w-sm">
+              <div class="mb-5 sm:mr-5 sm:max-w-sm">
                 <Thumbnail
                   type={ThumbnailType.Album}
                   uri={movie.art?.poster}
@@ -94,7 +94,7 @@ const Movie: MovieComponent = () => {
                 />
               </div>
             </Show>
-            <div class="max-w-lg mb-3">
+            <div class="max-w-lg">
               <DefinitionList
                 label="Movie details"
                 each={[
@@ -129,7 +129,7 @@ const Movie: MovieComponent = () => {
               <Show when={movie.plot}>
                 <p class="mb-3">{movie.plot}</p>
               </Show>
-              <Show when={movie.rating !== undefined}>
+              <Show when={movie.rating}>
                 <div class="mb-3">
                   <Heading level={2}>Rating</Heading>
                   <Rating value={movie.rating} />

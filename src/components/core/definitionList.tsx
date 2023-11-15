@@ -4,18 +4,14 @@ import type { DefinitionListComponent } from "./definitionList.types";
 
 const DefinitionList: DefinitionListComponent = (props) => {
   return (
-    <dl
-      aria-label={props.label}
-      class="grid grid-cols-2 md:grid-cols-4 mb-2"
-      role="list"
-    >
+    <dl aria-label={props.label} class="grid grid-cols-2 mb-3" role="list">
       <For each={props.each}>
         {(item) => (
           <>
             <dt class="font-bold" role="listitem">
               {item.header}
             </dt>
-            <dd class="md:col-span-3">{item.description}</dd>
+            <dd>{item.description}</dd>
           </>
         )}
       </For>

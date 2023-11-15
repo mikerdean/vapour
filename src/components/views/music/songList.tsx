@@ -18,13 +18,9 @@ const SongList: SongListComponent = (props) => {
           >
             <div class="flex items-center">
               <button type="button" class="flex w-full">
-                <span class="grow-0">
-                  {song.disc !== undefined && `${song.disc}.`}
-                </span>
-                <span class="grow-0 mr-2">
-                  {String(song.track).padStart(2, "0")}
-                </span>
-                <span class="grow text-left">{song.title}</span>
+                <span>{song.disc !== undefined && `${song.disc}.`}</span>
+                <span class="mr-3">{String(song.track).padStart(2, "0")}</span>
+                <span class="grow text-left mr-3">{song.title}</span>
                 {song.duration && <span>{getSongDuration(song.duration)}</span>}
               </button>
               <button class="pl-3">

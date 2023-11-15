@@ -1,16 +1,19 @@
 import { Show, createMemo } from "solid-js";
 
 import useTypedParams from "../../../hooks/useTypedParams";
-import { useGetAlbumQuery } from "../../../socket/query";
+import { useGetAlbumQuery, useGetSongsQuery } from "../../../socket/query";
 import type { AudioDetailsAlbum } from "../../../socket/types";
-import { getSongDuration } from "../../../utils/duration";
+import { getVideoDuration } from "../../../utils/duration";
 import { albumValidator } from "../../../validators";
 import DefinitionList from "../../core/definitionList";
 import Heading from "../../core/heading";
 import Thumbnail from "../../core/thumbnail";
 import { ThumbnailType } from "../../core/thumbnail.types";
-import AlbumSongs from "./albumSongs";
 import type { AlbumComponent } from "./album.types";
+import SongList from "./songList";
+import useGridData from "../../grid/useGridData";
+import { skipToken } from "../../../socket/query/types";
+import Rating from "../../core/rating";
 
 const Album: AlbumComponent = () => {
   const params = useTypedParams(albumValidator);
@@ -18,6 +21,30 @@ const Album: AlbumComponent = () => {
   const [albumData] = useGetAlbumQuery(() => ({
     albumid: params().albumId,
   }));
+
+  const [songData] = useGetSongsQuery(() => {
+    const result = albumData();
+    if (!result) {
+      return skipToken;
+    }
+
+    const { artist, title, year } = result.albumdetails;
+
+    return {
+      filter: {
+        and: [
+          {
+            field: "albumartist",
+            operator: "is",
+            value: artist?.toString() || "",
+          },
+          { field: "album", operator: "is", value: title || "" },
+          { field: "year", operator: "is", value: (year || 0).toString() },
+        ],
+      },
+      sort: { method: "year", order: "ascending" },
+    };
+  });
 
   const album = createMemo<AudioDetailsAlbum | undefined>(() => {
     const result = albumData();
@@ -28,6 +55,21 @@ const Album: AlbumComponent = () => {
     return result.albumdetails;
   });
 
+  const [songs] = useGridData(
+    songData,
+    (data) => data.songs,
+    (song) => ({ ...song, id: song.songid }),
+  );
+
+  const duration = createMemo<number>(() => {
+    const results = songs();
+    if (!results) {
+      return -1;
+    }
+
+    return results.reduce((total, song) => total + (song.duration || 0), 0);
+  });
+
   return (
     <Show when={album()} keyed>
       {(album) => (
@@ -36,9 +78,9 @@ const Album: AlbumComponent = () => {
             {album.title}
             {album.year && ` (${album.year})`}
           </Heading>
-          <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 mb-3">
+          <div class="sm:flex">
             {album.thumbnail && (
-              <div>
+              <div class="mb-5 sm:mr-5 sm:max-w-sm">
                 <Thumbnail
                   type={ThumbnailType.Album}
                   uri={album.thumbnail}
@@ -46,30 +88,34 @@ const Album: AlbumComponent = () => {
                 />
               </div>
             )}
-            <div>
+            <div class="max-w-lg">
               <DefinitionList
                 label="Album details"
                 each={[
                   { header: "Artist", description: album.artist || "Unknown" },
                   {
                     header: "Duration",
-                    description: album.albumduration
-                      ? getSongDuration(album.albumduration)
-                      : "Unknown",
+                    description: getVideoDuration(duration()) || "Unknown",
                   },
                   { header: "Genre", description: album.genre || "Unknown" },
                   { header: "Year", description: album.year || "Unknown" },
                 ]}
               />
-              {album.description && <p class="mt-3">{album.description}</p>}
+              <Show when={album.description}>
+                <p class="mb-3">{album.description}</p>
+              </Show>
+              <Show when={album.rating}>
+                <div class="mb-3">
+                  <Heading level={2}>Rating</Heading>
+                  <Rating value={album.rating} />
+                </div>
+              </Show>
+              <div class="mt-5">
+                <Heading level={2}>Tracks</Heading>
+                <SongList songs={songs()} />
+              </div>
             </div>
           </div>
-          <Heading level={2}>Tracks</Heading>
-          <AlbumSongs
-            artist={album.artist?.toString() || ""}
-            album={album.title || ""}
-            year={album.year || 0}
-          />
         </div>
       )}
     </Show>
