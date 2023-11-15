@@ -11,7 +11,6 @@ const Rating: RatingComponent = (props) => {
     const split = valueStr.split(".");
     const int = Number.parseInt(split[0], 10);
     const precision = Number.parseFloat(`0.${split[1]}`);
-    console.log(precision);
 
     return Array.from({ length: 10 }, (_, i) => {
       if (i < int) {
