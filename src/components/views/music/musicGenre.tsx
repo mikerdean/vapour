@@ -1,6 +1,6 @@
 import { createMemo } from "solid-js";
 
-import useTypedParams from "../../../routes/useTypedParams";
+import useTypedParams from "../../../hooks/useTypedParams";
 import { useGetArtistsQuery } from "../../../socket/query";
 import { genreValidator } from "../../../validators";
 import Heading from "../../core/heading";

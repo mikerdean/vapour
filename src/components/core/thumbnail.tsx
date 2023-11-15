@@ -1,16 +1,15 @@
-import { Show, createMemo, createSignal, onCleanup, onMount } from "solid-js";
+import { Show, createSignal, onCleanup, onMount } from "solid-js";
 
-import { useHost } from "../context/hostProvider";
 import { useIntersectionObserver } from "../context/intersectionObserverProvider";
 import FontAwesomeIcon from "../images/fontAwesomeIcon";
 import ThumbnailPlayed from "./thumbnailPlayed";
 import type { ThumbnailComponent } from "./thumbnail.types";
 import { getIconByType } from "./thumbnail.utils";
+import createKodiImageUrl from "../../hooks/createKodiImageUrl";
 
 const Thumbnail: ThumbnailComponent = (props) => {
   let el: HTMLDivElement | undefined;
 
-  const [host] = useHost();
   const { add, remove } = useIntersectionObserver();
 
   const [isLoaded, setIsLoaded] = createSignal(false);
@@ -25,16 +24,7 @@ const Thumbnail: ThumbnailComponent = (props) => {
     },
   });
 
-  const imageUrl = createMemo<string | undefined>(() => {
-    const baseUrl = host.httpUrl;
-    if (!baseUrl || !props.uri) {
-      return;
-    }
-
-    const encoded = encodeURIComponent(props.uri);
-    const url = new URL(`image/${encoded}`, baseUrl);
-    return url.toString();
-  });
+  const imageUrl = createKodiImageUrl(() => props.uri);
 
   onMount(() => {
     if (el) {

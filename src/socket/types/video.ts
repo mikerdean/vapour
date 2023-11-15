@@ -89,7 +89,7 @@ export type VideoDetailsMovie = VideoDetailsFile & {
   uniqueid?: number;
   userrating?: number;
   votes?: string;
-  writer?: string;
+  writer?: string[];
   year?: number;
 };
 

@@ -1,6 +1,6 @@
 import { Accessor, createMemo } from "solid-js";
 
-import useTypedSearchParams from "../../routes/useTypedSearchParams";
+import useTypedSearchParams from "../../hooks/useTypedSearchParams";
 import type { KodiMessageLimits } from "../../socket/types";
 import { pageValidator } from "../../validators";
 
