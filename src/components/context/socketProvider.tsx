@@ -73,7 +73,7 @@ const SocketProvider: SocketProviderComponent = (props) => {
           }
         }
       } catch (err) {
-        console.error("Error from socket: ", err);
+        // TODO: add dynamic logging output
       }
     };
 
