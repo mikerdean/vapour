@@ -88,7 +88,7 @@ const Album: AlbumComponent = () => {
                 />
               </div>
             )}
-            <div class="max-w-lg">
+            <div class="w-full max-w-lg">
               <DefinitionList
                 label="Album details"
                 each={[

@@ -94,7 +94,7 @@ const Movie: MovieComponent = () => {
                 />
               </div>
             </Show>
-            <div class="max-w-lg">
+            <div class="w-full max-w-lg">
               <DefinitionList
                 label="Movie details"
                 each={[
