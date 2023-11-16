@@ -23,19 +23,19 @@ const Cast: CastComponent = (props) => {
 
   return (
     <>
-      <div class="grid grid-cols-6 gap-3">
+      <ul class="grid grid-cols-6 gap-3">
         <For each={cast()}>
           {(actor) => (
-            <div class="border-2 border-cyan-900 rounded-lg overflow-hidden">
+            <li class="border-2 border-cyan-900 rounded-lg overflow-hidden">
               <Thumbnail
                 type={ThumbnailType.Actor}
                 uri={actor.thumbnail}
                 alt={actor.name}
               />
-            </div>
+            </li>
           )}
         </For>
-      </div>
+      </ul>
       <Show when={castShowMore()}>
         <div class="my-5">
           <Button onClick={() => setCastPage((prev) => prev + 1)}>
