@@ -4,7 +4,7 @@
   "version": "0.0.1",
   "type": "module",
   "scripts": {
-    "build": "npm run typecheck && vite build",
+    "build": "npm run lint && npm run test:ci && vite build",
     "lint": "npm run typecheck && npm run lint:eslint && npm run lint:prettier",
     "lint:eslint": "eslint .",
     "lint:prettier": "prettier --check .",
