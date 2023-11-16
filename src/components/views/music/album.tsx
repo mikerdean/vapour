@@ -7,13 +7,13 @@ import { getVideoDuration } from "../../../utils/duration";
 import { albumValidator } from "../../../validators";
 import DefinitionList from "../../core/definitionList";
 import Heading from "../../core/heading";
-import Thumbnail from "../../core/thumbnail";
 import { ThumbnailType } from "../../core/thumbnail.types";
 import type { AlbumComponent } from "./album.types";
 import SongList from "./songList";
 import useGridData from "../../grid/useGridData";
 import { skipToken } from "../../../socket/query/types";
 import Rating from "../../core/rating";
+import ItemLayout from "../../layout/itemLayout";
 
 const Album: AlbumComponent = () => {
   const params = useTypedParams(albumValidator);
@@ -73,50 +73,37 @@ const Album: AlbumComponent = () => {
   return (
     <Show when={album()} keyed>
       {(album) => (
-        <div>
-          <Heading level={1}>
-            {album.title}
-            {album.year && ` (${album.year})`}
-          </Heading>
-          <div class="sm:flex">
-            {album.thumbnail && (
-              <div class="mb-5 sm:mr-5 sm:max-w-sm">
-                <Thumbnail
-                  type={ThumbnailType.Album}
-                  uri={album.thumbnail}
-                  alt=""
-                />
-              </div>
-            )}
-            <div class="w-full max-w-lg">
-              <DefinitionList
-                label="Album details"
-                each={[
-                  { header: "Artist", description: album.artist || "Unknown" },
-                  {
-                    header: "Duration",
-                    description: getVideoDuration(duration()) || "Unknown",
-                  },
-                  { header: "Genre", description: album.genre || "Unknown" },
-                  { header: "Year", description: album.year || "Unknown" },
-                ]}
-              />
-              <Show when={album.description}>
-                <p class="mb-3">{album.description}</p>
-              </Show>
-              <Show when={album.rating}>
-                <div class="mb-3">
-                  <Heading level={2}>Rating</Heading>
-                  <Rating value={album.rating} />
-                </div>
-              </Show>
-              <div class="mt-5">
-                <Heading level={2}>Tracks</Heading>
-                <SongList songs={songs()} />
-              </div>
+        <ItemLayout
+          title={`${album.title}${album.year && ` (${album.year})`}`}
+          thumbnailUrl={album.thumbnail}
+          thumbnailType={ThumbnailType.Album}
+        >
+          <DefinitionList
+            label="Album details"
+            each={[
+              { header: "Artist", description: album.artist || "Unknown" },
+              {
+                header: "Duration",
+                description: getVideoDuration(duration()) || "Unknown",
+              },
+              { header: "Genre", description: album.genre || "Unknown" },
+              { header: "Year", description: album.year || "Unknown" },
+            ]}
+          />
+          <Show when={album.description}>
+            <p class="mb-3">{album.description}</p>
+          </Show>
+          <Show when={album.rating}>
+            <div class="mb-3">
+              <Heading level={2}>Rating</Heading>
+              <Rating value={album.rating} />
             </div>
+          </Show>
+          <div class="mt-5">
+            <Heading level={2}>Tracks</Heading>
+            <SongList songs={songs()} />
           </div>
-        </div>
+        </ItemLayout>
       )}
     </Show>
   );
