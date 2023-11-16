@@ -48,7 +48,7 @@ const Movie: MovieComponent = () => {
           backgroundArtUrl={fanartUrl()}
           thumbnailType={ThumbnailType.Movie}
           thumbnailUrl={movie.art?.poster}
-          title={`${movie.title}${movie.year && ` (${movie.year})`}`}
+          title={`${movie.title}${movie.year ? ` (${movie.year})` : ""}`}
         >
           <DefinitionList
             label="Movie details"

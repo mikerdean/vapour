@@ -74,7 +74,7 @@ const Album: AlbumComponent = () => {
     <Show when={album()} keyed>
       {(album) => (
         <ItemLayout
-          title={`${album.title}${album.year && ` (${album.year})`}`}
+          title={`${album.title}${album.year ? ` (${album.year})` : ""}`}
           thumbnailUrl={album.thumbnail}
           thumbnailType={ThumbnailType.Album}
         >
