@@ -1,4 +1,4 @@
-import { Show, createMemo } from "solid-js";
+import { createMemo, Show } from "solid-js";
 
 import useTypedParams from "../../../hooks/useTypedParams";
 import { useGetArtistQuery } from "../../../socket/query";
@@ -7,8 +7,8 @@ import { artistValidator } from "../../../validators";
 import Heading from "../../core/heading";
 import Thumbnail from "../../core/thumbnail";
 import { ThumbnailType } from "../../core/thumbnail.types";
-import ArtistAlbums from "./artistAlbums";
 import type { ArtistComponent } from "./artist.types";
+import ArtistAlbums from "./artistAlbums";
 
 const Artist: ArtistComponent = () => {
   const params = useTypedParams(artistValidator);

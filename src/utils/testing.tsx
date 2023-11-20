@@ -1,5 +1,9 @@
-import { Router, memoryIntegration, useRoutes } from "@solidjs/router";
-import type { RouteDefinition } from "@solidjs/router";
+import {
+  memoryIntegration,
+  Router,
+  useRoutes,
+  type RouteDefinition,
+} from "@solidjs/router";
 import { render } from "@solidjs/testing-library";
 import userEvent from "@testing-library/user-event";
 import type { Component, JSX } from "solid-js";

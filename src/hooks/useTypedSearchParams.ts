@@ -1,6 +1,6 @@
-import { type SetParams, useSearchParams } from "@solidjs/router";
+import { useSearchParams, type SetParams } from "@solidjs/router";
 import { Accessor, createMemo } from "solid-js";
-import { type BaseSchema, safeParse } from "valibot";
+import { safeParse, type BaseSchema } from "valibot";
 
 type SearchParamsResult<T> = [Accessor<T>, (value: T) => void];
 

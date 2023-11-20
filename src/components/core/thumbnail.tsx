@@ -1,11 +1,11 @@
-import { Show, createSignal, onCleanup, onMount } from "solid-js";
+import { createSignal, onCleanup, onMount, Show } from "solid-js";
 
+import createKodiImageUrl from "../../hooks/createKodiImageUrl";
 import { useIntersectionObserver } from "../context/intersectionObserverProvider";
 import FontAwesomeIcon from "../images/fontAwesomeIcon";
-import ThumbnailPlayed from "./thumbnailPlayed";
 import type { ThumbnailComponent } from "./thumbnail.types";
 import { getIconByType } from "./thumbnail.utils";
-import createKodiImageUrl from "../../hooks/createKodiImageUrl";
+import ThumbnailPlayed from "./thumbnailPlayed";
 
 const Thumbnail: ThumbnailComponent = (props) => {
   let el: HTMLDivElement | undefined;

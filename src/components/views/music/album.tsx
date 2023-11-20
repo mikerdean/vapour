@@ -1,19 +1,19 @@
-import { Show, createMemo } from "solid-js";
+import { createMemo, Show } from "solid-js";
 
 import useTypedParams from "../../../hooks/useTypedParams";
 import { useGetAlbumQuery, useGetSongsQuery } from "../../../socket/query";
+import { skipToken } from "../../../socket/query/types";
 import type { AudioDetailsAlbum } from "../../../socket/types";
 import { getVideoDuration } from "../../../utils/duration";
 import { albumValidator } from "../../../validators";
 import DefinitionList from "../../core/definitionList";
 import Heading from "../../core/heading";
+import Rating from "../../core/rating";
 import { ThumbnailType } from "../../core/thumbnail.types";
+import useGridData from "../../grid/useGridData";
+import ItemLayout from "../../layout/itemLayout";
 import type { AlbumComponent } from "./album.types";
 import SongList from "./songList";
-import useGridData from "../../grid/useGridData";
-import { skipToken } from "../../../socket/query/types";
-import Rating from "../../core/rating";
-import ItemLayout from "../../layout/itemLayout";
 
 const Album: AlbumComponent = () => {
   const params = useTypedParams(albumValidator);

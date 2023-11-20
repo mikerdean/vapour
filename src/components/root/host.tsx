@@ -2,8 +2,8 @@ import { Show } from "solid-js";
 
 import { useHost } from "../context/hostProvider";
 import FullscreenMessage from "../core/fullscreenMessage";
-import HostForm from "./hostForm";
 import type { HostComponent } from "./host.types";
+import HostForm from "./hostForm";
 
 const Host: HostComponent = (props) => {
   const [state] = useHost();

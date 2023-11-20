@@ -1,11 +1,11 @@
+import { DateTime } from "luxon";
 import { nanoid } from "nanoid";
 import { createResource } from "solid-js";
 
 import { useSocket } from "../../components/context/socketProvider";
-import type { KodiRequest } from "../types";
-import { type Cached, type QueryHook, skipToken } from "./types";
 import { serialize } from "../../utils/serialize";
-import { DateTime } from "luxon";
+import type { KodiRequest } from "../types";
+import { skipToken, type Cached, type QueryHook } from "./types";
 
 const toHex = (buffer: ArrayBuffer): string =>
   Array.from(new Uint8Array(buffer))

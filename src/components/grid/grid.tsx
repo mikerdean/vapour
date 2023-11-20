@@ -1,6 +1,6 @@
 import { faEllipsisVertical } from "@fortawesome/free-solid-svg-icons";
 import { NavLink } from "@solidjs/router";
-import { For, JSX, createMemo } from "solid-js";
+import { createMemo, For, JSX } from "solid-js";
 
 import Thumbnail from "../core/thumbnail";
 import { ThumbnailType } from "../core/thumbnail.types";

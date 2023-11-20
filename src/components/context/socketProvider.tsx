@@ -10,14 +10,14 @@ import {
 import type { KodiRequest } from "../../socket/types";
 import type { NotificationMap } from "../../socket/types/notifications";
 import { useHost } from "./hostProvider";
-import type {
-  NotificationEventListener,
-  SocketContextType,
-  SocketMethods,
-  SocketProviderComponent,
-  SocketState,
+import {
+  ConnectionState,
+  type NotificationEventListener,
+  type SocketContextType,
+  type SocketMethods,
+  type SocketProviderComponent,
+  type SocketState,
 } from "./socketProvider.types";
-import { ConnectionState } from "./socketProvider.types";
 
 const SocketContext = createContext<SocketContextType>([
   {} as SocketState,

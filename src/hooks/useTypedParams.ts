@@ -1,6 +1,6 @@
 import { useParams } from "@solidjs/router";
-import { type Accessor, createMemo } from "solid-js";
-import { type BaseSchema, parse } from "valibot";
+import { createMemo, type Accessor } from "solid-js";
+import { parse, type BaseSchema } from "valibot";
 
 const useTypedParams = <T>(schema: BaseSchema<T>): Accessor<T> => {
   const routeParams = useParams();

@@ -4,7 +4,7 @@ import {
   faAnglesLeft,
   faAnglesRight,
 } from "@fortawesome/free-solid-svg-icons";
-import { For, Show, createMemo } from "solid-js";
+import { createMemo, For, Show } from "solid-js";
 
 import { css } from "../../utils/css";
 import FontAwesomeIcon from "../images/fontAwesomeIcon";

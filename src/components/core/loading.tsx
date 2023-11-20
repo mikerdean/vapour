@@ -1,8 +1,9 @@
-import { mergeProps } from "solid-js";
-import type { LoadingComponent, LoadingProps } from "./loading.types";
-import FullscreenMessage from "./fullscreenMessage";
-import FontAwesomeIcon from "../images/fontAwesomeIcon";
 import { faCircleNotch } from "@fortawesome/free-solid-svg-icons";
+import { mergeProps } from "solid-js";
+
+import FontAwesomeIcon from "../images/fontAwesomeIcon";
+import FullscreenMessage from "./fullscreenMessage";
+import type { LoadingComponent, LoadingProps } from "./loading.types";
 
 const defaultProps: Partial<LoadingProps> = {
   text: <span>Loading...</span>,

@@ -1,11 +1,11 @@
 import type {
   GetMovie,
   GetMovieQuery,
+  GetMovies,
   GetMovieSet,
   GetMovieSetDetailsQuery,
   GetMovieSets,
   GetMovieSetsQuery,
-  GetMovies,
   GetMoviesQuery,
   GetTVShows,
   GetTVShowsQuery,

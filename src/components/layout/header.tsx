@@ -3,7 +3,7 @@ import {
   faEllipsisVertical,
   faSearch,
 } from "@fortawesome/free-solid-svg-icons";
-import { Show, createMemo } from "solid-js";
+import { createMemo, Show } from "solid-js";
 
 import {
   useGetCurrentProfileQuery,

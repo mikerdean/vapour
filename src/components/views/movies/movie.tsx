@@ -1,5 +1,6 @@
-import { Show, createMemo } from "solid-js";
+import { createMemo, Show } from "solid-js";
 
+import createKodiImageUrl from "../../../hooks/createKodiImageUrl";
 import useTypedParams from "../../../hooks/useTypedParams";
 import { useGetMovieDetailsQuery } from "../../../socket/query";
 import type { VideoDetailsMovie } from "../../../socket/types";
@@ -7,12 +8,11 @@ import { getVideoDuration } from "../../../utils/duration";
 import { movieValidator } from "../../../validators";
 import DefinitionList from "../../core/definitionList";
 import Heading from "../../core/heading";
-import { ThumbnailType } from "../../core/thumbnail.types";
-import type { MovieComponent } from "./movie.types";
-import createKodiImageUrl from "../../../hooks/createKodiImageUrl";
 import Rating from "../../core/rating";
+import { ThumbnailType } from "../../core/thumbnail.types";
 import ItemLayout from "../../layout/itemLayout";
 import Cast from "./cast";
+import type { MovieComponent } from "./movie.types";
 
 const Movie: MovieComponent = () => {
   const params = useTypedParams(movieValidator);

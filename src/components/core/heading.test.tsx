@@ -1,10 +1,10 @@
 import { screen } from "@solidjs/testing-library";
+import { createSignal } from "solid-js";
 import { describe, expect, test } from "vitest";
 
 import { setup } from "../../utils/testing";
-import { HeadingLevel } from "./heading.types";
 import Heading from "./heading";
-import { createSignal } from "solid-js";
+import { HeadingLevel } from "./heading.types";
 
 const headingLevels: HeadingLevel[] = [1, 2, 3, 4, 5, 6];
 

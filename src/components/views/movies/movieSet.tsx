@@ -1,4 +1,4 @@
-import { Show, createMemo } from "solid-js";
+import { createMemo, Show } from "solid-js";
 
 import useTypedParams from "../../../hooks/useTypedParams";
 import { useGetMovieSetDetailsQuery } from "../../../socket/query";

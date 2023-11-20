@@ -1,8 +1,9 @@
-import { For, Show, createMemo, createSignal } from "solid-js";
-import type { CastComponent, CastMember } from "./cast.types";
+import { createMemo, createSignal, For, Show } from "solid-js";
+
+import Button from "../../core/button";
 import Thumbnail from "../../core/thumbnail";
 import { ThumbnailType } from "../../core/thumbnail.types";
-import Button from "../../core/button";
+import type { CastComponent, CastMember } from "./cast.types";
 
 const Cast: CastComponent = (props) => {
   const castPerPage = 6;

@@ -4,8 +4,8 @@ import Button from "../core/button";
 import FullscreenMessage from "../core/fullscreenMessage";
 import Heading from "../core/heading";
 import OrderedList from "../core/orderedList";
-import HostSummary from "./hostSummary";
 import type { ConnectionErrorComponent } from "./connectionError.types";
+import HostSummary from "./hostSummary";
 
 const ConnectionError: ConnectionErrorComponent = () => {
   const [state, { clear }] = useHost();

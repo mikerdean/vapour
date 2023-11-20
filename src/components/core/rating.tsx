@@ -1,8 +1,9 @@
-import { For, Match, Switch, createMemo } from "solid-js";
-import { RatingComponent } from "./rating.types";
-import FontAwesomeIcon from "../images/fontAwesomeIcon";
-import { faStar, faStarHalfAlt } from "@fortawesome/free-solid-svg-icons";
 import { faStar as faStarEmpty } from "@fortawesome/free-regular-svg-icons";
+import { faStar, faStarHalfAlt } from "@fortawesome/free-solid-svg-icons";
+import { createMemo, For, Match, Switch } from "solid-js";
+
+import FontAwesomeIcon from "../images/fontAwesomeIcon";
+import { RatingComponent } from "./rating.types";
 
 const Rating: RatingComponent = (props) => {
   const rating = createMemo<number[]>(() => {

@@ -1,11 +1,4 @@
 import { createForm, valiForm } from "@modular-forms/solid";
-
-import { useHost } from "../context/hostProvider";
-import type { Host } from "../context/hostProvider.types";
-import Button from "../core/button";
-import Heading from "../core/heading";
-import Input from "../core/input";
-import type { HostFormComponent } from "./hostForm.types";
 import {
   coerce,
   integer,
@@ -16,6 +9,13 @@ import {
   object,
   string,
 } from "valibot";
+
+import { useHost } from "../context/hostProvider";
+import type { Host } from "../context/hostProvider.types";
+import Button from "../core/button";
+import Heading from "../core/heading";
+import Input from "../core/input";
+import type { HostFormComponent } from "./hostForm.types";
 
 const portMin = 1000;
 const portMax = 99999;

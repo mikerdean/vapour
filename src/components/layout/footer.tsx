@@ -6,8 +6,8 @@ import {
   faMusic,
 } from "@fortawesome/free-solid-svg-icons";
 
-import FooterLink from "./footerLink";
 import type { FooterComponent } from "./footer.types";
+import FooterLink from "./footerLink";
 
 const Footer: FooterComponent = () => {
   return (

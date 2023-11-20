@@ -1,4 +1,4 @@
-import { Show, createUniqueId } from "solid-js";
+import { createUniqueId, Show } from "solid-js";
 
 import type { InputComponent } from "./input.types";
 
