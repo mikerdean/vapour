@@ -30,6 +30,10 @@ export const movieSetValidator = object({
   setId: idPipeline,
 });
 
+export const tvShowValidator = object({
+  tvShowId: idPipeline,
+});
+
 export const pageValidator = object({
   page: idPipeline,
 });

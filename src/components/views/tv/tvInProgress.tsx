@@ -26,7 +26,7 @@ const TVInProgress: TVInProgressComponent = () => {
           <GridCard
             title={tvshow.title}
             items={[
-              `${tvshow.watchedepisodes} of ${tvshow.episode} episodes`,
+              `Watched ${tvshow.watchedepisodes} of ${tvshow.episode} episodes`,
               tvshow.year,
             ]}
           />

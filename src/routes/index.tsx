@@ -22,6 +22,7 @@ import Remote from "../components/views/remote";
 import Settings from "../components/views/settings";
 import TV from "../components/views/tv";
 import TVInProgress from "../components/views/tv/tvInProgress";
+import TVShow from "../components/views/tv/tvShow";
 
 const routes: RouteDefinition[] = [
   {
@@ -77,6 +78,10 @@ const routes: RouteDefinition[] = [
           {
             component: TVInProgress,
             path: "/",
+          },
+          {
+            component: TVShow,
+            path: "/:tvShowId",
           },
         ],
       },
