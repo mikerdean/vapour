@@ -1,21 +1,14 @@
 import { Show } from "solid-js";
 
 import Heading from "../core/heading";
+import Fanart from "../images/fanart";
 import Thumbnail from "../images/thumbnail";
 import type { ItemLayoutComponent } from "./itemLayout.types";
 
 const ItemLayout: ItemLayoutComponent = (props) => {
   return (
     <div>
-      <Show when={props.backgroundArtUrl}>
-        <div class="hidden sm:block absolute top-0 left-0 w-screen h-screen -z-10 opacity-10">
-          <img
-            src={props.backgroundArtUrl}
-            alt=""
-            class="object-cover w-full h-full"
-          />
-        </div>
-      </Show>
+      <Fanart uri={props.backgroundArtUrl} />
       <Heading level={1}>{props.title}</Heading>
       <div class="sm:flex">
         <Show when={props.thumbnailUrl}>

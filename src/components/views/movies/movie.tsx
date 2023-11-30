@@ -1,6 +1,5 @@
 import { createMemo, Show } from "solid-js";
 
-import createKodiImageUrl from "../../../hooks/createKodiImageUrl";
 import useTypedParams from "../../../hooks/useTypedParams";
 import { useGetMovieDetailsQuery } from "../../../socket/query";
 import type { VideoDetailsMovie } from "../../../socket/types";
@@ -30,11 +29,6 @@ const Movie: MovieComponent = () => {
     return result.moviedetails;
   });
 
-  const fanartUrl = createKodiImageUrl(() => {
-    const movieMemo = movie();
-    return movieMemo ? movieMemo.art?.fanart : undefined;
-  });
-
   const joinArray = (
     arr: string[] | undefined,
     separator = ", ",
@@ -45,7 +39,7 @@ const Movie: MovieComponent = () => {
     <Show when={movie()} keyed>
       {(movie) => (
         <ItemLayout
-          backgroundArtUrl={fanartUrl()}
+          backgroundArtUrl={movie.art?.fanart}
           thumbnailType={ThumbnailType.Movie}
           thumbnailUrl={movie.art?.poster}
           title={`${movie.title}${movie.year ? ` (${movie.year})` : ""}`}

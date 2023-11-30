@@ -1,6 +1,3 @@
-import { Show } from "solid-js";
-
-import createKodiImageUrl from "../../../hooks/createKodiImageUrl";
 import useTypedParams from "../../../hooks/useTypedParams";
 import {
   useGetSeasonsQuery,
@@ -11,6 +8,7 @@ import Heading from "../../core/heading";
 import Grid from "../../grid";
 import GridCard from "../../grid/gridCard";
 import useGridData from "../../grid/useGridData";
+import Fanart from "../../images/fanart";
 import { ThumbnailType } from "../../images/thumbnail.types";
 import { TVShowComponent } from "./tvShow.types";
 
@@ -25,11 +23,6 @@ const TVShow: TVShowComponent = () => {
     tvshowid: params().tvShowId,
   }));
 
-  const fanartUrl = createKodiImageUrl(() => {
-    const tvShow = tvShowData()?.tvshowdetails;
-    return tvShow ? tvShow.art?.fanart : undefined;
-  });
-
   const [seasons] = useGridData(
     seasonData,
     (data) => data.seasons,
@@ -43,11 +36,7 @@ const TVShow: TVShowComponent = () => {
 
   return (
     <>
-      <Show when={fanartUrl()}>
-        <div class="hidden sm:block absolute top-0 left-0 w-screen h-screen -z-10 opacity-10">
-          <img src={fanartUrl()} alt="" class="object-cover w-full h-full" />
-        </div>
-      </Show>
+      <Fanart uri={tvShowData()?.tvshowdetails.art?.fanart} />
       <Heading level={1}>{tvShowData()?.tvshowdetails.title}</Heading>
       <Grid each={seasons()} thumbnailType={ThumbnailType.Season}>
         {(season) => (
