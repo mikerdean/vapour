@@ -9,7 +9,12 @@ const Fanart: FanartComponent = (props) => {
   return (
     <Show when={fanartUrl()}>
       <div class="hidden sm:block absolute top-0 left-0 w-screen h-screen -z-10 opacity-10">
-        <img src={fanartUrl()} alt="" class="object-cover w-full h-full" />
+        <img
+          src={fanartUrl()}
+          alt=""
+          class="object-cover w-full h-full"
+          data-testid="fanart"
+        />
       </div>
     </Show>
   );
