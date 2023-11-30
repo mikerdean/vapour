@@ -1,10 +1,11 @@
-import { Show } from "solid-js";
+import { createSignal, Show } from "solid-js";
 
 import createKodiImageUrl from "../../hooks/createKodiImageUrl";
 import type { FanartComponent } from "./fanart.types";
 
 const Fanart: FanartComponent = (props) => {
   const fanartUrl = createKodiImageUrl(() => props.uri);
+  const [isLoaded, setIsLoaded] = createSignal(false);
 
   return (
     <Show when={fanartUrl()}>
@@ -12,7 +13,11 @@ const Fanart: FanartComponent = (props) => {
         <img
           src={fanartUrl()}
           alt=""
-          class="object-cover w-full h-full"
+          class="object-cover w-full h-full transition-opacity opacity-0 ease-in duration-100"
+          classList={{
+            "opacity-100": fanartUrl() && isLoaded() ? true : false,
+          }}
+          onLoad={() => setIsLoaded(true)}
           data-testid="fanart"
         />
       </div>
