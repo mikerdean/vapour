@@ -1,7 +1,7 @@
 import { Show } from "solid-js";
 
 import Heading from "../core/heading";
-import Thumbnail from "../core/thumbnail";
+import Thumbnail from "../images/thumbnail";
 import type { ItemLayoutComponent } from "./itemLayout.types";
 
 const ItemLayout: ItemLayoutComponent = (props) => {

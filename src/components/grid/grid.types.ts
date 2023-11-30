@@ -1,6 +1,6 @@
 import type { FlowProps, JSX } from "solid-js";
 
-import type { ThumbnailType } from "../core/thumbnail.types";
+import type { ThumbnailType } from "../images/thumbnail.types";
 
 export type GridItem = {
   id: string | number;

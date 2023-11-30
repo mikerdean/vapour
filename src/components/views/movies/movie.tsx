@@ -9,7 +9,7 @@ import { movieValidator } from "../../../validators";
 import DefinitionList from "../../core/definitionList";
 import Heading from "../../core/heading";
 import Rating from "../../core/rating";
-import { ThumbnailType } from "../../core/thumbnail.types";
+import { ThumbnailType } from "../../images/thumbnail.types";
 import ItemLayout from "../../layout/itemLayout";
 import Cast from "./cast";
 import type { MovieComponent } from "./movie.types";

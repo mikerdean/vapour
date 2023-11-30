@@ -1,9 +1,9 @@
 import { useGetRecentMoviesQuery } from "../../../socket/query";
 import { getVideoDuration } from "../../../utils/duration";
-import { ThumbnailType } from "../../core/thumbnail.types";
 import Grid from "../../grid";
 import GridCard from "../../grid/gridCard";
 import useGridData from "../../grid/useGridData";
+import { ThumbnailType } from "../../images/thumbnail.types";
 import type { RecentMoviesComponent } from "./recentMovies.types";
 
 const RecentMovies: RecentMoviesComponent = () => {

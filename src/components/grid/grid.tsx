@@ -2,9 +2,9 @@ import { faEllipsisVertical } from "@fortawesome/free-solid-svg-icons";
 import { NavLink } from "@solidjs/router";
 import { createMemo, For, JSX } from "solid-js";
 
-import Thumbnail from "../core/thumbnail";
-import { ThumbnailType } from "../core/thumbnail.types";
 import FontAwesomeIcon from "../images/fontAwesomeIcon";
+import Thumbnail from "../images/thumbnail";
+import { ThumbnailType } from "../images/thumbnail.types";
 import type { GridItem, GridProps } from "./grid.types";
 import { createUrl } from "./grid.utils";
 

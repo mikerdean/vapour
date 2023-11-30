@@ -8,10 +8,10 @@ import {
 } from "../../../socket/query";
 import { tvShowValidator } from "../../../validators";
 import Heading from "../../core/heading";
-import { ThumbnailType } from "../../core/thumbnail.types";
 import Grid from "../../grid";
 import GridCard from "../../grid/gridCard";
 import useGridData from "../../grid/useGridData";
+import { ThumbnailType } from "../../images/thumbnail.types";
 import { TVShowComponent } from "./tvShow.types";
 
 const TVShow: TVShowComponent = () => {

@@ -1,6 +1,6 @@
 import { faCheckCircle, faCircle } from "@fortawesome/free-solid-svg-icons";
 
-import FontAwesomeIcon from "../images/fontAwesomeIcon";
+import FontAwesomeIcon from "./fontAwesomeIcon";
 import type { ThumbnailPlayedComponent } from "./thumbnailPlayed.types";
 
 const ThumbnailPlayed: ThumbnailPlayedComponent = () => {

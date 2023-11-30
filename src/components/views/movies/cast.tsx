@@ -1,8 +1,8 @@
 import { createMemo, createSignal, For, Show } from "solid-js";
 
 import Button from "../../core/button";
-import Thumbnail from "../../core/thumbnail";
-import { ThumbnailType } from "../../core/thumbnail.types";
+import Thumbnail from "../../images/thumbnail";
+import { ThumbnailType } from "../../images/thumbnail.types";
 import type { CastComponent, CastMember } from "./cast.types";
 
 const Cast: CastComponent = (props) => {
