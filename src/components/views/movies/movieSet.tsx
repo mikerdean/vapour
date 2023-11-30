@@ -7,6 +7,7 @@ import { movieSetValidator } from "../../../validators";
 import Heading from "../../core/heading";
 import Grid from "../../grid";
 import GridCard from "../../grid/gridCard";
+import Fanart from "../../images/fanart";
 import { ThumbnailType } from "../../images/thumbnail.types";
 import type { MovieSetComponent } from "./movieSet.types";
 
@@ -38,6 +39,7 @@ const MovieSet: MovieSetComponent = () => {
     <Show when={movieSet()} keyed>
       {(movieSet) => (
         <>
+          <Fanart uri={movieSet.art?.fanart} />
           <Heading level={1}>{movieSet.title}</Heading>
           <Grid each={movieSet.movies} thumbnailType={ThumbnailType.Movie}>
             {(movie) => (
