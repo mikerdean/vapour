@@ -34,6 +34,10 @@ export const tvShowValidator = object({
   tvShowId: idPipeline,
 });
 
+export const seasonValidator = object({
+  seasonId: idPipeline,
+});
+
 export const pageValidator = object({
   page: idPipeline,
 });

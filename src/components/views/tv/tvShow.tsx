@@ -3,6 +3,7 @@ import {
   useGetSeasonsQuery,
   useGetTVShowDetailsQuery,
 } from "../../../socket/query";
+import { toStringOf } from "../../../utils/number";
 import { tvShowValidator } from "../../../validators";
 import Heading from "../../core/heading";
 import Grid from "../../grid";
@@ -43,7 +44,7 @@ const TVShow: TVShowComponent = () => {
           <GridCard
             title={season.title}
             items={[
-              `${season.episode} episodes`,
+              toStringOf(season.episode, "episode", "episodes"),
               season.episode === season.watchedepisodes
                 ? "Watched"
                 : season.watchedepisodes > 0

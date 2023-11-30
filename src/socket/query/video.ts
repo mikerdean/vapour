@@ -7,6 +7,8 @@ import type {
   GetMovieSets,
   GetMovieSetsQuery,
   GetMoviesQuery,
+  GetSeason,
+  GetSeasonDetailsQuery,
   GetSeasons,
   GetSeasonsQuery,
   GetTVShow,
@@ -96,7 +98,7 @@ export const useGetTVShowDetailsQuery = createQueryHook<
   GetTVShowDetailsQuery,
   GetTVShow
 >("VideoLibrary.GetTVShowDetails", {
-  properties: ["art", "episode", "title", "watchedepisodes", "year"],
+  properties: ["art", "episode", "season", "title", "watchedepisodes", "year"],
   tvshowid: 0,
 });
 
@@ -116,3 +118,19 @@ export const useGetSeasonsQuery = createQueryHook<GetSeasonsQuery, GetSeasons>(
     tvshowid: 0,
   },
 );
+
+export const useGetSeasonDetailsQuery = createQueryHook<
+  GetSeasonDetailsQuery,
+  GetSeason
+>("VideoLibrary.GetSeasonDetails", {
+  properties: [
+    "art",
+    "episode",
+    "season",
+    "title",
+    "tvshowid",
+    "userrating",
+    "watchedepisodes",
+  ],
+  seasonid: 0,
+});

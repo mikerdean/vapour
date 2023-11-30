@@ -219,3 +219,11 @@ export type GetTVShowDetailsQuery = Properties<VideoDetailsTVShow> & {
 export type GetTVShow = {
   tvshowdetails: VideoDetailsTVShow;
 };
+
+export type GetSeasonDetailsQuery = Properties<VideoDetailsSeason> & {
+  seasonid: number;
+};
+
+export type GetSeason = {
+  seasondetails: VideoDetailsSeason;
+};
