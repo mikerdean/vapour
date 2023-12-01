@@ -24,5 +24,7 @@ export const createUrl = (type: ThumbnailType, id: string | number): string => {
       return `/music/songs/${id}`;
     case ThumbnailType.TVShow:
       return `/tv/${id}`;
+    case ThumbnailType.TVShowGenre:
+      return `/tv/genres/${id}`;
   }
 };

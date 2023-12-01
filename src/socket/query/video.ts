@@ -198,3 +198,12 @@ export const useGetEpisodesDetailsQuery = createQueryHook<
   ],
   episodeid: 0,
 });
+
+export const useGetTVShowGenresQuery = createQueryHook<
+  GetVideoGenresQuery,
+  VideoGenresPaged
+>("VideoLibrary.GetGenres", {
+  properties: ["thumbnail"],
+  sort: { method: "label", order: "ascending" },
+  type: "tvshow",
+});

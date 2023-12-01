@@ -26,6 +26,8 @@ import RecentEpisodes from "./components/views/tv/recentEpisodes";
 import Season from "./components/views/tv/season";
 import TVInProgress from "./components/views/tv/tvInProgress";
 import TVShow from "./components/views/tv/tvShow";
+import TVShowGenre from "./components/views/tv/tvShowGenre";
+import TVShowGenres from "./components/views/tv/tvShowGenres";
 import TVShows from "./components/views/tv/tvShows";
 
 const routes: RouteDefinition[] = [
@@ -102,6 +104,14 @@ const routes: RouteDefinition[] = [
           {
             component: Episode,
             path: "/episodes/:episodeId",
+          },
+          {
+            component: TVShowGenres,
+            path: "/genres",
+          },
+          {
+            component: TVShowGenre,
+            path: "/genres/:genre",
           },
         ],
       },
