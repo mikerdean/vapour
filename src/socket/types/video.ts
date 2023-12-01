@@ -133,6 +133,25 @@ export type VideoDetailsSeason = VideoDetailsBase & {
   watchedepisodes: number;
 };
 
+export type VideoDetailsEpisode = VideoDetailsFile & {
+  cast?: VideoDetailsCast[];
+  episode: number;
+  episodeid: number;
+  firstaired?: string;
+  originaltitle?: string;
+  productioncode?: string;
+  rating?: number;
+  season?: number;
+  seasonid: number;
+  showtitle?: string;
+  specialsortepisode?: number;
+  specialsortseason?: number;
+  tvshowid: number;
+  userrating?: number;
+  votes?: string;
+  writer?: string[];
+};
+
 export type GetMoviesQuery = Properties<VideoDetailsMovie> & {
   filter?: KodiMessageFilter;
   limits?: KodiMessageLimits;
@@ -226,4 +245,17 @@ export type GetSeasonDetailsQuery = Properties<VideoDetailsSeason> & {
 
 export type GetSeason = {
   seasondetails: VideoDetailsSeason;
+};
+
+export type GetEpisodesQuery = Properties<VideoDetailsEpisode> & {
+  filter?: KodiMessageFilter;
+  limits?: KodiMessageLimits;
+  sort: KodiMessageSort;
+  season: number;
+  tvshowid: number;
+};
+
+export type GetEpisodes = {
+  episodes: VideoDetailsEpisode[];
+  limits: KodiMessageLimitsReturned;
 };

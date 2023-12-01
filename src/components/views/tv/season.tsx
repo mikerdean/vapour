@@ -1,12 +1,22 @@
+import { faCircle } from "@fortawesome/free-regular-svg-icons";
+import {
+  faCheckCircle,
+  faEllipsisVertical,
+} from "@fortawesome/free-solid-svg-icons";
+import { createMemo, For, Show } from "solid-js";
+
 import useTypedParams from "../../../hooks/useTypedParams";
 import {
+  useGetEpisodesQuery,
   useGetSeasonDetailsQuery,
   useGetTVShowDetailsQuery,
 } from "../../../socket/query";
 import { skipToken } from "../../../socket/query/types";
+import { getVideoDuration } from "../../../utils/duration";
 import { toStringOf } from "../../../utils/number";
 import { seasonValidator } from "../../../validators";
 import DefinitionList from "../../core/definitionList";
+import FontAwesomeIcon from "../../images/fontAwesomeIcon";
 import { ThumbnailType } from "../../images/thumbnail.types";
 import ItemLayout from "../../layout/itemLayout";
 import { SeasonComponent } from "./season.types";
@@ -23,7 +33,17 @@ const Season: SeasonComponent = () => {
     return tvshowid ? { tvshowid } : skipToken;
   });
 
-  const title = () => {
+  const [episodeData] = useGetEpisodesQuery(() => {
+    const details = seasonData()?.seasondetails;
+    if (!details) {
+      return skipToken;
+    }
+
+    const { season, tvshowid } = details;
+    return { season, tvshowid };
+  });
+
+  const title = createMemo<string>(() => {
     const season = seasonData();
     const tvShow = tvShowData();
 
@@ -32,7 +52,24 @@ const Season: SeasonComponent = () => {
     } else {
       return "Unknown";
     }
-  };
+  });
+
+  const watchedEpisodes = createMemo<string>(() => {
+    const episodes = episodeData()?.episodes;
+
+    if (!episodes) {
+      return "";
+    }
+
+    const watched = episodes.filter((ep) => (ep.playcount || 0) > 0).length;
+    if (watched === episodes.length) {
+      return "Watched";
+    } else if (watched > 0) {
+      return "In progress";
+    } else {
+      return "Not started";
+    }
+  });
 
   return (
     <ItemLayout
@@ -60,16 +97,53 @@ const Season: SeasonComponent = () => {
           },
           {
             header: "Watched",
-            description:
-              seasonData()?.seasondetails.episode ===
-              seasonData()?.seasondetails.watchedepisodes
-                ? "Watched"
-                : (seasonData()?.seasondetails.watchedepisodes || 0) > 0
-                  ? "In progress"
-                  : "Not started",
+            description: watchedEpisodes(),
           },
         ]}
       />
+      <ol class="text-sm">
+        <For each={episodeData()?.episodes}>
+          {(episode, i) => (
+            <li
+              class="p-2"
+              classList={{
+                "bg-slate-800": i() % 2 !== 0,
+              }}
+            >
+              <div class="flex items-center">
+                <button type="button" class="flex w-full">
+                  <span class="mr-3">
+                    {episode.season === 0 ? "s" : "e"}
+                    {String(episode.episode).padStart(
+                      String((episodeData()?.episodes || []).length).length,
+                      "0",
+                    )}
+                  </span>
+                  <span class="mr-3">
+                    <Show
+                      when={(episode.playcount || 0) > 0}
+                      fallback={<FontAwesomeIcon icon={faCircle} />}
+                    >
+                      <FontAwesomeIcon
+                        class="text-fuchsia-500"
+                        icon={faCheckCircle}
+                      />
+                    </Show>
+                  </span>
+                  <span class="grow text-left mr-3">{episode.title}</span>
+                  {episode.runtime && (
+                    <span>{getVideoDuration(episode.runtime)}</span>
+                  )}
+                </button>
+                <button class="pl-3">
+                  <FontAwesomeIcon icon={faEllipsisVertical} />
+                  <span class="sr-only">Options for {episode.label}</span>
+                </button>
+              </div>
+            </li>
+          )}
+        </For>
+      </ol>
     </ItemLayout>
   );
 };

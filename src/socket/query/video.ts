@@ -1,4 +1,6 @@
 import type {
+  GetEpisodes,
+  GetEpisodesQuery,
   GetMovie,
   GetMovieQuery,
   GetMovies,
@@ -133,4 +135,26 @@ export const useGetSeasonDetailsQuery = createQueryHook<
     "watchedepisodes",
   ],
   seasonid: 0,
+});
+
+export const useGetEpisodesQuery = createQueryHook<
+  GetEpisodesQuery,
+  GetEpisodes
+>("VideoLibrary.GetEpisodes", {
+  properties: [
+    "art",
+    "episode",
+    "firstaired",
+    "playcount",
+    "plot",
+    "rating",
+    "runtime",
+    "season",
+    "title",
+    "tvshowid",
+    "userrating",
+  ],
+  sort: { method: "episode", order: "ascending" },
+  season: 0,
+  tvshowid: 0,
 });
