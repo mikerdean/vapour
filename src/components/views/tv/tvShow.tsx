@@ -1,3 +1,6 @@
+import { useNavigate } from "@solidjs/router";
+import { createEffect } from "solid-js";
+
 import useTypedParams from "../../../hooks/useTypedParams";
 import {
   useGetSeasonsQuery,
@@ -15,6 +18,7 @@ import { TVShowComponent } from "./tvShow.types";
 
 const TVShow: TVShowComponent = () => {
   const params = useTypedParams(tvShowValidator);
+  const navigate = useNavigate();
 
   const [seasonData] = useGetSeasonsQuery(() => ({
     tvshowid: params().tvShowId,
@@ -34,6 +38,13 @@ const TVShow: TVShowComponent = () => {
       thumbnail: season.art?.poster,
     }),
   );
+
+  createEffect(() => {
+    const seasons = seasonData();
+    if (seasons && seasons.limits.total === 1) {
+      navigate(`/tv/seasons/${seasons.seasons[0].seasonid}`, { replace: true });
+    }
+  });
 
   return (
     <>

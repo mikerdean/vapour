@@ -26,6 +26,7 @@ import RecentEpisodes from "./components/views/tv/recentEpisodes";
 import Season from "./components/views/tv/season";
 import TVInProgress from "./components/views/tv/tvInProgress";
 import TVShow from "./components/views/tv/tvShow";
+import TVShows from "./components/views/tv/tvShows";
 
 const routes: RouteDefinition[] = [
   {
@@ -85,6 +86,10 @@ const routes: RouteDefinition[] = [
           {
             component: RecentEpisodes,
             path: "/recent",
+          },
+          {
+            component: TVShows,
+            path: "/titles",
           },
           {
             component: TVShow,
