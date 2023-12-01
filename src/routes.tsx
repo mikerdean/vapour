@@ -1,4 +1,4 @@
-import type { RouteDefinition } from "@solidjs/router";
+import { type RouteDefinition } from "@solidjs/router";
 
 import Layout from "./components/layout";
 import Movies from "./components/views/movies";
@@ -21,6 +21,8 @@ import Songs from "./components/views/music/songs";
 import Remote from "./components/views/remote";
 import Settings from "./components/views/settings";
 import TV from "./components/views/tv";
+import Episode from "./components/views/tv/episode";
+import RecentEpisodes from "./components/views/tv/recentEpisodes";
 import Season from "./components/views/tv/season";
 import TVInProgress from "./components/views/tv/tvInProgress";
 import TVShow from "./components/views/tv/tvShow";
@@ -81,12 +83,20 @@ const routes: RouteDefinition[] = [
             path: "/",
           },
           {
+            component: RecentEpisodes,
+            path: "/recent",
+          },
+          {
             component: TVShow,
             path: "/:tvShowId",
           },
           {
             component: Season,
             path: "/seasons/:seasonId",
+          },
+          {
+            component: Episode,
+            path: "/episodes/:episodeId",
           },
         ],
       },

@@ -259,3 +259,16 @@ export type GetEpisodes = {
   episodes: VideoDetailsEpisode[];
   limits: KodiMessageLimitsReturned;
 };
+
+export type GetRecentEpisodesQuery = Properties<VideoDetailsEpisode> & {
+  limits?: KodiMessageLimits;
+  sort: KodiMessageSort;
+};
+
+export type GetEpisodeQuery = Properties<VideoDetailsEpisode> & {
+  episodeid: number;
+};
+
+export type GetEpisode = {
+  episodedetails: VideoDetailsEpisode;
+};

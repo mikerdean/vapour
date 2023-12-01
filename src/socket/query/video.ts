@@ -1,4 +1,6 @@
 import type {
+  GetEpisode,
+  GetEpisodeQuery,
   GetEpisodes,
   GetEpisodesQuery,
   GetMovie,
@@ -9,6 +11,7 @@ import type {
   GetMovieSets,
   GetMovieSetsQuery,
   GetMoviesQuery,
+  GetRecentEpisodesQuery,
   GetSeason,
   GetSeasonDetailsQuery,
   GetSeasons,
@@ -146,15 +149,52 @@ export const useGetEpisodesQuery = createQueryHook<
     "episode",
     "firstaired",
     "playcount",
-    "plot",
     "rating",
     "runtime",
     "season",
     "title",
     "tvshowid",
-    "userrating",
   ],
   sort: { method: "episode", order: "ascending" },
   season: 0,
   tvshowid: 0,
+});
+
+export const useGetRecentEpisodesQuery = createQueryHook<
+  GetRecentEpisodesQuery,
+  GetEpisodes
+>("VideoLibrary.GetRecentlyAddedEpisodes", {
+  properties: [
+    "art",
+    "episode",
+    "playcount",
+    "rating",
+    "runtime",
+    "season",
+    "showtitle",
+    "title",
+    "tvshowid",
+  ],
+  sort: { method: "dateadded", order: "descending" },
+});
+
+export const useGetEpisodesDetailsQuery = createQueryHook<
+  GetEpisodeQuery,
+  GetEpisode
+>("VideoLibrary.GetEpisodeDetails", {
+  properties: [
+    "art",
+    "dateadded",
+    "episode",
+    "firstaired",
+    "playcount",
+    "plot",
+    "rating",
+    "runtime",
+    "season",
+    "showtitle",
+    "title",
+    "tvshowid",
+  ],
+  episodeid: 0,
 });

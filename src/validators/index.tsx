@@ -38,6 +38,10 @@ export const seasonValidator = object({
   seasonId: idPipeline,
 });
 
+export const episodeValidator = object({
+  episodeId: idPipeline,
+});
+
 export const pageValidator = object({
   page: idPipeline,
 });
