@@ -9,13 +9,13 @@ import type {
 export const isKodiMessageBase = (
   message: object,
 ): message is KodiMessageBase => {
-  return "id" in message && "jsonrpc" in message && message.jsonrpc === "2.0";
+  return "jsonrpc" in message && message.jsonrpc === "2.0";
 };
 
 export const isKodiRequest = <T>(
   message: KodiMessageBase,
 ): message is KodiRequest<T> => {
-  return isKodiMessageBase(message) && "params" in message;
+  return isKodiMessageBase(message) && "id" in message && "params" in message;
 };
 
 export const isKodiResponse = <T>(
@@ -28,7 +28,7 @@ export const isKodiNotification = <T>(
   message: KodiMessageBase,
 ): message is KodiNotification<T> => {
   return (
-    isKodiMessageBase(message) && "result" in message && !("id" in message)
+    isKodiMessageBase(message) && "params" in message && !("id" in message)
   );
 };
 
