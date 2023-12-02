@@ -7,10 +7,39 @@ type NotificationAsString = Notification<string>;
 
 type NotificationFromPlayer = Notification<{
   item: unknown;
-  player: {
-    playerid: number;
-    speed: number;
-  };
+  player: Player;
+}>;
+
+type Player = {
+  playerid: number;
+  speed: number;
+};
+
+type PlayerSeek = Player & {
+  seekoffset: Time;
+  time: Time;
+};
+
+type Time = {
+  hours: number;
+  milliseconds: number;
+  minutes: number;
+  seconds: number;
+};
+
+type PlaylistOnAdd = Notification<{
+  item: unknown;
+  playlistid: number;
+  position: number;
+}>;
+
+type PlaylistOnClear = Notification<{
+  playlistid: number;
+}>;
+
+type PlaylistOnRemove = Notification<{
+  playlistid: number;
+  position: number;
 }>;
 
 type OnExport = Notification<{
@@ -24,6 +53,11 @@ type OnInputRequested = Notification<{
   value: string;
 }>;
 
+type OnPropertyChanged = Notification<{
+  player: Player;
+  value: unknown;
+}>;
+
 type OnRemove = Notification<{
   id: string | number;
   transaction?: boolean;
@@ -32,6 +66,15 @@ type OnRemove = Notification<{
 
 type OnScreensaverDeactivated = Notification<{
   shuttingdown: boolean;
+}>;
+
+type OnSeek = Notification<{
+  item: unknown;
+  player: PlayerSeek;
+}>;
+
+type OnQuit = Notification<{
+  exitcode: number;
 }>;
 
 type OnUpdate = Notification<{
@@ -69,9 +112,28 @@ export type NotificationMap = {
   "Player.OnAVStart": NotificationFromPlayer;
   "Player.OnPause": NotificationFromPlayer;
   "Player.OnPlay": NotificationFromPlayer;
-  // "Player.OnPropertyChanged"
+  "Player.OnPropertyChanged": OnPropertyChanged;
   "Player.OnResume": NotificationFromPlayer;
-  // "Player.OnSeek"
+  "Player.OnSeek": OnSeek;
   "Player.OnSpeedChanged": NotificationFromPlayer;
   "Player.OnStop": NotificationFromPlayer;
+
+  "Playlist.OnAdd": PlaylistOnAdd;
+  "Playlist.OnClear": PlaylistOnClear;
+  "Playlist.OnRemove": PlaylistOnRemove;
+
+  "System.OnLowBattery": NotificationAsString;
+  "System.OnQuit": OnQuit;
+  "System.OnRestart": NotificationAsString;
+  "System.OnSleep": NotificationAsString;
+  "System.OnWake": NotificationAsString;
+
+  "VideoLibrary.OnCleanFinished": NotificationAsString;
+  "VideoLibrary.OnCleanStarted": NotificationAsString;
+  "VideoLibrary.OnExport": OnExport;
+  "VideoLibrary.OnRefresh": NotificationAsString;
+  "VideoLibrary.OnRemove": OnRemove;
+  "VideoLibrary.ScanFinished": NotificationAsString;
+  "VideoLibrary.OnScanStarted": NotificationAsString;
+  "VideoLibrary.OnUpdate": OnUpdate;
 };
