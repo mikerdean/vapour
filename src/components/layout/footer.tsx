@@ -19,7 +19,7 @@ const Footer: FooterComponent = () => {
         <FooterLink label="Music" icon={faMusic} path="/music" />
         <FooterLink label="Settings" icon={faCog} path="/settings" />
       </footer>
-      <div class="h-16" />
+      <div class="h-40" />
     </>
   );
 };
