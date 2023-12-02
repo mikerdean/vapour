@@ -12,6 +12,7 @@ import type { NotificationMap } from "../../socket/types/notifications";
 import { useHost } from "./hostProvider";
 import {
   ConnectionState,
+  SocketUnsubscribe,
   type NotificationEventListener,
   type SocketContextType,
   type SocketMethods,
@@ -141,7 +142,7 @@ const SocketProvider: SocketProviderComponent = (props) => {
   const subscribe = <T extends keyof NotificationMap>(
     type: T,
     listener: (message: NotificationMap[T]) => void,
-  ): void => {
+  ): SocketUnsubscribe => {
     let set = listeners.get(type);
     if (!set) {
       set = new Set<NotificationEventListener>();
@@ -149,24 +150,15 @@ const SocketProvider: SocketProviderComponent = (props) => {
     }
 
     set.add(listener as NotificationEventListener);
-  };
 
-  const unsubscribe = <T extends keyof NotificationMap>(
-    type: T,
-    listener: (message: NotificationMap[T]) => void,
-  ): void => {
-    const set = listeners.get(type);
-    if (set) {
-      set.delete(listener as NotificationEventListener);
-    }
+    return () => {
+      set?.delete(listener as NotificationEventListener);
+    };
   };
 
   return (
     <SocketContext.Provider
-      value={[
-        state,
-        { connect, disconnect, reconnect, send, subscribe, unsubscribe },
-      ]}
+      value={[state, { connect, disconnect, reconnect, send, subscribe }]}
     >
       {props.children}
     </SocketContext.Provider>

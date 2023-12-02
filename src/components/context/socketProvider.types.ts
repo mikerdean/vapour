@@ -15,6 +15,8 @@ export type SocketState = {
   connectionState: ConnectionState;
 };
 
+export type SocketUnsubscribe = () => void;
+
 export type SocketMethods = {
   connect: () => void;
   disconnect: () => void;
@@ -25,11 +27,7 @@ export type SocketMethods = {
   subscribe: <T extends keyof NotificationMap>(
     type: T,
     listener: (message: NotificationMap[T]) => void,
-  ) => void;
-  unsubscribe: <T extends keyof NotificationMap>(
-    type: T,
-    listener: (message: NotificationMap[T]) => void,
-  ) => void;
+  ) => SocketUnsubscribe;
 };
 
 export type SocketContextType = [SocketState, SocketMethods];
