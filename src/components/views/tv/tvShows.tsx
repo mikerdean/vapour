@@ -42,7 +42,6 @@ const TVShows: TVShowsComponent = () => {
           setSearchParams({ page });
           window.scrollTo({ top: 0 });
         }}
-        pageSize={100}
         total={total()}
       />
       <Grid each={tvShows()} thumbnailType={ThumbnailType.TVShow}>

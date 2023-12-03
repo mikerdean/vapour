@@ -54,7 +54,6 @@ const MovieGenre: MovieGenreComponent = () => {
       <Pagination
         currentPage={searchParams().page}
         onPageSelected={(page) => setSearchParams({ page })}
-        pageSize={100}
         total={total()}
       />
       <Grid each={movies()} thumbnailType={ThumbnailType.Movie}>

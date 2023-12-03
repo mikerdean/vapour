@@ -7,11 +7,14 @@ import {
 import { createMemo, For, Show } from "solid-js";
 
 import { css } from "../../utils/css";
+import { useConfiguration } from "../context/configurationProvider";
 import FontAwesomeIcon from "../images/fontAwesomeIcon";
 import type { PaginationComponent } from "./pagination.types";
 import { calculateStart } from "./pagination.utils";
 
 const Pagination: PaginationComponent = (props) => {
+  const [config] = useConfiguration();
+
   const defaultButtonClasses = [
     "px-2",
     "py-1",
@@ -22,7 +25,7 @@ const Pagination: PaginationComponent = (props) => {
     "text-slate-300",
   ];
 
-  const totalPages = createMemo(() => Math.ceil(props.total / props.pageSize));
+  const totalPages = createMemo(() => Math.ceil(props.total / config.pageSize));
 
   const pages = createMemo(() => {
     const total = totalPages();

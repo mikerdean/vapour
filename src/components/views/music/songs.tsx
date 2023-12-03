@@ -27,7 +27,6 @@ const Songs: SongsComponent = () => {
       <Pagination
         currentPage={searchParams().page}
         onPageSelected={(page) => setSearchParams({ page })}
-        pageSize={100}
         total={total()}
       />
       <SongList songs={songs()} />

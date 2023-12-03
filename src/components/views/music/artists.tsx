@@ -32,7 +32,6 @@ const Artists: ArtistsComponent = () => {
           setSearchParams({ page });
           window.scrollTo({ top: 0 });
         }}
-        pageSize={100}
         total={total()}
       />
       <Grid each={artists()} thumbnailType={ThumbnailType.Artist}>

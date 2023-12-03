@@ -53,6 +53,7 @@ import type {
   VideoGenresPaged,
 } from "../../socket/types";
 import type { NotificationMap } from "../../socket/types/notifications";
+import { useConfiguration } from "./configurationProvider";
 import { useHost } from "./hostProvider";
 import {
   ConnectionState,
@@ -71,7 +72,6 @@ const SocketContext = createContext<SocketContextType>([
 ]);
 
 const timeout = 5000;
-const pageSize = 100;
 
 const SocketProvider: SocketProviderComponent = (props) => {
   let socket: WebSocket | undefined;
@@ -82,6 +82,7 @@ const SocketProvider: SocketProviderComponent = (props) => {
     connectionState: ConnectionState.Connecting,
   });
 
+  const [config] = useConfiguration();
   const [host] = useHost();
 
   const connect = (): void => {
@@ -211,8 +212,8 @@ const SocketProvider: SocketProviderComponent = (props) => {
   };
 
   const getPageLimits = (page: number): { start: number; end: number } => {
-    const start = (page - 1) * pageSize;
-    const end = start + pageSize;
+    const start = (page - 1) * config.pageSize;
+    const end = start + config.pageSize;
     return { start, end };
   };
 

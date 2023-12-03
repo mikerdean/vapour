@@ -38,7 +38,6 @@ const MoviesByTitle: MoviesByTitleComponent = () => {
           setSearchParams({ page });
           window.scrollTo({ top: 0 });
         }}
-        pageSize={100}
         total={total()}
       />
       <Grid each={movies()} thumbnailType={ThumbnailType.Movie}>

@@ -3,6 +3,7 @@ import "./index.css";
 import { useRoutes } from "@solidjs/router";
 import type { Component } from "solid-js";
 
+import ConfigurationProvider from "./components/context/configurationProvider";
 import HostProvider from "./components/context/hostProvider";
 import IntersectionObserverProvider from "./components/context/intersectionObserverProvider";
 import SocketProvider from "./components/context/socketProvider";
@@ -14,23 +15,25 @@ const App: Component = () => {
   const Routes = useRoutes(routes);
 
   return (
-    <IntersectionObserverProvider>
-      <HostProvider
-        host={{
-          hostname: window.location.hostname,
-          httpPort: 8080,
-          tcpPort: 9090,
-        }}
-      >
-        <Host>
-          <SocketProvider>
-            <Connection>
-              <Routes />
-            </Connection>
-          </SocketProvider>
-        </Host>
-      </HostProvider>
-    </IntersectionObserverProvider>
+    <ConfigurationProvider>
+      <IntersectionObserverProvider>
+        <HostProvider
+          host={{
+            hostname: window.location.hostname,
+            httpPort: 8080,
+            tcpPort: 9090,
+          }}
+        >
+          <Host>
+            <SocketProvider>
+              <Connection>
+                <Routes />
+              </Connection>
+            </SocketProvider>
+          </Host>
+        </HostProvider>
+      </IntersectionObserverProvider>
+    </ConfigurationProvider>
   );
 };
 

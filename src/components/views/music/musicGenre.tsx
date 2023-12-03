@@ -50,7 +50,6 @@ const MusicGenre: MusicGenreComponent = () => {
       <Pagination
         currentPage={searchParams().page}
         onPageSelected={(page) => setSearchParams({ page })}
-        pageSize={100}
         total={total()}
       />
       <Grid each={artists()} thumbnailType={ThumbnailType.Artist}>
