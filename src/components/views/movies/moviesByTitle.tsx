@@ -1,17 +1,23 @@
-import { useGetMoviesQuery } from "../../../socket/query";
+import { createResource } from "solid-js";
+
+import useTypedSearchParams from "../../../hooks/useTypedSearchParams";
 import { getVideoDuration } from "../../../utils/duration";
+import { pageValidator } from "../../../validators";
+import { useSocket } from "../../context/socketProvider";
 import Grid from "../../grid";
 import GridCard from "../../grid/gridCard";
 import useGridData from "../../grid/useGridData";
 import { ThumbnailType } from "../../images/thumbnail.types";
 import Pagination from "../../pagination";
-import useSearchPagination from "../../pagination/useSearchPagination";
 import type { MoviesByTitleComponent } from "./moviesByTitle.types";
 
 const MoviesByTitle: MoviesByTitleComponent = () => {
-  const pageSize = 100;
-  const [query, searchParams, setSearchParams] = useSearchPagination(pageSize);
-  const [movieData] = useGetMoviesQuery(query);
+  const [, { getMovies }] = useSocket();
+  const [searchParams, setSearchParams] = useTypedSearchParams(pageValidator, {
+    page: 1,
+  });
+
+  const [movieData] = createResource(() => searchParams().page, getMovies);
 
   const [movies, total] = useGridData(
     movieData,
@@ -32,7 +38,7 @@ const MoviesByTitle: MoviesByTitleComponent = () => {
           setSearchParams({ page });
           window.scrollTo({ top: 0 });
         }}
-        pageSize={pageSize}
+        pageSize={100}
         total={total()}
       />
       <Grid each={movies()} thumbnailType={ThumbnailType.Movie}>

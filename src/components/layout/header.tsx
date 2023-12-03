@@ -3,19 +3,17 @@ import {
   faEllipsisVertical,
   faSearch,
 } from "@fortawesome/free-solid-svg-icons";
-import { createMemo, Show } from "solid-js";
+import { createMemo, createResource, Show } from "solid-js";
 
-import {
-  useGetCurrentProfileQuery,
-  useGetProfilesQuery,
-} from "../../socket/query";
+import { useSocket } from "../context/socketProvider";
 import FontAwesomeIcon from "../images/fontAwesomeIcon";
 import KodiLogo from "../images/kodiLogo";
 import type { HeaderComponent } from "./header.types";
 
 const Header: HeaderComponent = () => {
-  const [currentProfileData] = useGetCurrentProfileQuery();
-  const [profilesData] = useGetProfilesQuery();
+  const [, { getCurrentProfile, getProfiles }] = useSocket();
+  const [currentProfileData] = createResource(getCurrentProfile);
+  const [profilesData] = createResource(getProfiles);
 
   const allowProfileChange = createMemo<boolean>(() => {
     const currentProfile = currentProfileData();

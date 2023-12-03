@@ -3,18 +3,13 @@ import {
   faCheckCircle,
   faEllipsisVertical,
 } from "@fortawesome/free-solid-svg-icons";
-import { createMemo, For, Show } from "solid-js";
+import { createMemo, createResource, For, Show } from "solid-js";
 
 import useTypedParams from "../../../hooks/useTypedParams";
-import {
-  useGetEpisodesQuery,
-  useGetSeasonDetailsQuery,
-  useGetTVShowDetailsQuery,
-} from "../../../socket/query";
-import { skipToken } from "../../../socket/query/types";
 import { getVideoDuration } from "../../../utils/duration";
 import { toStringOf } from "../../../utils/number";
 import { seasonValidator } from "../../../validators";
+import { useSocket } from "../../context/socketProvider";
 import DefinitionList from "../../core/definitionList";
 import FontAwesomeIcon from "../../images/fontAwesomeIcon";
 import { ThumbnailType } from "../../images/thumbnail.types";
@@ -22,26 +17,27 @@ import ItemLayout from "../../layout/itemLayout";
 import { SeasonComponent } from "./season.types";
 
 const Season: SeasonComponent = () => {
+  const [, { getSeasonById, getEpisodesByTVShowSeason, getTVShowById }] =
+    useSocket();
+
   const params = useTypedParams(seasonValidator);
 
-  const [seasonData] = useGetSeasonDetailsQuery(() => ({
-    seasonid: params().seasonId,
-  }));
+  const [seasonData] = createResource(() => params().seasonId, getSeasonById);
 
-  const [tvShowData] = useGetTVShowDetailsQuery(() => {
-    const tvshowid = seasonData()?.seasondetails.tvshowid;
-    return tvshowid ? { tvshowid } : skipToken;
-  });
+  const [tvShowData] = createResource(
+    () => seasonData()?.seasondetails.tvshowid || null,
+    getTVShowById,
+  );
 
-  const [episodeData] = useGetEpisodesQuery(() => {
+  const [episodeData] = createResource(() => {
     const details = seasonData()?.seasondetails;
     if (!details) {
-      return skipToken;
+      return null;
     }
 
     const { season, tvshowid } = details;
     return { season, tvshowid };
-  });
+  }, getEpisodesByTVShowSeason);
 
   const title = createMemo<string>(() => {
     const season = seasonData();

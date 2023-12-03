@@ -1,5 +1,9 @@
 import type { ItemDetailsBase, Properties } from "./base";
-import type { KodiMessageLimitsReturned } from "./message";
+import type {
+  KodiMessageLimits,
+  KodiMessageLimitsReturned,
+  KodiMessageSort,
+} from "./message";
 
 export type ProfileDetails = ItemDetailsBase & {
   lockmode?: number;
@@ -12,3 +16,8 @@ export type ProfileDetailsPaged = {
 };
 
 export type ProfileDetailsQuery = Properties<ProfileDetails>;
+
+export type ProfilesQuery = Properties<ProfileDetails> & {
+  limits?: KodiMessageLimits;
+  sort?: KodiMessageSort;
+};

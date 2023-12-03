@@ -1,13 +1,10 @@
 import { useNavigate } from "@solidjs/router";
-import { createEffect } from "solid-js";
+import { createEffect, createResource } from "solid-js";
 
 import useTypedParams from "../../../hooks/useTypedParams";
-import {
-  useGetSeasonsQuery,
-  useGetTVShowDetailsQuery,
-} from "../../../socket/query";
 import { toStringOf } from "../../../utils/number";
 import { tvShowValidator } from "../../../validators";
+import { useSocket } from "../../context/socketProvider";
 import Heading from "../../core/heading";
 import Grid from "../../grid";
 import GridCard from "../../grid/gridCard";
@@ -17,16 +14,16 @@ import { ThumbnailType } from "../../images/thumbnail.types";
 import { TVShowComponent } from "./tvShow.types";
 
 const TVShow: TVShowComponent = () => {
+  const [, { getSeasonsByTVShow, getTVShowById }] = useSocket();
   const params = useTypedParams(tvShowValidator);
   const navigate = useNavigate();
 
-  const [seasonData] = useGetSeasonsQuery(() => ({
-    tvshowid: params().tvShowId,
-  }));
+  const [seasonData] = createResource(
+    () => params().tvShowId,
+    getSeasonsByTVShow,
+  );
 
-  const [tvShowData] = useGetTVShowDetailsQuery(() => ({
-    tvshowid: params().tvShowId,
-  }));
+  const [tvShowData] = createResource(() => params().tvShowId, getTVShowById);
 
   const [seasons] = useGridData(
     seasonData,

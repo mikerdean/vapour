@@ -1,9 +1,9 @@
-import { createMemo, Show } from "solid-js";
+import { createMemo, createResource } from "solid-js";
 
 import useTypedParams from "../../../hooks/useTypedParams";
-import { useGetMovieSetDetailsQuery } from "../../../socket/query";
 import { getVideoDuration } from "../../../utils/duration";
 import { movieSetValidator } from "../../../validators";
+import { useSocket } from "../../context/socketProvider";
 import Heading from "../../core/heading";
 import Grid from "../../grid";
 import GridCard from "../../grid/gridCard";
@@ -13,10 +13,9 @@ import type { MovieSetComponent } from "./movieSet.types";
 
 const MovieSet: MovieSetComponent = () => {
   const params = useTypedParams(movieSetValidator);
+  const [, { getMovieSetById }] = useSocket();
 
-  const [setData] = useGetMovieSetDetailsQuery(() => ({
-    setid: params().setId,
-  }));
+  const [setData] = createResource(() => params().setId, getMovieSetById);
 
   const movieSet = createMemo(() => {
     const result = setData();
@@ -36,22 +35,18 @@ const MovieSet: MovieSetComponent = () => {
   });
 
   return (
-    <Show when={movieSet()} keyed>
-      {(movieSet) => (
-        <>
-          <Fanart uri={movieSet.art?.fanart} />
-          <Heading level={1}>{movieSet.title}</Heading>
-          <Grid each={movieSet.movies} thumbnailType={ThumbnailType.Movie}>
-            {(movie) => (
-              <GridCard
-                title={movie.title}
-                items={[getVideoDuration(movie.runtime || 0), movie.year]}
-              />
-            )}
-          </Grid>
-        </>
-      )}
-    </Show>
+    <>
+      <Fanart uri={movieSet()?.art?.fanart} />
+      <Heading level={1}>{movieSet()?.title}</Heading>
+      <Grid each={movieSet()?.movies || []} thumbnailType={ThumbnailType.Movie}>
+        {(movie) => (
+          <GridCard
+            title={movie.title}
+            items={[getVideoDuration(movie.runtime || 0), movie.year]}
+          />
+        )}
+      </Grid>
+    </>
   );
 };
 

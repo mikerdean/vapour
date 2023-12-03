@@ -1,22 +1,24 @@
-import { createMemo } from "solid-js";
+import { createMemo, createResource } from "solid-js";
 
 import useTypedParams from "../../../hooks/useTypedParams";
-import { useGetMoviesQuery } from "../../../socket/query";
+import useTypedSearchParams from "../../../hooks/useTypedSearchParams";
 import { getVideoDuration } from "../../../utils/duration";
-import { genreValidator } from "../../../validators";
+import { genreValidator, pageValidator } from "../../../validators";
+import { useSocket } from "../../context/socketProvider";
 import Heading from "../../core/heading";
 import Grid from "../../grid";
 import GridCard from "../../grid/gridCard";
 import useGridData from "../../grid/useGridData";
 import { ThumbnailType } from "../../images/thumbnail.types";
 import Pagination from "../../pagination";
-import useSearchPagination from "../../pagination/useSearchPagination";
 import type { MovieGenreComponent } from "./movieGenre.types";
 
 const MovieGenre: MovieGenreComponent = () => {
-  const pageSize = 100;
-
+  const [, { getMoviesByGenre }] = useSocket();
   const params = useTypedParams(genreValidator);
+  const [searchParams, setSearchParams] = useTypedSearchParams(pageValidator, {
+    page: 1,
+  });
 
   const decodedGenre = createMemo(() => {
     const genre = params().genre;
@@ -27,15 +29,13 @@ const MovieGenre: MovieGenreComponent = () => {
     return decodeURIComponent(genre);
   });
 
-  const [query, searchParams, setSearchParams] = useSearchPagination(pageSize);
-  const [movieData] = useGetMoviesQuery(() => ({
-    filter: {
-      field: "genre",
-      operator: "is",
-      value: decodedGenre(),
-    },
-    ...query(),
-  }));
+  const [movieData] = createResource(
+    () => ({
+      genre: decodedGenre(),
+      page: searchParams().page,
+    }),
+    getMoviesByGenre,
+  );
 
   const [movies, total] = useGridData(
     movieData,
@@ -54,7 +54,7 @@ const MovieGenre: MovieGenreComponent = () => {
       <Pagination
         currentPage={searchParams().page}
         onPageSelected={(page) => setSearchParams({ page })}
-        pageSize={pageSize}
+        pageSize={100}
         total={total()}
       />
       <Grid each={movies()} thumbnailType={ThumbnailType.Movie}>

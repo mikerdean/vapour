@@ -1,17 +1,23 @@
-import { useGetTVShowsQuery } from "../../../socket/query";
+import { createResource } from "solid-js";
+
+import useTypedSearchParams from "../../../hooks/useTypedSearchParams";
 import { toStringOf } from "../../../utils/number";
+import { pageValidator } from "../../../validators";
+import { useSocket } from "../../context/socketProvider";
 import Grid from "../../grid";
 import GridCard from "../../grid/gridCard";
 import useGridData from "../../grid/useGridData";
 import { ThumbnailType } from "../../images/thumbnail.types";
 import Pagination from "../../pagination";
-import useSearchPagination from "../../pagination/useSearchPagination";
 import { TVShowsComponent } from "./tvShows.types";
 
 const TVShows: TVShowsComponent = () => {
-  const pageSize = 100;
-  const [query, searchParams, setSearchParams] = useSearchPagination(pageSize);
-  const [tvShowsData] = useGetTVShowsQuery(query);
+  const [, { getTVShows }] = useSocket();
+  const [searchParams, setSearchParams] = useTypedSearchParams(pageValidator, {
+    page: 1,
+  });
+
+  const [tvShowsData] = createResource(() => searchParams().page, getTVShows);
 
   const [tvShows, total] = useGridData(
     tvShowsData,
@@ -36,7 +42,7 @@ const TVShows: TVShowsComponent = () => {
           setSearchParams({ page });
           window.scrollTo({ top: 0 });
         }}
-        pageSize={pageSize}
+        pageSize={100}
         total={total()}
       />
       <Grid each={tvShows()} thumbnailType={ThumbnailType.TVShow}>

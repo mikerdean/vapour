@@ -1,21 +1,23 @@
-import { createMemo } from "solid-js";
+import { createMemo, createResource } from "solid-js";
 
 import useTypedParams from "../../../hooks/useTypedParams";
-import { useGetArtistsQuery } from "../../../socket/query";
-import { genreValidator } from "../../../validators";
+import useTypedSearchParams from "../../../hooks/useTypedSearchParams";
+import { genreValidator, pageValidator } from "../../../validators";
+import { useSocket } from "../../context/socketProvider";
 import Heading from "../../core/heading";
 import Grid from "../../grid";
 import GridCard from "../../grid/gridCard";
 import useGridData from "../../grid/useGridData";
 import { ThumbnailType } from "../../images/thumbnail.types";
 import Pagination from "../../pagination";
-import useSearchPagination from "../../pagination/useSearchPagination";
 import type { MusicGenreComponent } from "./musicGenre.types";
 
 const MusicGenre: MusicGenreComponent = () => {
-  const pageSize = 100;
-
+  const [, { getArtistsByGenre }] = useSocket();
   const params = useTypedParams(genreValidator);
+  const [searchParams, setSearchParams] = useTypedSearchParams(pageValidator, {
+    page: 1,
+  });
 
   const decodedGenre = createMemo(() => {
     const genre = params().genre;
@@ -26,15 +28,15 @@ const MusicGenre: MusicGenreComponent = () => {
     return decodeURIComponent(genre);
   });
 
-  const [query, searchParams, setSearchParams] = useSearchPagination(pageSize);
-  const [artistData] = useGetArtistsQuery(() => ({
-    filter: {
-      field: "genre",
-      operator: "is",
-      value: decodedGenre(),
-    },
-    ...query(),
-  }));
+  const [artistData] = createResource(() => {
+    const genre = decodedGenre();
+    const page = searchParams().page;
+    if (!genre || !page) {
+      return null;
+    }
+
+    return { genre, page };
+  }, getArtistsByGenre);
 
   const [artists, total] = useGridData(
     artistData,
@@ -48,7 +50,7 @@ const MusicGenre: MusicGenreComponent = () => {
       <Pagination
         currentPage={searchParams().page}
         onPageSelected={(page) => setSearchParams({ page })}
-        pageSize={pageSize}
+        pageSize={100}
         total={total()}
       />
       <Grid each={artists()} thumbnailType={ThumbnailType.Artist}>

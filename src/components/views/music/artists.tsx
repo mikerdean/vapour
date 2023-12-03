@@ -1,16 +1,22 @@
-import { useGetArtistsQuery } from "../../../socket/query";
+import { createResource } from "solid-js";
+
+import useTypedSearchParams from "../../../hooks/useTypedSearchParams";
+import { pageValidator } from "../../../validators";
+import { useSocket } from "../../context/socketProvider";
 import Grid from "../../grid";
 import GridCard from "../../grid/gridCard";
 import useGridData from "../../grid/useGridData";
 import { ThumbnailType } from "../../images/thumbnail.types";
 import Pagination from "../../pagination";
-import useSearchPagination from "../../pagination/useSearchPagination";
 import type { ArtistsComponent } from "./artists.types";
 
 const Artists: ArtistsComponent = () => {
-  const pageSize = 100;
-  const [query, searchParams, setSearchParams] = useSearchPagination(pageSize);
-  const [artistData] = useGetArtistsQuery(query);
+  const [, { getArtists }] = useSocket();
+  const [searchParams, setSearchParams] = useTypedSearchParams(pageValidator, {
+    page: 1,
+  });
+
+  const [artistData] = createResource(() => searchParams().page, getArtists);
 
   const [artists, total] = useGridData(
     artistData,
@@ -26,7 +32,7 @@ const Artists: ArtistsComponent = () => {
           setSearchParams({ page });
           window.scrollTo({ top: 0 });
         }}
-        pageSize={pageSize}
+        pageSize={100}
         total={total()}
       />
       <Grid each={artists()} thumbnailType={ThumbnailType.Artist}>

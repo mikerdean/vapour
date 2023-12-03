@@ -49,7 +49,7 @@ export type KodiMessageSort = {
 export type KodiMessageFilterOfType = {
   field: string;
   operator: string;
-  value: string;
+  value: string | string[];
 };
 
 export type KodiMessageFilterAnd = {

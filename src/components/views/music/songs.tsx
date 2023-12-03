@@ -1,14 +1,20 @@
-import { useGetSongsQuery } from "../../../socket/query";
+import { createResource } from "solid-js";
+
+import useTypedSearchParams from "../../../hooks/useTypedSearchParams";
+import { pageValidator } from "../../../validators";
+import { useSocket } from "../../context/socketProvider";
 import useGridData from "../../grid/useGridData";
 import Pagination from "../../pagination";
-import useSearchPagination from "../../pagination/useSearchPagination";
 import SongList from "./songList";
 import type { SongsComponent } from "./songs.types";
 
 const Songs: SongsComponent = () => {
-  const pageSize = 100;
-  const [query, searchParams, setSearchParams] = useSearchPagination(pageSize);
-  const [songData] = useGetSongsQuery(query);
+  const [, { getSongs }] = useSocket();
+  const [searchParams, setSearchParams] = useTypedSearchParams(pageValidator, {
+    page: 1,
+  });
+
+  const [songData] = createResource(() => searchParams().page, getSongs);
 
   const [songs, total] = useGridData(
     songData,
@@ -21,7 +27,7 @@ const Songs: SongsComponent = () => {
       <Pagination
         currentPage={searchParams().page}
         onPageSelected={(page) => setSearchParams({ page })}
-        pageSize={pageSize}
+        pageSize={100}
         total={total()}
       />
       <SongList songs={songs()} />

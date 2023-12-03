@@ -1,16 +1,21 @@
-import { useGetMovieGenresQuery } from "../../../socket/query";
+import { createResource } from "solid-js";
+
+import useTypedSearchParams from "../../../hooks/useTypedSearchParams";
+import { pageValidator } from "../../../validators";
+import { useSocket } from "../../context/socketProvider";
 import Grid from "../../grid";
 import GridCard from "../../grid/gridCard";
 import useGridData from "../../grid/useGridData";
 import { ThumbnailType } from "../../images/thumbnail.types";
 import Pagination from "../../pagination";
-import useSearchPagination from "../../pagination/useSearchPagination";
 import type { MovieGenresComponent } from "./movieGenres.types";
 
 const MovieGenres: MovieGenresComponent = () => {
-  const pageSize = 100;
-  const [query, searchParams, setSearchParams] = useSearchPagination(pageSize);
-  const [genreData] = useGetMovieGenresQuery(query);
+  const [, { getMovieGenres }] = useSocket();
+  const [searchParams, setSearchParams] = useTypedSearchParams(pageValidator, {
+    page: 1,
+  });
+  const [genreData] = createResource(() => 1, getMovieGenres);
 
   const [genres, total] = useGridData(
     genreData,
@@ -26,7 +31,7 @@ const MovieGenres: MovieGenresComponent = () => {
           setSearchParams({ page });
           window.scrollTo({ top: 0 });
         }}
-        pageSize={pageSize}
+        pageSize={100}
         total={total()}
       />
       <Grid each={genres()} thumbnailType={ThumbnailType.MovieGenre}>

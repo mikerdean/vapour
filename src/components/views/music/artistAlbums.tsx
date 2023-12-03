@@ -1,4 +1,6 @@
-import { useGetAlbumsQuery } from "../../../socket/query";
+import { createResource } from "solid-js";
+
+import { useSocket } from "../../context/socketProvider";
 import Grid from "../../grid";
 import GridCard from "../../grid/gridCard";
 import useGridData from "../../grid/useGridData";
@@ -6,10 +8,12 @@ import { ThumbnailType } from "../../images/thumbnail.types";
 import type { ArtistAlbumsComponent } from "./artistAlbums.types";
 
 const ArtistAlbums: ArtistAlbumsComponent = (props) => {
-  const [albumData] = useGetAlbumsQuery(() => ({
-    filter: { field: "albumartist", operator: "is", value: props.artist },
-    sort: { method: "year", order: "ascending" },
-  }));
+  const [, { getAlbumsByAlbumArtist }] = useSocket();
+
+  const [albumData] = createResource(
+    () => props.artist,
+    getAlbumsByAlbumArtist,
+  );
 
   const [albums] = useGridData(
     albumData,

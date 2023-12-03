@@ -1,4 +1,6 @@
-import { useGetRecentEpisodesQuery } from "../../../socket/query";
+import { createResource } from "solid-js";
+
+import { useSocket } from "../../context/socketProvider";
 import Grid from "../../grid";
 import GridCard from "../../grid/gridCard";
 import useGridData from "../../grid/useGridData";
@@ -6,7 +8,8 @@ import { ThumbnailType } from "../../images/thumbnail.types";
 import { RecentEpisodesComponent } from "./recentEpisodes.types";
 
 const RecentEpisodes: RecentEpisodesComponent = () => {
-  const [episodesData] = useGetRecentEpisodesQuery();
+  const [, { getRecentlyAddedEpisodes }] = useSocket();
+  const [episodesData] = createResource(getRecentlyAddedEpisodes);
 
   const [episodes] = useGridData(
     episodesData,

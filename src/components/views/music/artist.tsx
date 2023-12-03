@@ -1,51 +1,29 @@
-import { createMemo, Show } from "solid-js";
+import { createResource, Show } from "solid-js";
 
 import useTypedParams from "../../../hooks/useTypedParams";
-import { useGetArtistQuery } from "../../../socket/query";
-import type { AudioDetailsArtist } from "../../../socket/types";
 import { artistValidator } from "../../../validators";
+import { useSocket } from "../../context/socketProvider";
 import Heading from "../../core/heading";
 import Fanart from "../../images/fanart";
-import Thumbnail from "../../images/thumbnail";
-import { ThumbnailType } from "../../images/thumbnail.types";
 import type { ArtistComponent } from "./artist.types";
 import ArtistAlbums from "./artistAlbums";
 
 const Artist: ArtistComponent = () => {
   const params = useTypedParams(artistValidator);
+  const [, { getArtistById }] = useSocket();
 
-  const [artistData] = useGetArtistQuery(() => ({
-    artistid: params().artistId,
-  }));
-
-  const artist = createMemo<AudioDetailsArtist | undefined>(() => {
-    const result = artistData();
-    if (!result) {
-      return;
-    }
-
-    return result.artistdetails;
-  });
+  const [artistData] = createResource(() => params().artistId, getArtistById);
 
   return (
-    <Show when={artist()} keyed>
-      {(artist) => (
-        <div>
-          <Fanart uri={artist.art?.fanart} />
-          <Heading level={1}>{artist.label}</Heading>
-          {artist.thumbnail && (
-            <Thumbnail
-              type={ThumbnailType.Artist}
-              uri={artist.thumbnail}
-              alt=""
-            />
-          )}
-          {artist.description && <p>{artist.description}</p>}
-          <Heading level={2}>Albums</Heading>
-          <ArtistAlbums artist={artist.artist} />
-        </div>
-      )}
-    </Show>
+    <div>
+      <Fanart uri={artistData()?.artistdetails.art?.fanart} />
+      <Heading level={1}>{artistData()?.artistdetails.label}</Heading>
+      <Show when={artistData()?.artistdetails.description}>
+        <p>{artistData()?.artistdetails.description}</p>
+      </Show>
+      <Heading level={2}>Albums</Heading>
+      <ArtistAlbums artist={artistData()?.artistdetails.artist} />
+    </div>
   );
 };
 

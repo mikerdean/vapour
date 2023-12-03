@@ -1,8 +1,8 @@
-import { Show } from "solid-js";
+import { createResource, Show } from "solid-js";
 
 import useTypedParams from "../../../hooks/useTypedParams";
-import { useGetEpisodesDetailsQuery } from "../../../socket/query";
 import { episodeValidator } from "../../../validators";
+import { useSocket } from "../../context/socketProvider";
 import DefinitionList from "../../core/definitionList";
 import Heading from "../../core/heading";
 import Rating from "../../core/rating";
@@ -12,11 +12,13 @@ import Cast from "../movies/cast";
 import { EpisodeComponent } from "./episode.types";
 
 const Episode: EpisodeComponent = () => {
+  const [, { getEpisodeById }] = useSocket();
   const params = useTypedParams(episodeValidator);
 
-  const [episodeData] = useGetEpisodesDetailsQuery(() => ({
-    episodeid: params().episodeId,
-  }));
+  const [episodeData] = createResource(
+    () => params().episodeId,
+    getEpisodeById,
+  );
 
   return (
     <ItemLayout

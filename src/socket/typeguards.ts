@@ -4,7 +4,7 @@ import type {
   KodiRequest,
   KodiResponse,
   KodiResponseError,
-} from "../types";
+} from "./types";
 
 export const isKodiMessageBase = (
   message: object,

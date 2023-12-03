@@ -1,45 +1,27 @@
-import { createMemo } from "solid-js";
+import { createMemo, createResource } from "solid-js";
 
-import { useGetMovieSetsQuery, useGetMoviesQuery } from "../../../socket/query";
-import { skipToken } from "../../../socket/query/types";
-import type {
-  GetMoviesQuery,
-  KodiMessageFilterOfType,
-} from "../../../socket/types";
+import useTypedSearchParams from "../../../hooks/useTypedSearchParams";
+import { pageValidator } from "../../../validators";
+import { useSocket } from "../../context/socketProvider";
 import Grid from "../../grid";
 import GridCard from "../../grid/gridCard";
 import useGridData from "../../grid/useGridData";
 import { ThumbnailType } from "../../images/thumbnail.types";
 import Pagination from "../../pagination";
-import useSearchPagination from "../../pagination/useSearchPagination";
 import type { MovieSetsComponent } from "./movieSets.types";
 
 const MovieSets: MovieSetsComponent = () => {
-  const pageSize = 100;
-  const [query, searchParams, setSearchParams] = useSearchPagination(pageSize);
-  const [movieSetData] = useGetMovieSetsQuery(query);
+  const [, { getMovieSets, getMoviesInSets }] = useSocket();
+  const [searchParams, setSearchParams] = useTypedSearchParams(pageValidator, {
+    page: 1,
+  });
 
-  const movieQuery = createMemo<Partial<GetMoviesQuery> | typeof skipToken>(
-    () => {
-      const data = movieSetData();
-      if (!data) {
-        return skipToken;
-      }
-
-      return {
-        filter: {
-          or: data.sets.map<KodiMessageFilterOfType>((set) => ({
-            field: "set",
-            operator: "is",
-            value: set.title || "",
-          })),
-        },
-        properties: ["set"],
-      };
-    },
+  const [movieSetData] = createResource(
+    () => searchParams().page,
+    getMovieSets,
   );
 
-  const [movieData] = useGetMoviesQuery(movieQuery);
+  const [movieData] = createResource(getMoviesInSets);
 
   const moviesInSets = createMemo<Record<string, number>>(() => {
     const map: Record<string, number> = {};
@@ -95,7 +77,7 @@ const MovieSets: MovieSetsComponent = () => {
           setSearchParams({ page });
           window.scrollTo({ top: 0 });
         }}
-        pageSize={pageSize}
+        pageSize={100}
         total={total()}
       />
       <Grid each={movieSets()} thumbnailType={ThumbnailType.MovieSet}>

@@ -1,22 +1,25 @@
-import { createMemo } from "solid-js";
+import { createMemo, createResource } from "solid-js";
 
 import useTypedParams from "../../../hooks/useTypedParams";
-import { useGetTVShowsQuery } from "../../../socket/query";
+import useTypedSearchParams from "../../../hooks/useTypedSearchParams";
 import { toStringOf } from "../../../utils/number";
-import { genreValidator } from "../../../validators";
+import { genreValidator, pageValidator } from "../../../validators";
+import { useSocket } from "../../context/socketProvider";
 import Heading from "../../core/heading";
 import Grid from "../../grid";
 import GridCard from "../../grid/gridCard";
 import useGridData from "../../grid/useGridData";
 import { ThumbnailType } from "../../images/thumbnail.types";
 import Pagination from "../../pagination";
-import useSearchPagination from "../../pagination/useSearchPagination";
 import { TVShowGenreComponent } from "./tvShowGenre.types";
 
 const TVShowGenre: TVShowGenreComponent = () => {
-  const pageSize = 100;
-
+  const [, { getTVShowsByGenre }] = useSocket();
   const params = useTypedParams(genreValidator);
+
+  const [searchParams, setSearchParams] = useTypedSearchParams(pageValidator, {
+    page: 1,
+  });
 
   const decodedGenre = createMemo(() => {
     const genre = params().genre;
@@ -27,15 +30,13 @@ const TVShowGenre: TVShowGenreComponent = () => {
     return decodeURIComponent(genre);
   });
 
-  const [query, searchParams, setSearchParams] = useSearchPagination(pageSize);
-  const [tvShowData] = useGetTVShowsQuery(() => ({
-    filter: {
-      field: "genre",
-      operator: "is",
-      value: decodedGenre(),
-    },
-    ...query(),
-  }));
+  const [tvShowData] = createResource(
+    () => ({
+      genre: decodedGenre(),
+      page: searchParams().page,
+    }),
+    getTVShowsByGenre,
+  );
 
   const [tvShows, total] = useGridData(
     tvShowData,
@@ -58,7 +59,7 @@ const TVShowGenre: TVShowGenreComponent = () => {
       <Pagination
         currentPage={searchParams().page}
         onPageSelected={(page) => setSearchParams({ page })}
-        pageSize={pageSize}
+        pageSize={100}
         total={total()}
       />
       <Grid each={tvShows()} thumbnailType={ThumbnailType.TVShow}>

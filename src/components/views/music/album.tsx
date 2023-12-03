@@ -1,11 +1,10 @@
-import { createMemo, Show } from "solid-js";
+import { createMemo, createResource, Show } from "solid-js";
 
 import useTypedParams from "../../../hooks/useTypedParams";
-import { useGetAlbumQuery, useGetSongsQuery } from "../../../socket/query";
-import { skipToken } from "../../../socket/query/types";
 import type { AudioDetailsAlbum } from "../../../socket/types";
 import { getVideoDuration } from "../../../utils/duration";
 import { albumValidator } from "../../../validators";
+import { useSocket } from "../../context/socketProvider";
 import DefinitionList from "../../core/definitionList";
 import Heading from "../../core/heading";
 import Rating from "../../core/rating";
@@ -17,34 +16,19 @@ import SongList from "./songList";
 
 const Album: AlbumComponent = () => {
   const params = useTypedParams(albumValidator);
+  const [, { getAlbumById, getSongsByAlbum }] = useSocket();
 
-  const [albumData] = useGetAlbumQuery(() => ({
-    albumid: params().albumId,
-  }));
+  const [albumData] = createResource(() => params().albumId, getAlbumById);
 
-  const [songData] = useGetSongsQuery(() => {
+  const [songData] = createResource(() => {
     const result = albumData();
     if (!result) {
-      return skipToken;
+      return null;
     }
 
     const { artist, title, year } = result.albumdetails;
-
-    return {
-      filter: {
-        and: [
-          {
-            field: "albumartist",
-            operator: "is",
-            value: artist?.toString() || "",
-          },
-          { field: "album", operator: "is", value: title || "" },
-          { field: "year", operator: "is", value: (year || 0).toString() },
-        ],
-      },
-      sort: { method: "year", order: "ascending" },
-    };
-  });
+    return { album: title, artist, year };
+  }, getSongsByAlbum);
 
   const album = createMemo<AudioDetailsAlbum | undefined>(() => {
     const result = albumData();
