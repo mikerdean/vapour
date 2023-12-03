@@ -13,7 +13,9 @@ import type {
 } from "./message";
 
 export type AudioDetailsBase = MediaDetailsBase & {
-  art?: MediaArtwork;
+  art?: MediaArtwork & {
+    "album.thumb"?: string;
+  };
   dateadded?: string;
   genre?: string[];
 };
@@ -205,4 +207,12 @@ export type MusicGenresPaged = {
 export type SongsPaged = {
   songs: AudioDetailsSong[];
   limits: KodiMessageLimitsReturned;
+};
+
+export type GetSongQuery = Properties<AudioDetailsSong> & {
+  songid: number;
+};
+
+export type GetSong = {
+  songdetails: AudioDetailsSong;
 };

@@ -8,49 +8,54 @@ import {
   isKodiNotification,
   isKodiResponse,
 } from "../../socket/typeguards";
-import type {
-  AlbumsPaged,
-  ApplicationProperties,
-  ApplicationPropertiesQuery,
-  ArtistsPaged,
-  GetAlbum,
-  GetAlbumQuery,
-  GetAlbumsQuery,
-  GetArtist,
-  GetArtistQuery,
-  GetArtistsQuery,
-  GetEpisode,
-  GetEpisodeQuery,
-  GetEpisodes,
-  GetEpisodesQuery,
-  GetMovie,
-  GetMovieQuery,
-  GetMovies,
-  GetMovieSet,
-  GetMovieSetDetailsQuery,
-  GetMovieSets,
-  GetMovieSetsQuery,
-  GetMoviesQuery,
-  GetMusicGenresQuery,
-  GetRecentEpisodesQuery,
-  GetSeason,
-  GetSeasonDetailsQuery,
-  GetSeasons,
-  GetSeasonsQuery,
-  GetSongsQuery,
-  GetTVShow,
-  GetTVShowDetailsQuery,
-  GetTVShows,
-  GetTVShowsQuery,
-  GetVideoGenresQuery,
-  MusicGenresPaged,
-  ProfileDetails,
-  ProfileDetailsPaged,
-  ProfileDetailsQuery,
-  ProfilesQuery,
-  RecentlyAddedAlbumsQuery,
-  SongsPaged,
-  VideoGenresPaged,
+import {
+  GetActivePlayers,
+  GetPlayerItem,
+  GetPlayerItemQuery,
+  type AlbumsPaged,
+  type ApplicationProperties,
+  type ApplicationPropertiesQuery,
+  type ArtistsPaged,
+  type GetAlbum,
+  type GetAlbumQuery,
+  type GetAlbumsQuery,
+  type GetArtist,
+  type GetArtistQuery,
+  type GetArtistsQuery,
+  type GetEpisode,
+  type GetEpisodeQuery,
+  type GetEpisodes,
+  type GetEpisodesQuery,
+  type GetMovie,
+  type GetMovieQuery,
+  type GetMovies,
+  type GetMovieSet,
+  type GetMovieSetDetailsQuery,
+  type GetMovieSets,
+  type GetMovieSetsQuery,
+  type GetMoviesQuery,
+  type GetMusicGenresQuery,
+  type GetRecentEpisodesQuery,
+  type GetSeason,
+  type GetSeasonDetailsQuery,
+  type GetSeasons,
+  type GetSeasonsQuery,
+  type GetSong,
+  type GetSongQuery,
+  type GetSongsQuery,
+  type GetTVShow,
+  type GetTVShowDetailsQuery,
+  type GetTVShows,
+  type GetTVShowsQuery,
+  type GetVideoGenresQuery,
+  type MusicGenresPaged,
+  type ProfileDetails,
+  type ProfileDetailsPaged,
+  type ProfileDetailsQuery,
+  type ProfilesQuery,
+  type RecentlyAddedAlbumsQuery,
+  type SongsPaged,
+  type VideoGenresPaged,
 } from "../../socket/types";
 import type { NotificationMap } from "../../socket/types/notifications";
 import { useConfiguration } from "./configurationProvider";
@@ -114,7 +119,7 @@ const SocketProvider: SocketProviderComponent = (props) => {
           const callbacks = listeners.get(message.method);
           if (callbacks) {
             for (const callback of callbacks) {
-              callback(message);
+              callback(message.params);
             }
 
             return;
@@ -218,6 +223,11 @@ const SocketProvider: SocketProviderComponent = (props) => {
   };
 
   const queries: SocketQueryMethods = {
+    getActivePlayers: () =>
+      send<Record<string, never>, GetActivePlayers>(
+        "Player.GetActivePlayers",
+        {},
+      ),
     getAlbums: (page = 1) =>
       send<GetAlbumsQuery, AlbumsPaged>("AudioLibrary.GetAlbums", {
         limits: getPageLimits(page),
@@ -393,6 +403,11 @@ const SocketProvider: SocketProviderComponent = (props) => {
         properties: ["thumbnail"],
         sort: { method: "label", order: "ascending" },
       }),
+    getPlayerItem: (id: number) =>
+      send<GetPlayerItemQuery, GetPlayerItem>("Player.GetItem", {
+        playerid: id,
+        properties: [],
+      }),
     getProfiles: () =>
       send<ProfilesQuery, ProfileDetailsPaged>("Profiles.GetProfiles", {
         properties: ["lockmode", "thumbnail"],
@@ -451,6 +466,21 @@ const SocketProvider: SocketProviderComponent = (props) => {
         ],
         sort: { method: "title", order: "ascending" },
         tvshowid,
+      }),
+    getSongById: (id: number) =>
+      send<GetSongQuery, GetSong>("AudioLibrary.GetSongDetails", {
+        properties: [
+          "album",
+          "albumartist",
+          "artist",
+          "art",
+          "disc",
+          "duration",
+          "track",
+          "title",
+          "year",
+        ],
+        songid: id,
       }),
     getSongs: (page = 1) =>
       send<GetSongsQuery, SongsPaged>("AudioLibrary.GetSongs", {

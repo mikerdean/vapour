@@ -4,6 +4,7 @@ import type {
   AlbumsPaged,
   ApplicationProperties,
   ArtistsPaged,
+  GetActivePlayers,
   GetAlbum,
   GetArtist,
   GetEpisode,
@@ -12,8 +13,10 @@ import type {
   GetMovies,
   GetMovieSet,
   GetMovieSets,
+  GetPlayerItem,
   GetSeason,
   GetSeasons,
+  GetSong,
   GetTVShow,
   GetTVShows,
   MusicGenresPaged,
@@ -39,6 +42,7 @@ export type SocketState = {
 export type SocketUnsubscribe = () => void;
 
 export type SocketQueryMethods = {
+  getActivePlayers: () => Promise<GetActivePlayers>;
   getAlbumById: (id: number) => Promise<GetAlbum>;
   getAlbums: (page: number) => Promise<AlbumsPaged>;
   getAlbumsByAlbumArtist: (albumartist: string) => Promise<AlbumsPaged>;
@@ -66,6 +70,7 @@ export type SocketQueryMethods = {
   getMovieSetById: (id: number) => Promise<GetMovieSet>;
   getMovieSets: (page: number) => Promise<GetMovieSets>;
   getMusicGenres: (page: number) => Promise<MusicGenresPaged>;
+  getPlayerItem: (id: number) => Promise<GetPlayerItem>;
   getProfiles: () => Promise<ProfileDetailsPaged>;
   getRecentlyAddedAlbums: () => Promise<AlbumsPaged>;
   getRecentlyAddedEpisodes: () => Promise<GetEpisodes>;
@@ -73,6 +78,7 @@ export type SocketQueryMethods = {
   getSeasonById: (id: number) => Promise<GetSeason>;
   getSeasonsByTVShow: (tvshowid: number) => Promise<GetSeasons>;
   getSongs: (page: number) => Promise<SongsPaged>;
+  getSongById: (id: number) => Promise<GetSong>;
   getSongsByAlbum: (query: {
     album?: string;
     artist?: string | string[];

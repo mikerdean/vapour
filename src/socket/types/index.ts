@@ -4,5 +4,6 @@ export * from "./base";
 export * from "./connection";
 export * from "./library";
 export * from "./message";
+export * from "./player";
 export * from "./profiles";
 export * from "./video";
