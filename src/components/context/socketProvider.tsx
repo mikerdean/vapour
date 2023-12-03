@@ -56,13 +56,13 @@ import type { NotificationMap } from "../../socket/types/notifications";
 import { useHost } from "./hostProvider";
 import {
   ConnectionState,
-  SocketQueryMethods,
-  SocketUnsubscribe,
   type NotificationEventListener,
   type SocketContextType,
   type SocketMethods,
   type SocketProviderComponent,
+  type SocketQueryMethods,
   type SocketState,
+  type SocketUnsubscribe,
 } from "./socketProvider.types";
 
 const SocketContext = createContext<SocketContextType>([
