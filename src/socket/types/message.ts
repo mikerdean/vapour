@@ -21,6 +21,7 @@ export type KodiResponse<T> = KodiMessageBase & {
 };
 
 export type KodiResponseError = KodiMessageBase & {
+  id: string;
   error: KodiError;
 };
 

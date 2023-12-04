@@ -106,7 +106,7 @@ const SocketProvider: SocketProviderComponent = (props) => {
       try {
         const message = JSON.parse(ev.data);
 
-        if (isKodiResponse(message)) {
+        if (isKodiResponse(message) || isKodiError(message)) {
           const callback = dequeue(message.id);
           if (callback) {
             callback(message);
@@ -171,7 +171,7 @@ const SocketProvider: SocketProviderComponent = (props) => {
         if (isKodiError(message)) {
           return reject(
             Error(
-              `Message {${id} response returned an error from JSONRPC: ${message.error.message}`,
+              `Message ${id} response returned an error from JSONRPC: ${message.error.message}`,
             ),
           );
         }
