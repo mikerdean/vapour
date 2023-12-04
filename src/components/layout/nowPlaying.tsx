@@ -23,17 +23,7 @@ const NowPlaying: NowPlayingComponent = () => {
 
   const [playingItem, setPlayingItem] = createSignal<
     NowPlayingItem | undefined
-  >({
-    id: 12345678,
-    metadata: [
-      { title: "Duration", value: "1 hr and 57 mins" },
-      { title: "Year", value: "2015" },
-    ],
-    title: "Ant-man",
-    thumbnailUrl:
-      "image://https%3a%2f%2fassets.fanart.tv%2ffanart%2fmovies%2f422834%2fmovieposter%2fant-man-collection-5bc50fc26ffb0.jpg/",
-    type: ThumbnailType.Movie,
-  });
+  >();
 
   const showNowPlaying = createMemo(
     () => playingItem() && location.pathname !== "/",
