@@ -1,4 +1,5 @@
 import type { GetEpisode, GetMovie, GetSong } from "../../socket/types";
+import { getVideoDuration } from "../../utils/duration";
 import type { SocketMethods } from "../context/socketProvider.types";
 import { ThumbnailType } from "../images/thumbnail.types";
 import type { NowPlayingItem, NowPlayingMessage } from "./nowPlaying.types";
@@ -22,7 +23,10 @@ const convertMovieToPlayingItem = (result: GetMovie): NowPlayingItem => {
   return {
     backgroundUrl: movie.art?.fanart,
     id: movie.movieid,
-    metadata: [{ title: "Year", value: movie.year?.toString() }],
+    metadata: [
+      { title: "Duration", value: getVideoDuration(movie.runtime || 0) },
+      { title: "Year", value: movie.year?.toString() },
+    ],
     title: movie.title || "Unknown movie",
     thumbnailUrl: movie.art?.poster,
     type: ThumbnailType.Movie,
