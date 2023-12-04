@@ -15,7 +15,7 @@ const Artist: ArtistComponent = () => {
   const [artistData] = createResource(() => params().artistId, getArtistById);
 
   return (
-    <div>
+    <>
       <Fanart uri={artistData()?.artistdetails.art?.fanart} />
       <Heading level={1}>{artistData()?.artistdetails.label}</Heading>
       <Show when={artistData()?.artistdetails.description}>
@@ -23,7 +23,7 @@ const Artist: ArtistComponent = () => {
       </Show>
       <Heading level={2}>Albums</Heading>
       <ArtistAlbums artist={artistData()?.artistdetails.artist} />
-    </div>
+    </>
   );
 };
 
