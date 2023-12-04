@@ -6,6 +6,7 @@ import type { Component } from "solid-js";
 import ConfigurationProvider from "./components/context/configurationProvider";
 import HostProvider from "./components/context/hostProvider";
 import IntersectionObserverProvider from "./components/context/intersectionObserverProvider";
+import PlayerProvider from "./components/context/playerProvider";
 import SocketProvider from "./components/context/socketProvider";
 import Connection from "./components/root/connection";
 import Host from "./components/root/host";
@@ -27,7 +28,9 @@ const App: Component = () => {
           <Host>
             <SocketProvider>
               <Connection>
-                <Routes />
+                <PlayerProvider>
+                  <Routes />
+                </PlayerProvider>
               </Connection>
             </SocketProvider>
           </Host>

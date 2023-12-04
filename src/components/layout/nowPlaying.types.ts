@@ -17,8 +17,3 @@ export type NowPlayingItemMetadata = {
   title: string;
   value?: string;
 };
-
-export type NowPlayingMessage = {
-  id: number;
-  type: "unknown" | "movie" | "episode" | "song" | "picture" | "channel";
-};

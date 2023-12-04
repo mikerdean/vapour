@@ -6,10 +6,13 @@ import {
   faMusic,
 } from "@fortawesome/free-solid-svg-icons";
 
+import { usePlayer } from "../context/playerProvider";
 import type { FooterComponent } from "./footer.types";
 import FooterLink from "./footerLink";
 
 const Footer: FooterComponent = () => {
+  const [player] = usePlayer();
+
   return (
     <>
       <footer class="fixed bottom-0 bg-fuchsia-600 text-slate-50 w-full flex justify-center z-10">
@@ -19,7 +22,7 @@ const Footer: FooterComponent = () => {
         <FooterLink label="Music" icon={faMusic} path="/music" />
         <FooterLink label="Settings" icon={faCog} path="/settings" />
       </footer>
-      <div class="h-48" />
+      <div class={player.playingItem ? "h-48" : "h-20"} />
     </>
   );
 };

@@ -2,7 +2,7 @@ import type { GetEpisode, GetMovie, GetSong } from "../../socket/types";
 import { getVideoDuration } from "../../utils/duration";
 import type { SocketMethods } from "../context/socketProvider.types";
 import { ThumbnailType } from "../images/thumbnail.types";
-import type { NowPlayingItem, NowPlayingMessage } from "./nowPlaying.types";
+import type { NowPlayingItem, NowPlayingMessage } from "./playerProvider.types";
 
 const isNowPlayingMessage = (item: unknown): item is NowPlayingMessage => {
   if (!item || typeof item !== "object") {
@@ -66,14 +66,12 @@ const convertSongToPlayingItem = (result: GetSong): NowPlayingItem => {
 };
 
 export const createPlayingItem = async (
-  methods: SocketMethods,
+  { getMovieById, getEpisodeById, getSongById }: SocketMethods,
   item: unknown,
 ): Promise<NowPlayingItem | undefined> => {
   if (!isNowPlayingMessage(item)) {
     return;
   }
-
-  const { getMovieById, getEpisodeById, getSongById } = methods;
 
   switch (item.type) {
     case "movie":

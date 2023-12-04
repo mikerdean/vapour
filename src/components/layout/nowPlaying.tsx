@@ -1,64 +1,21 @@
 import { faPlayCircle } from "@fortawesome/free-solid-svg-icons";
 import { useLocation, useNavigate } from "@solidjs/router";
-import {
-  createMemo,
-  createSignal,
-  For,
-  onCleanup,
-  onMount,
-  Show,
-} from "solid-js";
+import { createMemo, For, Show } from "solid-js";
 
-import { useSocket } from "../context/socketProvider";
+import { usePlayer } from "../context/playerProvider";
 import FontAwesomeIcon from "../images/fontAwesomeIcon";
 import Thumbnail from "../images/thumbnail";
 import { ThumbnailType } from "../images/thumbnail.types";
-import type { NowPlayingComponent, NowPlayingItem } from "./nowPlaying.types";
-import { createPlayingItem } from "./nowPlaying.utils";
+import type { NowPlayingComponent } from "./nowPlaying.types";
 
 const NowPlaying: NowPlayingComponent = () => {
-  const [, methods] = useSocket();
+  const [player] = usePlayer();
   const location = useLocation();
   const navigate = useNavigate();
 
-  const [playingItem, setPlayingItem] = createSignal<
-    NowPlayingItem | undefined
-  >();
-
   const showNowPlaying = createMemo(
-    () => playingItem() && location.pathname !== "/",
+    () => player.playingItem && location.pathname !== "/",
   );
-
-  const getCurrentPlayingItemOnMount = async (): Promise<void> => {
-    const players = await methods.getActivePlayers();
-    if (players.length === 0) {
-      return;
-    }
-
-    const { item } = await methods.getPlayerItem(players[0].playerid);
-    const playingItem = await createPlayingItem(methods, item);
-    setPlayingItem(playingItem);
-  };
-
-  onMount(() => {
-    getCurrentPlayingItemOnMount();
-
-    const subscriptions = [
-      methods.subscribe("Player.OnPlay", async (message) => {
-        const item = await createPlayingItem(methods, message.data.item);
-        setPlayingItem(item);
-      }),
-      methods.subscribe("Player.OnStop", () => {
-        setPlayingItem(undefined);
-      }),
-    ];
-
-    onCleanup(() => {
-      for (const unsubcribe of subscriptions) {
-        unsubcribe();
-      }
-    });
-  });
 
   return (
     <Show when={showNowPlaying()}>
@@ -74,13 +31,13 @@ const NowPlaying: NowPlayingComponent = () => {
             </div>
             <div class="flex-none w-12 mr-3">
               <Thumbnail
-                type={playingItem()?.type || ThumbnailType.Season}
-                uri={playingItem()?.thumbnailUrl}
+                type={player.playingItem?.type || ThumbnailType.Season}
+                uri={player.playingItem?.thumbnailUrl}
               />
             </div>
             <div>
-              <p class="line-clamp-1">{playingItem()?.title}</p>
-              <For each={playingItem()?.metadata}>
+              <p class="line-clamp-1">{player.playingItem?.title}</p>
+              <For each={player.playingItem?.metadata}>
                 {(item) => (
                   <p class="line-clamp-1 text-slate-400 text-xs">
                     {item.value}
