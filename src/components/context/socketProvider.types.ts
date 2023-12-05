@@ -33,6 +33,11 @@ export enum ConnectionState {
   Connected,
 }
 
+export type Cached = {
+  expires: string;
+  value: unknown;
+};
+
 export type NotificationEventListener = (message: unknown) => void;
 
 export type SocketState = {

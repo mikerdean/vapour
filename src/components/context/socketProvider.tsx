@@ -1,3 +1,4 @@
+import { DateTime } from "luxon";
 import { nanoid } from "nanoid";
 import { createContext, useContext } from "solid-js";
 import { createStore } from "solid-js/store";
@@ -62,6 +63,7 @@ import { useConfiguration } from "./configurationProvider";
 import { useHost } from "./hostProvider";
 import {
   ConnectionState,
+  type Cached,
   type NotificationEventListener,
   type SocketContextType,
   type SocketMethods,
@@ -70,6 +72,7 @@ import {
   type SocketState,
   type SocketUnsubscribe,
 } from "./socketProvider.types";
+import { createHash } from "./socketProvider.utils";
 
 const SocketContext = createContext<SocketContextType>([
   {} as SocketState,
@@ -81,6 +84,7 @@ const timeout = 5000;
 const SocketProvider: SocketProviderComponent = (props) => {
   let socket: WebSocket | undefined;
 
+  const cache = new Map<string, Cached>();
   const listeners = new Map<string, Set<NotificationEventListener>>();
 
   const [state, setState] = createStore<SocketState>({
@@ -144,9 +148,9 @@ const SocketProvider: SocketProviderComponent = (props) => {
     connect();
   };
 
-  const send = async <TRequest, TResponse>(
+  const send = <TParams, TResponse>(
     method: string,
-    request: TRequest,
+    params: TParams,
   ): Promise<TResponse> =>
     new Promise((resolve, reject) => {
       if (!socket) {
@@ -185,13 +189,40 @@ const SocketProvider: SocketProviderComponent = (props) => {
             id,
             jsonrpc: "2.0",
             method,
-            params: request,
+            params,
           }),
         );
       } catch (err) {
         return reject(err);
       }
     });
+
+  const retrieve = async <TParams, TResponse>(
+    method: string,
+    params: TParams,
+  ): Promise<TResponse> => {
+    const hash = await createHash(params);
+    const cached = cache.get(hash);
+    const now = DateTime.utc();
+
+    if (cached) {
+      const expiresBy = DateTime.fromISO(cached.expires);
+      if (now < expiresBy) {
+        return cached.value as TResponse;
+      }
+
+      cache.delete(hash);
+    }
+
+    const value = await send<TParams, TResponse>(method, params);
+
+    const expires = now.plus({ minutes: 5 }).toISO();
+    if (expires) {
+      cache.set(hash, { expires, value });
+    }
+
+    return value;
+  };
 
   const disconnect = () => {
     if (socket) {
@@ -224,24 +255,24 @@ const SocketProvider: SocketProviderComponent = (props) => {
 
   const queries: SocketQueryMethods = {
     getActivePlayers: () =>
-      send<Record<string, never>, GetActivePlayers>(
+      retrieve<Record<string, never>, GetActivePlayers>(
         "Player.GetActivePlayers",
         {},
       ),
     getAlbums: (page = 1) =>
-      send<GetAlbumsQuery, AlbumsPaged>("AudioLibrary.GetAlbums", {
+      retrieve<GetAlbumsQuery, AlbumsPaged>("AudioLibrary.GetAlbums", {
         limits: getPageLimits(page),
         properties: ["artist", "genre", "thumbnail", "title", "year"],
         sort: { method: "title", order: "ascending" },
       }),
     getAlbumsByAlbumArtist: (albumartist: string) =>
-      send<GetAlbumsQuery, AlbumsPaged>("AudioLibrary.GetAlbums", {
+      retrieve<GetAlbumsQuery, AlbumsPaged>("AudioLibrary.GetAlbums", {
         filter: { field: "albumartist", operator: "is", value: albumartist },
         properties: ["artist", "genre", "thumbnail", "title", "year"],
         sort: { method: "year", order: "ascending" },
       }),
     getAlbumById: (id: number) =>
-      send<GetAlbumQuery, GetAlbum>("AudioLibrary.GetAlbumDetails", {
+      retrieve<GetAlbumQuery, GetAlbum>("AudioLibrary.GetAlbumDetails", {
         albumid: id,
         properties: [
           "artist",
@@ -254,7 +285,7 @@ const SocketProvider: SocketProviderComponent = (props) => {
         ],
       }),
     getApplications: () =>
-      send<ApplicationPropertiesQuery, ApplicationProperties>(
+      retrieve<ApplicationPropertiesQuery, ApplicationProperties>(
         "Application.GetProperties",
         {
           properties: [
@@ -268,14 +299,14 @@ const SocketProvider: SocketProviderComponent = (props) => {
         },
       ),
     getArtists: (page = 1) =>
-      send<GetArtistsQuery, ArtistsPaged>("AudioLibrary.GetArtists", {
+      retrieve<GetArtistsQuery, ArtistsPaged>("AudioLibrary.GetArtists", {
         albumartistsonly: true,
         limits: getPageLimits(page),
         properties: ["songgenres", "thumbnail"],
         sort: { method: "label", order: "ascending", ignorearticle: true },
       }),
     getArtistsByGenre: ({ genre, page = 1 }) =>
-      send<GetArtistsQuery, ArtistsPaged>("AudioLibrary.GetArtists", {
+      retrieve<GetArtistsQuery, ArtistsPaged>("AudioLibrary.GetArtists", {
         albumartistsonly: true,
         filter: {
           field: "genre",
@@ -287,16 +318,19 @@ const SocketProvider: SocketProviderComponent = (props) => {
         sort: { method: "label", order: "ascending", ignorearticle: true },
       }),
     getArtistById: (id: number) =>
-      send<GetArtistQuery, GetArtist>("AudioLibrary.GetArtistDetails", {
+      retrieve<GetArtistQuery, GetArtist>("AudioLibrary.GetArtistDetails", {
         artistid: id,
         properties: ["description", "thumbnail"],
       }),
     getCurrentProfile: () =>
-      send<ProfileDetailsQuery, ProfileDetails>("Profiles.GetCurrentProfile", {
-        properties: ["lockmode", "thumbnail"],
-      }),
+      retrieve<ProfileDetailsQuery, ProfileDetails>(
+        "Profiles.GetCurrentProfile",
+        {
+          properties: ["lockmode", "thumbnail"],
+        },
+      ),
     getEpisodeById: (id: number) =>
-      send<GetEpisodeQuery, GetEpisode>("VideoLibrary.GetEpisodeDetails", {
+      retrieve<GetEpisodeQuery, GetEpisode>("VideoLibrary.GetEpisodeDetails", {
         properties: [
           "art",
           "dateadded",
@@ -314,7 +348,7 @@ const SocketProvider: SocketProviderComponent = (props) => {
         episodeid: id,
       }),
     getEpisodesByTVShowSeason: ({ tvshowid, season }) =>
-      send<GetEpisodesQuery, GetEpisodes>("VideoLibrary.GetEpisodes", {
+      retrieve<GetEpisodesQuery, GetEpisodes>("VideoLibrary.GetEpisodes", {
         properties: [
           "art",
           "episode",
@@ -331,7 +365,7 @@ const SocketProvider: SocketProviderComponent = (props) => {
         tvshowid,
       }),
     getMovieById: (id: number) =>
-      send<GetMovieQuery, GetMovie>("VideoLibrary.GetMovieDetails", {
+      retrieve<GetMovieQuery, GetMovie>("VideoLibrary.GetMovieDetails", {
         movieid: id,
         properties: [
           "art",
@@ -350,27 +384,30 @@ const SocketProvider: SocketProviderComponent = (props) => {
         ],
       }),
     getMovieGenres: (page = 1) =>
-      send<GetVideoGenresQuery, VideoGenresPaged>("VideoLibrary.GetGenres", {
-        limits: getPageLimits(page),
-        properties: ["thumbnail"],
-        sort: { method: "label", order: "ascending" },
-        type: "movie",
-      }),
+      retrieve<GetVideoGenresQuery, VideoGenresPaged>(
+        "VideoLibrary.GetGenres",
+        {
+          limits: getPageLimits(page),
+          properties: ["thumbnail"],
+          sort: { method: "label", order: "ascending" },
+          type: "movie",
+        },
+      ),
     getMovies: (page = 1) =>
-      send<GetMoviesQuery, GetMovies>("VideoLibrary.GetMovies", {
+      retrieve<GetMoviesQuery, GetMovies>("VideoLibrary.GetMovies", {
         limits: getPageLimits(page),
         properties: ["art", "playcount", "runtime", "set", "title", "year"],
         sort: { method: "title", order: "ascending" },
       }),
     getMoviesByGenre: ({ genre, page = 1 }: { genre: string; page: number }) =>
-      send<GetMoviesQuery, GetMovies>("VideoLibrary.GetMovies", {
+      retrieve<GetMoviesQuery, GetMovies>("VideoLibrary.GetMovies", {
         filter: { field: "genre", operator: "is", value: genre },
         limits: getPageLimits(page),
         properties: ["art", "playcount", "runtime", "set", "title", "year"],
         sort: { method: "title", order: "ascending" },
       }),
     getMoviesInSets: () =>
-      send<GetMoviesQuery, GetMovies>("VideoLibrary.GetMovies", {
+      retrieve<GetMoviesQuery, GetMovies>("VideoLibrary.GetMovies", {
         filter: {
           field: "set",
           operator: "isnot",
@@ -380,7 +417,7 @@ const SocketProvider: SocketProviderComponent = (props) => {
         sort: { method: "title", order: "ascending" },
       }),
     getMovieSetById: (id: number) =>
-      send<GetMovieSetDetailsQuery, GetMovieSet>(
+      retrieve<GetMovieSetDetailsQuery, GetMovieSet>(
         "VideoLibrary.GetMovieSetDetails",
         {
           movies: {
@@ -392,36 +429,39 @@ const SocketProvider: SocketProviderComponent = (props) => {
         },
       ),
     getMovieSets: (page = 1) =>
-      send<GetMovieSetsQuery, GetMovieSets>("VideoLibrary.GetMovieSets", {
+      retrieve<GetMovieSetsQuery, GetMovieSets>("VideoLibrary.GetMovieSets", {
         limits: getPageLimits(page),
         properties: ["art", "playcount", "title"],
         sort: { method: "title", order: "ascending" },
       }),
     getMusicGenres: (page = 1) =>
-      send<GetMusicGenresQuery, MusicGenresPaged>("AudioLibrary.GetGenres", {
-        limits: getPageLimits(page),
-        properties: ["thumbnail"],
-        sort: { method: "label", order: "ascending" },
-      }),
+      retrieve<GetMusicGenresQuery, MusicGenresPaged>(
+        "AudioLibrary.GetGenres",
+        {
+          limits: getPageLimits(page),
+          properties: ["thumbnail"],
+          sort: { method: "label", order: "ascending" },
+        },
+      ),
     getPlayerItem: (id: number) =>
-      send<GetPlayerItemQuery, GetPlayerItem>("Player.GetItem", {
+      retrieve<GetPlayerItemQuery, GetPlayerItem>("Player.GetItem", {
         playerid: id,
         properties: [],
       }),
     getProfiles: () =>
-      send<ProfilesQuery, ProfileDetailsPaged>("Profiles.GetProfiles", {
+      retrieve<ProfilesQuery, ProfileDetailsPaged>("Profiles.GetProfiles", {
         properties: ["lockmode", "thumbnail"],
         sort: { method: "label", order: "ascending" },
       }),
     getRecentlyAddedAlbums: () =>
-      send<RecentlyAddedAlbumsQuery, AlbumsPaged>(
+      retrieve<RecentlyAddedAlbumsQuery, AlbumsPaged>(
         "AudioLibrary.GetRecentlyAddedAlbums",
         {
           properties: ["artist", "genre", "thumbnail", "title", "year"],
         },
       ),
     getRecentlyAddedEpisodes: () =>
-      send<GetRecentEpisodesQuery, GetEpisodes>(
+      retrieve<GetRecentEpisodesQuery, GetEpisodes>(
         "VideoLibrary.GetRecentlyAddedEpisodes",
         {
           properties: [
@@ -439,24 +479,30 @@ const SocketProvider: SocketProviderComponent = (props) => {
         },
       ),
     getRecentlyAddedMovies: () =>
-      send<GetMoviesQuery, GetMovies>("VideoLibrary.GetRecentlyAddedMovies", {
-        properties: ["art", "playcount", "runtime", "set", "title", "year"],
-      }),
+      retrieve<GetMoviesQuery, GetMovies>(
+        "VideoLibrary.GetRecentlyAddedMovies",
+        {
+          properties: ["art", "playcount", "runtime", "set", "title", "year"],
+        },
+      ),
     getSeasonById: (id: number) =>
-      send<GetSeasonDetailsQuery, GetSeason>("VideoLibrary.GetSeasonDetails", {
-        properties: [
-          "art",
-          "episode",
-          "season",
-          "title",
-          "tvshowid",
-          "userrating",
-          "watchedepisodes",
-        ],
-        seasonid: id,
-      }),
+      retrieve<GetSeasonDetailsQuery, GetSeason>(
+        "VideoLibrary.GetSeasonDetails",
+        {
+          properties: [
+            "art",
+            "episode",
+            "season",
+            "title",
+            "tvshowid",
+            "userrating",
+            "watchedepisodes",
+          ],
+          seasonid: id,
+        },
+      ),
     getSeasonsByTVShow: (tvshowid: number) =>
-      send<GetSeasonsQuery, GetSeasons>("VideoLibrary.GetSeasons", {
+      retrieve<GetSeasonsQuery, GetSeasons>("VideoLibrary.GetSeasons", {
         properties: [
           "art",
           "episode",
@@ -468,7 +514,7 @@ const SocketProvider: SocketProviderComponent = (props) => {
         tvshowid,
       }),
     getSongById: (id: number) =>
-      send<GetSongQuery, GetSong>("AudioLibrary.GetSongDetails", {
+      retrieve<GetSongQuery, GetSong>("AudioLibrary.GetSongDetails", {
         properties: [
           "album",
           "albumartist",
@@ -483,13 +529,13 @@ const SocketProvider: SocketProviderComponent = (props) => {
         songid: id,
       }),
     getSongs: (page = 1) =>
-      send<GetSongsQuery, SongsPaged>("AudioLibrary.GetSongs", {
+      retrieve<GetSongsQuery, SongsPaged>("AudioLibrary.GetSongs", {
         limits: getPageLimits(page),
         properties: ["disc", "duration", "track", "title", "year"],
         sort: { method: "track", order: "ascending" },
       }),
     getSongsByAlbum: ({ album, artist, year }) =>
-      send<GetSongsQuery, SongsPaged>("AudioLibrary.GetSongs", {
+      retrieve<GetSongsQuery, SongsPaged>("AudioLibrary.GetSongs", {
         filter: {
           and: [
             {
@@ -505,42 +551,51 @@ const SocketProvider: SocketProviderComponent = (props) => {
         sort: { method: "year", order: "ascending" },
       }),
     getTVShowById: (id: number) =>
-      send<GetTVShowDetailsQuery, GetTVShow>("VideoLibrary.GetTVShowDetails", {
-        properties: [
-          "art",
-          "episode",
-          "season",
-          "title",
-          "watchedepisodes",
-          "year",
-        ],
-        tvshowid: id,
-      }),
+      retrieve<GetTVShowDetailsQuery, GetTVShow>(
+        "VideoLibrary.GetTVShowDetails",
+        {
+          properties: [
+            "art",
+            "episode",
+            "season",
+            "title",
+            "watchedepisodes",
+            "year",
+          ],
+          tvshowid: id,
+        },
+      ),
     getTVShowsByGenre: ({ genre, page }) =>
-      send<GetTVShowsQuery, GetTVShows>("VideoLibrary.GetTVShows", {
+      retrieve<GetTVShowsQuery, GetTVShows>("VideoLibrary.GetTVShows", {
         filter: { field: "genre", operator: "is", value: genre },
         limits: getPageLimits(page),
         properties: ["art", "episode", "title", "watchedepisodes", "year"],
         sort: { method: "title", order: "ascending" },
       }),
     getTVShowGenres: (page = 1) =>
-      send<GetVideoGenresQuery, VideoGenresPaged>("VideoLibrary.GetGenres", {
-        limits: getPageLimits(page),
-        properties: ["thumbnail"],
-        sort: { method: "label", order: "ascending" },
-        type: "tvshow",
-      }),
+      retrieve<GetVideoGenresQuery, VideoGenresPaged>(
+        "VideoLibrary.GetGenres",
+        {
+          limits: getPageLimits(page),
+          properties: ["thumbnail"],
+          sort: { method: "label", order: "ascending" },
+          type: "tvshow",
+        },
+      ),
     getTVShows: (page = 1) =>
-      send<GetTVShowsQuery, GetTVShows>("VideoLibrary.GetTVShows", {
+      retrieve<GetTVShowsQuery, GetTVShows>("VideoLibrary.GetTVShows", {
         limits: getPageLimits(page),
         properties: ["art", "episode", "title", "watchedepisodes", "year"],
         sort: { method: "title", order: "ascending" },
       }),
     getTVShowsInProgress: () =>
-      send<GetTVShowsQuery, GetTVShows>("VideoLibrary.GetInProgressTVShows", {
-        properties: ["art", "episode", "title", "watchedepisodes", "year"],
-        sort: { method: "title", order: "ascending" },
-      }),
+      retrieve<GetTVShowsQuery, GetTVShows>(
+        "VideoLibrary.GetInProgressTVShows",
+        {
+          properties: ["art", "episode", "title", "watchedepisodes", "year"],
+          sort: { method: "title", order: "ascending" },
+        },
+      ),
   };
 
   return (
