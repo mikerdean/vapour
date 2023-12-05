@@ -202,7 +202,8 @@ const SocketProvider: SocketProviderComponent = (props) => {
     params: TParams,
   ): Promise<TResponse> => {
     const hash = await createHash(params);
-    const cached = cache.get(hash);
+    const cacheKey = `${method}.${hash}`;
+    const cached = cache.get(cacheKey);
     const now = DateTime.utc();
 
     if (cached) {
@@ -218,7 +219,7 @@ const SocketProvider: SocketProviderComponent = (props) => {
 
     const expires = now.plus({ minutes: 5 }).toISO();
     if (expires) {
-      cache.set(hash, { expires, value });
+      cache.set(cacheKey, { expires, value });
     }
 
     return value;
