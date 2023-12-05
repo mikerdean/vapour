@@ -1,4 +1,9 @@
-import { faPlayCircle } from "@fortawesome/free-solid-svg-icons";
+import {
+  faPauseCircle,
+  faPlayCircle,
+  faStopCircle,
+  type IconDefinition,
+} from "@fortawesome/free-solid-svg-icons";
 import { useLocation, useNavigate } from "@solidjs/router";
 import { createMemo, For, Show } from "solid-js";
 
@@ -17,6 +22,28 @@ const NowPlayingMini: NowPlayingComponent = () => {
     () => player.item && location.pathname !== "/",
   );
 
+  const nowPlayingIcon = createMemo<IconDefinition>(() => {
+    switch (player.status) {
+      case "playing":
+        return faPlayCircle;
+      case "paused":
+        return faPauseCircle;
+      case "stopped":
+        return faStopCircle;
+    }
+  });
+
+  const nowPlayingText = createMemo<string>(() => {
+    switch (player.status) {
+      case "playing":
+        return "Now playing";
+      case "paused":
+        return "Paused";
+      case "stopped":
+        return "Stopped";
+    }
+  });
+
   return (
     <Show when={showNowPlaying()}>
       <aside class="fixed bottom-20 w-full">
@@ -26,8 +53,8 @@ const NowPlayingMini: NowPlayingComponent = () => {
             onClick={() => navigate("/")}
           >
             <div class="absolute bg-slate-900 border-2 border-inherit rounded pl-2 pr-4 text-xs top-[-.5rem] text-cyan-400 font-semibold">
-              <FontAwesomeIcon icon={faPlayCircle} class="mr-2" />
-              Now Playing
+              <FontAwesomeIcon icon={nowPlayingIcon()} class="mr-2" />
+              <span>{nowPlayingText()}</span>
             </div>
             <div class="flex-none w-12 mr-3">
               <Thumbnail
