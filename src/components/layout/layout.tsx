@@ -6,7 +6,7 @@ import FontAwesomeIcon from "../images/fontAwesomeIcon";
 import Footer from "./footer";
 import Header from "./header";
 import type { LayoutComponent } from "./layout.types";
-import NowPlaying from "./nowPlaying";
+import NowPlayingMini from "./nowPlayingMini";
 
 const Layout: LayoutComponent = () => {
   return (
@@ -30,7 +30,7 @@ const Layout: LayoutComponent = () => {
           <Outlet />
         </ErrorBoundary>
       </main>
-      <NowPlaying />
+      <NowPlayingMini />
       <Footer />
     </>
   );

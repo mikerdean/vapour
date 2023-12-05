@@ -6,9 +6,9 @@ import { usePlayer } from "../context/playerProvider";
 import FontAwesomeIcon from "../images/fontAwesomeIcon";
 import Thumbnail from "../images/thumbnail";
 import { ThumbnailType } from "../images/thumbnail.types";
-import type { NowPlayingComponent } from "./nowPlaying.types";
+import type { NowPlayingComponent } from "./nowPlayingMini.types";
 
-const NowPlaying: NowPlayingComponent = () => {
+const NowPlayingMini: NowPlayingComponent = () => {
   const [player] = usePlayer();
   const location = useLocation();
   const navigate = useNavigate();
@@ -52,4 +52,4 @@ const NowPlaying: NowPlayingComponent = () => {
   );
 };
 
-export default NowPlaying;
+export default NowPlayingMini;
