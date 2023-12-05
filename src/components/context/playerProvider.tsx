@@ -12,33 +12,58 @@ import { useSocket } from "./socketProvider";
 const PlayerContext = createContext<PlayerContextType>([{} as PlayerStore]);
 
 const PlayerProvider: PlayerProviderComponent = (props) => {
-  const [, methods] = useSocket();
+  const [, { subscribe, getActivePlayers, getPlayerItem, ...methods }] =
+    useSocket();
 
   const [state, setState] = createStore<PlayerStore>({
-    playingItem: undefined,
+    id: undefined,
+    item: undefined,
+    speed: 1,
+    status: "stopped",
   });
 
   const getCurrentPlayingItemOnMount = async (): Promise<void> => {
-    const players = await methods.getActivePlayers();
+    const players = await getActivePlayers();
     if (players.length === 0) {
       return;
     }
 
-    const { item } = await methods.getPlayerItem(players[0].playerid);
+    const { item } = await getPlayerItem(players[0].playerid);
     const playingItem = await createPlayingItem(methods, item);
-    setState("playingItem", playingItem);
+    setState({ item: playingItem });
   };
 
   onMount(() => {
     getCurrentPlayingItemOnMount();
 
     const subscriptions = [
-      methods.subscribe("Player.OnPlay", async (message) => {
+      subscribe("Player.OnPlay", async (message) => {
         const item = await createPlayingItem(methods, message.data.item);
-        setState("playingItem", item);
+        setState({
+          id: message.data.player.playerid,
+          item: item,
+          status: "playing",
+          speed: message.data.player.speed,
+        });
       }),
-      methods.subscribe("Player.OnStop", () => {
-        setState("playingItem", undefined);
+      subscribe("Player.OnStop", () => {
+        setState({
+          id: undefined,
+          item: undefined,
+          status: "stopped",
+        });
+      }),
+      subscribe("Player.OnPause", () => {
+        setState({ status: "paused" });
+      }),
+      subscribe("Player.OnResume", (message) => {
+        setState({
+          status: "playing",
+          speed: message.data.player.speed,
+        });
+      }),
+      subscribe("Player.OnSpeedChanged", (message) => {
+        setState({ speed: message.data.player.speed });
       }),
     ];
 

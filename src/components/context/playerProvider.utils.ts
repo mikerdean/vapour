@@ -1,21 +1,9 @@
 import type { GetEpisode, GetMovie, GetSong } from "../../socket/types";
+import type { NotificationItem } from "../../socket/types/notifications";
 import { getVideoDuration } from "../../utils/duration";
 import type { SocketMethods } from "../context/socketProvider.types";
 import { ThumbnailType } from "../images/thumbnail.types";
-import type { NowPlayingItem, NowPlayingMessage } from "./playerProvider.types";
-
-const isNowPlayingMessage = (item: unknown): item is NowPlayingMessage => {
-  if (!item || typeof item !== "object") {
-    return false;
-  }
-
-  return (
-    "id" in item &&
-    typeof item.id === "number" &&
-    "type" in item &&
-    typeof item.type === "string"
-  );
-};
+import type { NowPlayingItem } from "./playerProvider.types";
 
 const convertMovieToPlayingItem = (result: GetMovie): NowPlayingItem => {
   const movie = result.moviedetails;
@@ -41,7 +29,10 @@ const convertEpisodeToPlayingItem = (result: GetEpisode): NowPlayingItem => {
     id: episode.episodeid,
     metadata: [
       { title: "TV Show title", value: episode.showtitle },
-      { title: "Season", value: episode.season?.toString() },
+      {
+        title: "Season",
+        value: episode.season ? `Season ${episode.season}` : undefined,
+      },
     ],
     title: episode.title || "Unknown episode",
     thumbnailUrl: episode.art?.thumb,
@@ -66,13 +57,13 @@ const convertSongToPlayingItem = (result: GetSong): NowPlayingItem => {
 };
 
 export const createPlayingItem = async (
-  { getMovieById, getEpisodeById, getSongById }: SocketMethods,
-  item: unknown,
+  {
+    getMovieById,
+    getEpisodeById,
+    getSongById,
+  }: Pick<SocketMethods, "getMovieById" | "getEpisodeById" | "getSongById">,
+  item: NotificationItem,
 ): Promise<NowPlayingItem | undefined> => {
-  if (!isNowPlayingMessage(item)) {
-    return;
-  }
-
   switch (item.type) {
     case "movie":
       return convertMovieToPlayingItem(await getMovieById(item.id));

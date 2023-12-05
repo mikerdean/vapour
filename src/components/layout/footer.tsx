@@ -22,7 +22,7 @@ const Footer: FooterComponent = () => {
         <FooterLink label="Music" icon={faMusic} path="/music" />
         <FooterLink label="Settings" icon={faCog} path="/settings" />
       </footer>
-      <div class={player.playingItem ? "h-48" : "h-20"} />
+      <div class={player.item ? "h-48" : "h-20"} />
     </>
   );
 };

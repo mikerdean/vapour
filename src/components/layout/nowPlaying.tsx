@@ -14,7 +14,7 @@ const NowPlaying: NowPlayingComponent = () => {
   const navigate = useNavigate();
 
   const showNowPlaying = createMemo(
-    () => player.playingItem && location.pathname !== "/",
+    () => player.item && location.pathname !== "/",
   );
 
   return (
@@ -31,16 +31,16 @@ const NowPlaying: NowPlayingComponent = () => {
             </div>
             <div class="flex-none w-12 mr-3">
               <Thumbnail
-                type={player.playingItem?.type || ThumbnailType.Season}
-                uri={player.playingItem?.thumbnailUrl}
+                type={player.item?.type || ThumbnailType.Season}
+                uri={player.item?.thumbnailUrl}
               />
             </div>
             <div>
-              <p class="line-clamp-1">{player.playingItem?.title}</p>
-              <For each={player.playingItem?.metadata}>
-                {(item) => (
+              <p class="line-clamp-1">{player.item?.title}</p>
+              <For each={player.item?.metadata}>
+                {(metadata) => (
                   <p class="line-clamp-1 text-slate-400 text-xs">
-                    {item.value}
+                    {metadata.value}
                   </p>
                 )}
               </For>

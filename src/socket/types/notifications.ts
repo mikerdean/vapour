@@ -1,90 +1,103 @@
-type Notification<T> = {
+export type Notification<T> = {
   data: T;
   sender: string;
 };
 
-type NotificationAsString = Notification<string>;
+export type NotificationAsString = Notification<string>;
 
-type NotificationFromPlayer = Notification<{
-  item: unknown;
+export type NotificationFromPlayer = Notification<{
+  item: NotificationItem;
   player: Player;
 }>;
 
-type Player = {
+export type NotificationItemType =
+  | "unknown"
+  | "movie"
+  | "episode"
+  | "song"
+  | "picture"
+  | "channel";
+
+export type NotificationItem = {
+  id: number;
+  type: NotificationItemType;
+};
+
+export type Player = {
   playerid: number;
   speed: number;
 };
 
-type PlayerSeek = Player & {
+export type PlayerSeek = Player & {
   seekoffset: Time;
   time: Time;
 };
 
-type Time = {
+export type Time = {
   hours: number;
   milliseconds: number;
   minutes: number;
   seconds: number;
 };
 
-type PlaylistOnAdd = Notification<{
-  item: unknown;
+export type PlaylistOnAdd = Notification<{
+  item: NotificationItem;
   playlistid: number;
   position: number;
 }>;
 
-type PlaylistOnClear = Notification<{
+export type PlaylistOnClear = Notification<{
   playlistid: number;
 }>;
 
-type PlaylistOnRemove = Notification<{
+export type PlaylistOnRemove = Notification<{
   playlistid: number;
   position: number;
 }>;
 
-type OnExport = Notification<{
+export type OnExport = Notification<{
   failcount: number;
   file: string;
 }>;
 
-type OnInputRequested = Notification<{
+export type OnInputRequested = Notification<{
   title: string;
   type: string;
   value: string;
 }>;
 
-type OnPropertyChanged = Notification<{
+export type OnPropertyChanged = Notification<{
   player: Player;
   value: unknown;
 }>;
 
-type OnRemove = Notification<{
+export type OnRemove = Notification<{
   id: string | number;
   transaction?: boolean;
   type: string;
 }>;
 
-type OnScreensaverDeactivated = Notification<{
+export type OnScreensaverDeactivated = Notification<{
   shuttingdown: boolean;
 }>;
 
-type OnSeek = Notification<{
-  item: unknown;
+export type OnSeek = Notification<{
+  item: NotificationItem;
   player: PlayerSeek;
 }>;
 
-type OnQuit = Notification<{
+export type OnQuit = Notification<{
   exitcode: number;
 }>;
 
-type OnUpdate = Notification<{
+export type OnUpdate = Notification<{
   added: boolean;
   id: string | number;
   transaction?: boolean;
   type: string;
 }>;
 
-type OnVolumeChange = Notification<{
+export type OnVolumeChange = Notification<{
   muted: boolean;
   volume: number;
 }>;

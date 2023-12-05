@@ -16,8 +16,13 @@ export type NowPlayingItemMetadata = {
   value?: string;
 };
 
+export type NowPlayingState = "playing" | "paused" | "stopped";
+
 export type PlayerStore = {
-  playingItem: NowPlayingItem | undefined;
+  id: number | undefined;
+  item: NowPlayingItem | undefined;
+  speed: number;
+  status: NowPlayingState;
 };
 
 export type PlayerContextType = [PlayerStore];
