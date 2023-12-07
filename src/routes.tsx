@@ -1,6 +1,7 @@
 import { Navigate, type RouteDefinition } from "@solidjs/router";
 
 import Layout from "./components/layout";
+import Addons from "./components/views/addons";
 import Movies from "./components/views/movies";
 import Movie from "./components/views/movies/movie";
 import MovieGenre from "./components/views/movies/movieGenre";
@@ -151,6 +152,10 @@ const routes: RouteDefinition[] = [
       {
         component: Settings,
         path: "settings",
+      },
+      {
+        component: Addons,
+        path: "addons",
       },
     ],
   },
