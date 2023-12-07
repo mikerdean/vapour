@@ -1,4 +1,4 @@
-import { type RouteDefinition } from "@solidjs/router";
+import { Navigate, type RouteDefinition } from "@solidjs/router";
 
 import Layout from "./components/layout";
 import Movies from "./components/views/movies";
@@ -18,7 +18,6 @@ import MusicGenre from "./components/views/music/musicGenre";
 import MusicGenres from "./components/views/music/musicGenres";
 import RecentAlbums from "./components/views/music/recentAlbums";
 import Songs from "./components/views/music/songs";
-import Remote from "./components/views/remote";
 import Settings from "./components/views/settings";
 import TV from "./components/views/tv";
 import Episode from "./components/views/tv/episode";
@@ -36,7 +35,7 @@ const routes: RouteDefinition[] = [
     path: "/",
     children: [
       {
-        component: Remote,
+        component: () => <Navigate href="/movies" />,
         path: "/",
       },
       {

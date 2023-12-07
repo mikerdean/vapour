@@ -1,6 +1,7 @@
 import {
   faCircleUser,
   faEllipsisVertical,
+  faRss,
   faSearch,
 } from "@fortawesome/free-solid-svg-icons";
 import { createMemo, createResource, Show } from "solid-js";
@@ -35,6 +36,10 @@ const Header: HeaderComponent = () => {
         </p>
         <div>
           <button class="mr-6">
+            <FontAwesomeIcon icon={faRss} />
+            <span class="sr-only">Remote</span>
+          </button>
+          <button class="mr-6">
             <FontAwesomeIcon icon={faSearch} />
             <span class="sr-only">Search</span>
           </button>
@@ -46,7 +51,7 @@ const Header: HeaderComponent = () => {
           </Show>
           <button>
             <FontAwesomeIcon icon={faEllipsisVertical} />
-            <span class="sr-only">Edit settings</span>
+            <span class="sr-only">Edit configuration</span>
           </button>
         </div>
       </div>
