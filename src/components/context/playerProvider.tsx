@@ -1,6 +1,7 @@
 import { createContext, onCleanup, onMount, useContext } from "solid-js";
 import { createStore } from "solid-js/store";
 
+import type { NotificationItem } from "../../socket/types/notifications";
 import type {
   PlayerContextType,
   PlayerProviderComponent,
@@ -12,8 +13,16 @@ import { useSocket } from "./socketProvider";
 const PlayerContext = createContext<PlayerContextType>([{} as PlayerStore]);
 
 const PlayerProvider: PlayerProviderComponent = (props) => {
-  const [, { subscribe, getActivePlayers, getPlayerItem, ...methods }] =
-    useSocket();
+  const [
+    ,
+    {
+      subscribe,
+      getActivePlayers,
+      getPlayerItem,
+      getPlayerProperties,
+      ...methods
+    },
+  ] = useSocket();
 
   const [state, setState] = createStore<PlayerStore>({
     id: undefined,
@@ -22,29 +31,51 @@ const PlayerProvider: PlayerProviderComponent = (props) => {
     status: "stopped",
   });
 
+  const setupPlayer = async (
+    id: number,
+    item: NotificationItem,
+  ): Promise<void> => {
+    const playingItem = await createPlayingItem(methods, item);
+
+    setState({
+      id,
+      item: playingItem,
+      status: "playing",
+    });
+  };
+
+  const getCurrentProperties = async (id: number) => {
+    const { speed } = await getPlayerProperties(id);
+
+    setState({
+      speed,
+    });
+  };
+
   const getCurrentPlayingItemOnMount = async (): Promise<void> => {
     const players = await getActivePlayers();
     if (players.length === 0) {
       return;
     }
 
-    const { item } = await getPlayerItem(players[0].playerid);
-    const playingItem = await createPlayingItem(methods, item);
-    setState({ item: playingItem });
+    const { playerid } = players[0];
+    const { item } = await getPlayerItem(playerid);
+
+    await Promise.all([
+      setupPlayer(playerid, item),
+      getCurrentProperties(playerid),
+    ]);
   };
 
   onMount(() => {
     getCurrentPlayingItemOnMount();
 
     const subscriptions = [
-      subscribe("Player.OnPlay", async (message) => {
-        const item = await createPlayingItem(methods, message.data.item);
-        setState({
-          id: message.data.player.playerid,
-          item: item,
-          status: "playing",
-          speed: message.data.player.speed,
-        });
+      subscribe("Player.OnPlay", (message) => {
+        setupPlayer(message.data.player.playerid, message.data.item);
+      }),
+      subscribe("Player.OnAVStart", (message) => {
+        getCurrentProperties(message.data.player.playerid);
       }),
       subscribe("Player.OnStop", () => {
         setState({

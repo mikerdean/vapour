@@ -14,6 +14,7 @@ import type {
   GetMovieSet,
   GetMovieSets,
   GetPlayerItem,
+  GetPlayerProperties,
   GetPlayers,
   GetSeason,
   GetSeasons,
@@ -79,6 +80,7 @@ export type SocketQueryMethods = {
   getMusicGenres: (page: number) => Promise<MusicGenresPaged>;
   getPlayers: (type: MediaType) => Promise<GetPlayers>;
   getPlayerItem: (id: number) => Promise<GetPlayerItem>;
+  getPlayerProperties: (id: number) => Promise<GetPlayerProperties>;
   getProfiles: () => Promise<ProfileDetailsPaged>;
   getRecentlyAddedAlbums: () => Promise<AlbumsPaged>;
   getRecentlyAddedEpisodes: () => Promise<GetEpisodes>;

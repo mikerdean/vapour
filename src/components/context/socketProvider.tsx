@@ -10,6 +10,8 @@ import {
   isKodiResponse,
 } from "../../socket/typeguards";
 import {
+  GetPlayerProperties,
+  GetPlayerPropertiesQuery,
   GetPlayers,
   GetPlayersQuery,
   type AlbumsPaged,
@@ -456,6 +458,41 @@ const SocketProvider: SocketProviderComponent = (props) => {
         playerid: id,
         properties: [],
       }),
+    getPlayerProperties: (id: number) =>
+      retrieve<GetPlayerPropertiesQuery, GetPlayerProperties>(
+        "Player.GetProperties",
+        {
+          properties: [
+            "audiostreams",
+            "cachepercentage",
+            "canchangespeed",
+            "canmove",
+            "canrepeat",
+            "canrotate",
+            "canseek",
+            "canshuffle",
+            "canzoom",
+            "currentaudiostream",
+            "currentsubtitle",
+            "currentvideostream",
+            "live",
+            "partymode",
+            "percentage",
+            "playlistid",
+            "position",
+            "repeat",
+            "shuffled",
+            "speed",
+            "subtitleenabled",
+            "subtitles",
+            "time",
+            "totaltime",
+            "type",
+            "videostreams",
+          ],
+          playerid: id,
+        },
+      ),
     getProfiles: () =>
       retrieve<ProfilesQuery, ProfileDetailsPaged>("Profiles.GetProfiles", {
         properties: ["lockmode", "thumbnail"],

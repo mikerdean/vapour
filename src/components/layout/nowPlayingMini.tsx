@@ -4,7 +4,7 @@ import {
   faStopCircle,
   type IconDefinition,
 } from "@fortawesome/free-solid-svg-icons";
-import { useLocation, useNavigate } from "@solidjs/router";
+import { useNavigate } from "@solidjs/router";
 import { createMemo, For, Show } from "solid-js";
 
 import { usePlayer } from "../context/playerProvider";
@@ -15,12 +15,7 @@ import type { NowPlayingComponent } from "./nowPlayingMini.types";
 
 const NowPlayingMini: NowPlayingComponent = () => {
   const [player] = usePlayer();
-  const location = useLocation();
   const navigate = useNavigate();
-
-  const showNowPlaying = createMemo(
-    () => player.item && location.pathname !== "/",
-  );
 
   const nowPlayingIcon = createMemo<IconDefinition>(() => {
     switch (player.status) {
@@ -45,7 +40,7 @@ const NowPlayingMini: NowPlayingComponent = () => {
   });
 
   return (
-    <Show when={showNowPlaying()}>
+    <Show when={player.item}>
       <aside class="fixed bottom-20 w-full">
         <div class="flex justify-center h-full">
           <button
