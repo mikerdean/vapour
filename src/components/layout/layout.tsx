@@ -1,5 +1,4 @@
 import { faWarning } from "@fortawesome/free-solid-svg-icons";
-import { Outlet } from "@solidjs/router";
 import { ErrorBoundary } from "solid-js";
 
 import FontAwesomeIcon from "../images/fontAwesomeIcon";
@@ -8,7 +7,7 @@ import Header from "./header";
 import type { LayoutComponent } from "./layout.types";
 import NowPlayingMini from "./nowPlayingMini";
 
-const Layout: LayoutComponent = () => {
+const Layout: LayoutComponent = (props) => {
   return (
     <>
       <Header />
@@ -27,7 +26,7 @@ const Layout: LayoutComponent = () => {
             </div>
           )}
         >
-          <Outlet />
+          {props.children}
         </ErrorBoundary>
       </main>
       <NowPlayingMini />

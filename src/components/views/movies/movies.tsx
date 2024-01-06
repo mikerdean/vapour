@@ -1,10 +1,8 @@
-import { Outlet } from "@solidjs/router";
-
 import Tabs from "../../core/tabs";
 import type { TabItem } from "../../core/tabs.types";
 import type { MoviesComponent } from "./movies.types";
 
-const Movies: MoviesComponent = () => {
+const Movies: MoviesComponent = (props) => {
   const moviesTabs: TabItem[] = [
     { label: "Recent", path: "/movies" },
     { label: "Titles", path: "/movies/titles" },
@@ -19,7 +17,7 @@ const Movies: MoviesComponent = () => {
       </div>
       <div class="p-3" role="tabpanel">
         <h1 class="sr-only">Movies</h1>
-        <Outlet />
+        {props.children}
       </div>
     </>
   );

@@ -1,4 +1,4 @@
-import { NavLink } from "@solidjs/router";
+import { A } from "@solidjs/router";
 import { For, Show } from "solid-js";
 
 import { isButtonTabItem, isRouteTabItem } from "./tabs.typeguards";
@@ -13,14 +13,14 @@ const Tabs: TabsComponent = (props) => {
             <li role="tab" class="px-3 py-2">
               <Show when={isRouteTabItem(item) && item} keyed>
                 {(routeItem) => (
-                  <NavLink
+                  <A
                     activeClass="border-b-2 border-fuchsia-500 text-slate-100"
                     class="pb-1"
                     href={routeItem.path}
                     end={true}
                   >
                     {routeItem.label}
-                  </NavLink>
+                  </A>
                 )}
               </Show>
               <Show when={isButtonTabItem(item) && item} keyed>

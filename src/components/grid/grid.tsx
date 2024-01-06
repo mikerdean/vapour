@@ -1,5 +1,5 @@
 import { faEllipsisVertical } from "@fortawesome/free-solid-svg-icons";
-import { NavLink } from "@solidjs/router";
+import { A } from "@solidjs/router";
 import { createMemo, For, JSX } from "solid-js";
 
 import FontAwesomeIcon from "../images/fontAwesomeIcon";
@@ -25,7 +25,7 @@ const Grid = <T extends GridItem>(props: GridProps<T>): JSX.Element => {
       <For each={props.each}>
         {(item, i) => (
           <li>
-            <NavLink
+            <A
               class="flex flex-row items-center"
               href={createUrl(props.thumbnailType, item.id)}
             >
@@ -58,7 +58,7 @@ const Grid = <T extends GridItem>(props: GridProps<T>): JSX.Element => {
                   <span class="sr-only">{`Options for ${item.label}`}</span>
                 </button>
               </div>
-            </NavLink>
+            </A>
           </li>
         )}
       </For>

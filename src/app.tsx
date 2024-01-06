@@ -1,6 +1,6 @@
 import "./index.css";
 
-import { useRoutes } from "@solidjs/router";
+import { HashRouter } from "@solidjs/router";
 import type { Component } from "solid-js";
 
 import ConfigurationProvider from "./components/context/configurationProvider";
@@ -13,8 +13,6 @@ import Host from "./components/root/host";
 import routes from "./routes";
 
 const App: Component = () => {
-  const Routes = useRoutes(routes);
-
   return (
     <ConfigurationProvider>
       <IntersectionObserverProvider>
@@ -29,7 +27,7 @@ const App: Component = () => {
             <SocketProvider>
               <Connection>
                 <PlayerProvider>
-                  <Routes />
+                  <HashRouter>{routes}</HashRouter>
                 </PlayerProvider>
               </Connection>
             </SocketProvider>

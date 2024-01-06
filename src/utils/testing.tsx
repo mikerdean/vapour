@@ -1,9 +1,4 @@
-import {
-  memoryIntegration,
-  Router,
-  useRoutes,
-  type RouteDefinition,
-} from "@solidjs/router";
+import { MemoryRouter, type RouteDefinition } from "@solidjs/router";
 import { render } from "@solidjs/testing-library";
 import userEvent from "@testing-library/user-event";
 import type { Component, JSX } from "solid-js";
@@ -17,14 +12,7 @@ type InMemoryRouterProps = {
 };
 
 const InMemoryRouter: Component<InMemoryRouterProps> = (props) => {
-  // eslint-disable-next-line solid/reactivity
-  const Routes = useRoutes(props.routes);
-
-  return (
-    <Router source={memoryIntegration()}>
-      <Routes />
-    </Router>
-  );
+  return <MemoryRouter>{props.routes}</MemoryRouter>;
 };
 
 export const setup = (ui: () => JSX.Element): ResultWithUser => {

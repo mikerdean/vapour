@@ -1,3 +1,3 @@
-import type { Component } from "solid-js";
+import type { ParentComponent } from "solid-js";
 
-export type TVComponent = Component;
+export type TVComponent = ParentComponent;
