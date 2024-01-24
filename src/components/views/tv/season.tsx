@@ -79,8 +79,9 @@ const Season: SeasonComponent = () => {
         each={[
           {
             header: "Season",
-            description: `${seasonData()?.seasondetails
-              .season} of ${tvShowData()?.tvshowdetails.season}`,
+            description: `${
+              seasonData()?.seasondetails.season
+            } of ${tvShowData()?.tvshowdetails.season}`,
           },
           {
             header: "Episodes",
